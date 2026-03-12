@@ -1,6 +1,19 @@
 const page = document.body.dataset.page;
 
 /* =========================
+   Supabase client
+========================= */
+async function getSupabase() {
+  const { createClient } = await import("https://esm.sh/@supabase/supabase-js@2");
+
+  const supabaseUrl = "https://cfkbxrskhwxxeufkxpnd.supabase.co";
+  const supabaseAnonKey =
+    "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImNma2J4cnNraHd4eGV1Zmt4cG5kIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzMyMzUxMzIsImV4cCI6MjA4ODgxMTEzMn0.vDQNQYGv4DeHW-pOJKBuWUjAH8LugMBWjUcCw1HHJ0w";
+
+  return createClient(supabaseUrl, supabaseAnonKey);
+}
+
+/* =========================
    Home news slider
 ========================= */
 const newsSlider = document.getElementById("newsSlider");
@@ -24,7 +37,7 @@ function parseMultiValue(value) {
   if (!value) return [];
   return value
     .split(",")
-    .map(item => item.trim())
+    .map((item) => item.trim())
     .filter(Boolean);
 }
 
@@ -55,16 +68,20 @@ let approvedProfiles = [];
 function renderDirectoryCards(items) {
   if (!directoryGrid) return;
 
-  directoryGrid.innerHTML = items.map((profile) => {
-    const regions = parseMultiValue(profile.city);
-    const roles = parseMultiValue(profile.role);
-    const styles = parseMultiValue(profile.style);
+  directoryGrid.innerHTML = items
+    .map((profile) => {
+      const regions = parseMultiValue(profile.city);
+      const roles = parseMultiValue(profile.role);
+      const styles = parseMultiValue(profile.style);
 
-    const regionText = regions.length ? regions.map(formatRegion).join("、") : "未填寫地區";
-    const roleText = roles.length ? roles.join("、") : "未填寫";
-    const styleText = styles.length ? styles.join("、") : "未填寫";
+      const regionText = regions.length
+        ? regions.map(formatRegion).join("、")
+        : "未填寫地區";
 
-    return `
+      const roleText = roles.length ? roles.join("、") : "未填寫";
+      const styleText = styles.length ? styles.join("、") : "未填寫";
+
+      return `
       <article class="profile-card">
         <h3>${profile.name || ""}</h3>
         <p class="profile-meta">${regionText}</p>
@@ -74,7 +91,8 @@ function renderDirectoryCards(items) {
         <p><strong>聯絡方式：</strong>${profile.contact || "未提供"}</p>
       </article>
     `;
-  }).join("");
+    })
+    .join("");
 }
 
 function filterProfiles() {
@@ -103,27 +121,26 @@ function filterProfiles() {
 
   renderDirectoryCards(filtered);
 
-  if (resultCount) {
-    resultCount.textContent = filtered.length;
-  }
-
-  if (directoryEmpty) {
-    directoryEmpty.hidden = filtered.length !== 0;
-  }
+  if (resultCount) resultCount.textContent = filtered.length;
+  if (directoryEmpty) directoryEmpty.hidden = filtered.length !== 0;
 }
 
 async function initDirectory() {
   if (page !== "directory") return;
 
   try {
-    const res = await fetch("/.netlify/functions/get-approved-profiles");
-    const data = await res.json();
+    const supabase = await getSupabase();
 
-    if (!res.ok) {
-      throw new Error(data.error || "讀取資料失敗");
-    }
+    const { data, error } = await supabase
+      .from("profiles")
+      .select("*")
+      .eq("review_status", "approved")
+      .eq("consent_public", true)
+      .order("created_at", { ascending: false });
 
-    approvedProfiles = data.profiles || [];
+    if (error) throw error;
+
+    approvedProfiles = data || [];
     filterProfiles();
 
     regionFilter?.addEventListener("change", filterProfiles);
@@ -138,7 +155,7 @@ async function initDirectory() {
     });
   } catch (error) {
     if (directoryGrid) {
-      directoryGrid.innerHTML = `<p class="error-text">${error.message}</p>`;
+      directoryGrid.innerHTML = `<p class="error-text">${error.message || "讀取資料失敗"}</p>`;
     }
   }
 }
@@ -161,47 +178,41 @@ async function initSubmit() {
 
     const regions = Array.from(
       document.querySelectorAll('input[name="regions"]:checked')
-    ).map(cb => cb.value);
+    ).map((cb) => cb.value);
 
     const roles = Array.from(
       document.querySelectorAll('input[name="roles"]:checked')
-    ).map(cb => cb.value);
+    ).map((cb) => cb.value);
 
     const styles = Array.from(
       document.querySelectorAll('input[name="styles"]:checked')
-    ).map(cb => cb.value);
+    ).map((cb) => cb.value);
 
-    const data = {
+    const payload = {
       name: formData.get("name"),
       city: regions.join(", "),
       role: roles.join(", "),
       style: styles.join(", "),
-      bio: formData.get("bio"),
-      contact: formData.get("contact"),
-      consent_public: formData.get("consent_public") === "on"
+      bio: formData.get("bio") || "",
+      contact: formData.get("contact") || "",
+      collab: "",
+      consent_public: formData.get("consent_public") === "on",
+      review_status: "pending"
     };
 
     message.textContent = "送出中...";
 
     try {
-      const response = await fetch("/.netlify/functions/submit-profile", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json"
-        },
-        body: JSON.stringify(data)
-      });
+      const supabase = await getSupabase();
 
-      const result = await response.json();
+      const { error } = await supabase.from("profiles").insert([payload]);
 
-      if (response.ok) {
-        message.textContent = "送出成功，等待審核";
-        form.reset();
-      } else {
-        message.textContent = result.error || "送出失敗，請稍後再試";
-      }
+      if (error) throw error;
+
+      message.textContent = "送出成功，等待審核";
+      form.reset();
     } catch (error) {
-      message.textContent = "送出失敗，請稍後再試";
+      message.textContent = error.message || "送出失敗，請稍後再試";
     }
   });
 }

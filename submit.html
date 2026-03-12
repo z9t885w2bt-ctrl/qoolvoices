@@ -11,7 +11,7 @@
 
 </head>
 
-<body>
+<body data-page="submit">
 
 <header class="site-header">
 
@@ -163,58 +163,61 @@ Telegram: @example">
 </main>
 
 
-<script>
-const form = document.getElementById("submitForm");
+<script type="module">
+  import { createClient } from "https://esm.sh/@supabase/supabase-js@2";
 
-form.addEventListener("submit", async function (e) {
-  e.preventDefault();
+  const supabaseUrl = "https://cfkbxrskhwxxeufkxpnd.supabase.co";
+  const supabaseAnonKey =
+    "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImNma2J4cnNraHd4eGV1Zmt4cG5kIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzMyMzUxMzIsImV4cCI6MjA4ODgxMTEzMn0.vDQNQYGv4DeHW-pOJKBuWUjAH8LugMBWjUcCw1HHJ0w";
 
-  const formData = new FormData(form);
+  const supabase = createClient(supabaseUrl, supabaseAnonKey);
 
-  const regions = Array.from(
-    document.querySelectorAll('input[name="regions"]:checked')
-  ).map(cb => cb.value);
-
-  const roles = Array.from(
-    document.querySelectorAll('input[name="roles"]:checked')
-  ).map(cb => cb.value);
-
-  const styles = Array.from(
-    document.querySelectorAll('input[name="styles"]:checked')
-  ).map(cb => cb.value);
-
-  const data = {
-    name: formData.get("name"),
-    city: regions.join(", "),
-    role: roles.join(", "),
-    style: styles.join(", "),
-    bio: formData.get("bio"),
-    contact: formData.get("contact"),
-    consent_public: formData.get("consent_public") === "on"
-  };
-
+  const form = document.getElementById("submitForm");
   const msg = document.getElementById("formMessage");
-  msg.textContent = "送出中...";
 
-  try {
-    const response = await fetch("/.netlify/functions/submit-profile", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json"
-      },
-      body: JSON.stringify(data)
-    });
+  form.addEventListener("submit", async function (e) {
+    e.preventDefault();
 
-    const result = await response.json();
+    const formData = new FormData(form);
 
-    if (response.ok) {
+    const regions = Array.from(
+      document.querySelectorAll('input[name="regions"]:checked')
+    ).map(cb => cb.value);
+
+    const roles = Array.from(
+      document.querySelectorAll('input[name="roles"]:checked')
+    ).map(cb => cb.value);
+
+    const styles = Array.from(
+      document.querySelectorAll('input[name="styles"]:checked')
+    ).map(cb => cb.value);
+
+    const data = {
+      name: formData.get("name"),
+      city: regions.join(", "),
+      role: roles.join(", "),
+      style: styles.join(", "),
+      bio: formData.get("bio") || "",
+      contact: formData.get("contact") || "",
+      collab: "",
+      consent_public: formData.get("consent_public") === "on",
+      review_status: "pending"
+    };
+
+    msg.textContent = "送出中...";
+
+    try {
+      const { error } = await supabase.from("profiles").insert([data]);
+
+      if (error) {
+        msg.textContent = error.message || "送出失敗，請稍後再試";
+        return;
+      }
+
       msg.textContent = "送出成功，等待審核";
       form.reset();
-    } else {
-      msg.textContent = result.error || "送出失敗，請稍後再試";
+    } catch (error) {
+      msg.textContent = "送出失敗，請稍後再試";
     }
-  } catch (error) {
-    msg.textContent = "送出失敗，請稍後再試";
-  }
-});
+  });
 </script>
