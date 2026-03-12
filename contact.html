@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>聯絡我們｜Qool Voices</title>
+
+  <meta
+    name="description"
+    content="聯絡酷女聲 Qool Voices。歡迎透過表單提供合作提案、訪談邀請、活動合作或任何想對我們說的話。"
+  />
+
+  <link rel="stylesheet" href="style.css" />
+</head>
+
+<body>
+
+<header class="site-header">
+  <div class="nav-wrap">
+
+    <a href="index.html" class="logo-link">
+      <div class="logo-slot">LOGO</div>
+      <div class="brand-block">
+        <p class="brand-en">Qool Voices</p>
+        <h1 class="brand-zh">酷女聲</h1>
+      </div>
+    </a>
+
+    <nav class="main-nav">
+      <a href="about.html">About</a>
+      <a href="interviews.html">Interviews</a>
+      <a href="directory.html">Directory</a>
+    </nav>
+
+  </div>
+</header>
+
+
+<main class="page-content">
+
+<section class="content-card form-card">
+
+<p class="section-label">Contact</p>
+
+<h2>聯絡我們 Contact</h2>
+
+<p class="section-intro">
+如果你想合作、投稿、邀請訪談、提供活動資訊，
+或只是想和酷女聲說說話，都可以從這裡送出訊息。
+</p>
+
+
+<form
+  name="contact"
+  method="POST"
+  action="/thank-you.html"
+  data-netlify="true"
+  netlify-honeypot="bot-field"
+  class="profile-form"
+>
+
+<input type="hidden" name="form-name" value="contact" />
+
+<p class="hidden-field">
+<label>Don’t fill this out: <input name="bot-field" /></label>
+</p>
+
+
+<label>
+你的名字 / 稱呼
+<input type="text" name="name" required />
+</label>
+
+
+<label>
+Email
+<input type="email" name="email" required />
+</label>
+
+
+<label>
+主旨
+<input
+  type="text"
+  name="subject"
+  placeholder="例如：合作提案 / 訪談邀請 / 活動資訊"
+/>
+</label>
+
+
+<label>
+訊息內容
+<textarea
+  name="message"
+  rows="8"
+  required
+  placeholder="請寫下你想對 Qool Voices 說的話。"
+></textarea>
+</label>
+
+
+<button type="submit" class="cta-button">
+送出訊息
+</button>
+
+</form>
+
+
+<div class="contact-extra">
+<p>也可以直接寄信到：</p>
+<p><strong>qoolvoices@gmail.com</strong></p>
+</div>
+
+
+</section>
+</main>
+
+
+
+<!-- Netlify hidden form detection -->
+<form
+  name="contact"
+  data-netlify="true"
+  netlify-honeypot="bot-field"
+  hidden
+>
+<input type="text" name="name" />
+<input type="email" name="email" />
+<input type="text" name="subject" />
+<textarea name="message"></textarea>
+</form>
+
+
+</body>
+</html>

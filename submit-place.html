@@ -1,0 +1,201 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>新增酷地方｜Qool Voices</title>
+  <meta
+    name="description"
+    content="投稿酷地方，推薦支持女性與酷兒音樂創作者的場地、空間與店家。"
+  />
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+
+  <header class="site-header">
+    <div class="nav-wrap">
+
+      <a href="index.html" class="logo-link">
+        <div class="logo-slot">LOGO</div>
+        <div class="brand-block">
+          <p class="brand-en">Qool Voices</p>
+          <h1 class="brand-zh">酷女聲</h1>
+        </div>
+      </a>
+
+      <nav class="main-nav">
+        <a href="about.html">About</a>
+        <a href="interviews.html">Interviews</a>
+        <a href="directory.html">Directory</a>
+        <a href="places.html">Places</a>
+        <a href="contact.html">Contact</a>
+      </nav>
+
+    </div>
+  </header>
+
+  <main class="page-content">
+
+    <section class="content-card form-card">
+
+      <p class="section-label">Submit Place</p>
+      <h2>新增酷地方</h2>
+
+      <p class="section-intro">
+        如果你知道支持女性與酷兒音樂創作者的場地、展演空間、咖啡店、錄音室或其他友善場所，
+        歡迎提交到酷地方。我們會先進行審核，再公開顯示在網站上。
+      </p>
+
+      <form id="submitPlaceForm" class="profile-form">
+
+        <label>
+          地點名稱
+          <input type="text" name="name" required />
+        </label>
+
+        <label>
+          地點城市
+          <select name="city" required>
+
+            <option value="">選擇城市</option>
+
+            <optgroup label="北部">
+              <option value="Taipei">台北市 Taipei</option>
+              <option value="New Taipei">新北市 New Taipei</option>
+              <option value="Keelung">基隆市 Keelung</option>
+              <option value="Taoyuan">桃園市 Taoyuan</option>
+              <option value="Hsinchu City">新竹市 Hsinchu City</option>
+              <option value="Hsinchu County">新竹縣 Hsinchu County</option>
+              <option value="Yilan">宜蘭縣 Yilan</option>
+            </optgroup>
+
+            <optgroup label="中部">
+              <option value="Taichung">台中市 Taichung</option>
+              <option value="Miaoli">苗栗縣 Miaoli</option>
+              <option value="Changhua">彰化縣 Changhua</option>
+              <option value="Nantou">南投縣 Nantou</option>
+              <option value="Yunlin">雲林縣 Yunlin</option>
+            </optgroup>
+
+            <optgroup label="南部">
+              <option value="Kaohsiung">高雄市 Kaohsiung</option>
+              <option value="Tainan">台南市 Tainan</option>
+              <option value="Chiayi City">嘉義市 Chiayi City</option>
+              <option value="Chiayi County">嘉義縣 Chiayi County</option>
+              <option value="Pingtung">屏東縣 Pingtung</option>
+            </optgroup>
+
+            <optgroup label="東部">
+              <option value="Hualien">花蓮縣 Hualien</option>
+              <option value="Taitung">台東縣 Taitung</option>
+            </optgroup>
+
+            <optgroup label="離島">
+              <option value="Penghu">澎湖 Penghu</option>
+              <option value="Kinmen">金門 Kinmen</option>
+              <option value="Matsu">馬祖 Matsu</option>
+              <option value="Green Island">綠島 Green Island</option>
+              <option value="Orchid Island">蘭嶼 Orchid Island</option>
+              <option value="Liuqiu">小琉球 Liuqiu</option>
+            </optgroup>
+
+          </select>
+        </label>
+
+        <details class="form-section">
+          <summary>地點類型（可複選）</summary>
+
+          <div class="checkbox-group">
+            <label><input type="checkbox" name="types" value="Live House" /> Live House</label>
+            <label><input type="checkbox" name="types" value="Music Bar" /> Music Bar</label>
+            <label><input type="checkbox" name="types" value="Art Space" /> 藝文空間 Art Space</label>
+            <label><input type="checkbox" name="types" value="Venue" /> 展演空間 Venue</label>
+            <label><input type="checkbox" name="types" value="Recording Studio" /> 錄音室 Recording Studio</label>
+            <label><input type="checkbox" name="types" value="Rehearsal Studio" /> 排練室 Rehearsal Studio</label>
+            <label><input type="checkbox" name="types" value="Record Store" /> 唱片行 Record Store</label>
+            <label><input type="checkbox" name="types" value="Cafe" /> 咖啡店 Cafe</label>
+            <label><input type="checkbox" name="types" value="Bookstore" /> 書店 Bookstore</label>
+            <label><input type="checkbox" name="types" value="Community Space" /> 多功能空間 Community Space</label>
+          </div>
+        </details>
+
+        <label>
+          地點介紹
+          <textarea
+            name="description"
+            rows="5"
+            placeholder="請簡單介紹這個地方，例如何種空間、適合什麼活動、為什麼推薦。"
+          ></textarea>
+        </label>
+
+        <label>
+          IG / 官網 / 地圖連結
+          <textarea
+            name="link"
+            rows="3"
+            placeholder="可貼上 Instagram、官網或 Google Maps 連結。"
+          ></textarea>
+        </label>
+
+        <label class="consent-check">
+          <input type="checkbox" name="consent_public" required />
+          我同意酷女聲公開這筆地點資料
+        </label>
+
+        <button type="submit" class="cta-button">送出地點資料</button>
+
+        <p id="placeFormMessage"></p>
+
+      </form>
+    </section>
+  </main>
+
+  <script>
+    const placeForm = document.getElementById("submitPlaceForm");
+
+    placeForm.addEventListener("submit", async function (e) {
+      e.preventDefault();
+
+      const formData = new FormData(placeForm);
+
+      const types = Array.from(
+        document.querySelectorAll('input[name="types"]:checked')
+      ).map(cb => cb.value);
+
+      const data = {
+        name: formData.get("name"),
+        city: formData.get("city"),
+        type: types.join(", "),
+        description: formData.get("description"),
+        link: formData.get("link"),
+        consent_public: formData.get("consent_public") === "on"
+      };
+
+      const msg = document.getElementById("placeFormMessage");
+      msg.textContent = "送出中...";
+
+      try {
+        const response = await fetch("/.netlify/functions/submit-place", {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json"
+          },
+          body: JSON.stringify(data)
+        });
+
+        const result = await response.json();
+
+        if (response.ok) {
+          msg.textContent = "送出成功，等待審核";
+          placeForm.reset();
+        } else {
+          msg.textContent = result.error || "送出失敗，請稍後再試";
+        }
+      } catch (error) {
+        msg.textContent = "送出失敗，請稍後再試";
+      }
+    });
+  </script>
+
+</body>
+</html>

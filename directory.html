@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>資料酷｜Qool Voices</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body data-page="directory">
+  <header class="site-header">
+    <div class="nav-wrap">
+      <a href="index.html" class="logo-link">
+        <div class="logo-slot">LOGO</div>
+        <div class="brand-block">
+          <p class="brand-en">Qool Voices</p>
+          <h1 class="brand-zh">酷女聲</h1>
+        </div>
+      </a>
+
+      <nav class="main-nav">
+        <a href="about.html">About</a>
+        <a href="interviews.html">Interviews</a>
+        <a href="contact.html">Contact</a>
+        <a href="places.html" class="active-nav">Places</a>
+      </nav>
+    </div>
+  </header>
+
+  <main class="page-content">
+  <section class="content-card">
+    <p class="section-label">Directory</p>
+    <h2>資料酷</h2>
+    <p class="section-intro">
+      你可以依照活動地區、職能與風格，找到適合的合作夥伴。
+    </p>
+
+    <div class="page-actions">
+      <a href="submit.html" class="cta-button">加入資料酷</a>
+    </div>
+
+    <div class="filters">
+      <select id="regionFilter">
+        <option value="all">全部活動地區</option>
+        <option value="north">北部</option>
+        <option value="middle">中部</option>
+        <option value="south">南部</option>
+        <option value="east">東部</option>
+        <option value="outer_islands">離島</option>
+      </select>
+
+      <select id="roleFilter">
+        <option value="all">全部職能</option>
+        <option value="Singer">歌手 Singer</option>
+        <option value="Rapper">饒舌 Rapper</option>
+        <option value="Instrumentalist">樂手 Instrumentalist</option>
+        <option value="DJ">DJ</option>
+        <option value="Producer">製作人 Producer</option>
+        <option value="Songwriter">作曲 Songwriter</option>
+        <option value="Lyricist">作詞 Lyricist</option>
+        <option value="Lighting">燈光 Lighting</option>
+        <option value="Photographer">攝影 Photographer</option>
+        <option value="Visual Artist">視覺 Visual Artist</option>
+      </select>
+
+      <select id="styleFilter">
+        <option value="all">全部風格</option>
+        <option value="Indie">Indie</option>
+        <option value="Electronic">Electronic</option>
+        <option value="Experimental">Experimental</option>
+        <option value="Ambient">Ambient</option>
+        <option value="Noise">Noise</option>
+        <option value="Techno">Techno</option>
+        <option value="House">House</option>
+        <option value="Hip-hop">Hip-hop</option>
+        <option value="Pop">Pop</option>
+      </select>
+
+      <button id="resetFilters" class="reset-button" type="button">清除篩選</button>
+    </div>
+
+    <p class="result-count">找到 <span id="resultCount">0</span> 位合作夥伴</p>
+
+    <div id="directoryGrid" class="directory-grid"></div>
+    <p id="directoryEmpty" class="empty-state" hidden>目前沒有符合條件的資料。</p>
+  </section>
+</main>
+
+  <script src="script.js"></script>
+</body>
+</html>

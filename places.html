@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>酷地方 Places｜Qool Voices</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <header class="site-header">
+    <div class="nav-wrap">
+      <a href="index.html" class="logo-link">
+        <div class="logo-slot">LOGO</div>
+        <div class="brand-block">
+          <p class="brand-en">Qool Voices</p>
+          <h1 class="brand-zh">酷女聲</h1>
+        </div>
+      </a>
+
+      <nav class="main-nav">
+        <a href="about.html">About</a>
+        <a href="interviews.html">Interviews</a>
+        <a href="directory.html">Directory</a>
+        <a href="contact.html">Contact</a>
+      </nav>
+    </div>
+  </header>
+
+  <main class="page-content">
+  <section class="content-card">
+    <p class="section-label">Places</p>
+    <h2>酷地方</h2>
+    <p class="section-intro">
+      這裡整理支持女性與酷兒音樂創作者的場地、空間與友善場所。
+    </p>
+
+    <div class="page-actions">
+      <a href="submit-place.html" class="cta-button">新增酷地方</a>
+    </div>
+
+    <div class="filters">
+      <select id="placeCityFilter">
+        <option value="all">全部城市</option>
+        <option value="Taipei">台北市 Taipei</option>
+        <option value="New Taipei">新北市 New Taipei</option>
+        <option value="Taoyuan">桃園市 Taoyuan</option>
+        <option value="Taichung">台中市 Taichung</option>
+        <option value="Tainan">台南市 Tainan</option>
+        <option value="Kaohsiung">高雄市 Kaohsiung</option>
+      </select>
+
+      <select id="placeTypeFilter">
+        <option value="all">全部類型</option>
+        <option value="Live House">Live House</option>
+        <option value="Music Bar">Music Bar</option>
+        <option value="Art Space">藝文空間 Art Space</option>
+        <option value="Venue">展演空間 Venue</option>
+        <option value="Recording Studio">錄音室 Recording Studio</option>
+        <option value="Rehearsal Studio">排練室 Rehearsal Studio</option>
+        <option value="Record Store">唱片行 Record Store</option>
+        <option value="Cafe">咖啡店 Cafe</option>
+        <option value="Bookstore">書店 Bookstore</option>
+        <option value="Community Space">多功能空間 Community Space</option>
+      </select>
+
+      <button id="resetPlaceFilters" class="reset-button" type="button">清除篩選</button>
+    </div>
+
+    <div id="placesGrid" class="directory-grid"></div>
+  </section>
+</main>
+</body>
+</html>
