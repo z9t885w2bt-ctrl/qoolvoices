@@ -6,7 +6,7 @@
   <title>酷地方 Places｜Qool Voices</title>
   <link rel="stylesheet" href="style.css" />
 </head>
-<body>
+<body data-page="places">
   <header class="site-header">
     <div class="nav-wrap">
       <a href="index.html" class="logo-link">
@@ -21,53 +21,175 @@
         <a href="about.html">About</a>
         <a href="interviews.html">Interviews</a>
         <a href="directory.html">Directory</a>
+        <a href="places.html" class="active-nav">Places</a>
         <a href="contact.html">Contact</a>
       </nav>
     </div>
   </header>
 
   <main class="page-content">
-  <section class="content-card">
-    <p class="section-label">Places</p>
-    <h2>酷地方</h2>
-    <p class="section-intro">
-      這裡整理支持女性與酷兒音樂創作者的場地、空間與友善場所。
-    </p>
+    <section class="content-card">
+      <p class="section-label">Places</p>
+      <h2>酷地方</h2>
+      <p class="section-intro">
+        這裡整理支持女性與酷兒音樂創作者的場地、空間與友善場所。
+      </p>
 
-    <div class="page-actions">
-      <a href="submit-place.html" class="cta-button">新增酷地方</a>
-    </div>
+      <div class="page-actions">
+        <a href="submit-place.html" class="cta-button">新增酷地方</a>
+      </div>
 
-    <div class="filters">
-      <select id="placeCityFilter">
-        <option value="all">全部城市</option>
-        <option value="Taipei">台北市 Taipei</option>
-        <option value="New Taipei">新北市 New Taipei</option>
-        <option value="Taoyuan">桃園市 Taoyuan</option>
-        <option value="Taichung">台中市 Taichung</option>
-        <option value="Tainan">台南市 Tainan</option>
-        <option value="Kaohsiung">高雄市 Kaohsiung</option>
-      </select>
+      <div class="filters">
+        <select id="placeCityFilter">
+          <option value="all">全部城市</option>
+          <option value="Taipei">台北市 Taipei</option>
+          <option value="New Taipei">新北市 New Taipei</option>
+          <option value="Keelung">基隆市 Keelung</option>
+          <option value="Taoyuan">桃園市 Taoyuan</option>
+          <option value="Hsinchu City">新竹市 Hsinchu City</option>
+          <option value="Hsinchu County">新竹縣 Hsinchu County</option>
+          <option value="Yilan">宜蘭縣 Yilan</option>
+          <option value="Taichung">台中市 Taichung</option>
+          <option value="Miaoli">苗栗縣 Miaoli</option>
+          <option value="Changhua">彰化縣 Changhua</option>
+          <option value="Nantou">南投縣 Nantou</option>
+          <option value="Yunlin">雲林縣 Yunlin</option>
+          <option value="Tainan">台南市 Tainan</option>
+          <option value="Kaohsiung">高雄市 Kaohsiung</option>
+          <option value="Chiayi City">嘉義市 Chiayi City</option>
+          <option value="Chiayi County">嘉義縣 Chiayi County</option>
+          <option value="Pingtung">屏東縣 Pingtung</option>
+          <option value="Hualien">花蓮縣 Hualien</option>
+          <option value="Taitung">台東縣 Taitung</option>
+          <option value="Penghu">澎湖 Penghu</option>
+          <option value="Kinmen">金門 Kinmen</option>
+          <option value="Matsu">馬祖 Matsu</option>
+          <option value="Green Island">綠島 Green Island</option>
+          <option value="Orchid Island">蘭嶼 Orchid Island</option>
+          <option value="Liuqiu">小琉球 Liuqiu</option>
+        </select>
 
-      <select id="placeTypeFilter">
-        <option value="all">全部類型</option>
-        <option value="Live House">Live House</option>
-        <option value="Music Bar">Music Bar</option>
-        <option value="Art Space">藝文空間 Art Space</option>
-        <option value="Venue">展演空間 Venue</option>
-        <option value="Recording Studio">錄音室 Recording Studio</option>
-        <option value="Rehearsal Studio">排練室 Rehearsal Studio</option>
-        <option value="Record Store">唱片行 Record Store</option>
-        <option value="Cafe">咖啡店 Cafe</option>
-        <option value="Bookstore">書店 Bookstore</option>
-        <option value="Community Space">多功能空間 Community Space</option>
-      </select>
+        <select id="placeTypeFilter">
+          <option value="all">全部類型</option>
+          <option value="Live House">Live House</option>
+          <option value="Music Bar">Music Bar</option>
+          <option value="Art Space">藝文空間 Art Space</option>
+          <option value="Venue">展演空間 Venue</option>
+          <option value="Recording Studio">錄音室 Recording Studio</option>
+          <option value="Rehearsal Studio">排練室 Rehearsal Studio</option>
+          <option value="Record Store">唱片行 Record Store</option>
+          <option value="Cafe">咖啡店 Cafe</option>
+          <option value="Bookstore">書店 Bookstore</option>
+          <option value="Community Space">多功能空間 Community Space</option>
+        </select>
 
-      <button id="resetPlaceFilters" class="reset-button" type="button">清除篩選</button>
-    </div>
+        <button id="resetPlaceFilters" class="reset-button" type="button">清除篩選</button>
+      </div>
 
-    <div id="placesGrid" class="directory-grid"></div>
-  </section>
-</main>
+      <p class="result-count">找到 <span id="placeResultCount">0</span> 個地方</p>
+
+      <div id="placesGrid" class="directory-grid"></div>
+      <p id="placesEmpty" class="empty-state" hidden>目前沒有符合條件的地方。</p>
+    </section>
+  </main>
+
+  <script type="module">
+    import { createClient } from "https://esm.sh/@supabase/supabase-js@2";
+
+    const supabaseUrl = "https://cfkbxrskhwxxeufkxpnd.supabase.co";
+    const supabaseAnonKey =
+      "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImNma2J4cnNraHd4eGV1Zmt4cG5kIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzMyMzUxMzIsImV4cCI6MjA4ODgxMTEzMn0.vDQNQYGv4DeHW-pOJKBuWUjAH8LugMBWjUcCw1HHJ0w";
+
+    const supabase = createClient(supabaseUrl, supabaseAnonKey);
+
+    const placeCityFilter = document.getElementById("placeCityFilter");
+    const placeTypeFilter = document.getElementById("placeTypeFilter");
+    const resetPlaceFilters = document.getElementById("resetPlaceFilters");
+    const placesGrid = document.getElementById("placesGrid");
+    const placesEmpty = document.getElementById("placesEmpty");
+    const placeResultCount = document.getElementById("placeResultCount");
+
+    let approvedPlaces = [];
+
+    function parseMultiValue(value) {
+      if (!value) return [];
+      return value
+        .split(",")
+        .map(item => item.trim())
+        .filter(Boolean);
+    }
+
+    function renderPlaces(items) {
+      placesGrid.innerHTML = items.map((place) => {
+        const types = parseMultiValue(place.type);
+        const typeText = types.length ? types.join("、") : "未填寫類型";
+
+        const linkHtml = place.link
+          ? `<p><strong>連結：</strong><a href="${place.link}" target="_blank" rel="noopener noreferrer">${place.link}</a></p>`
+          : `<p><strong>連結：</strong>未提供</p>`;
+
+        return `
+          <article class="profile-card">
+            <h3>${place.name || ""}</h3>
+            <p class="profile-meta">${place.city || "未填寫城市"}</p>
+            <p><strong>類型：</strong>${typeText}</p>
+            <p>${place.description || ""}</p>
+            ${linkHtml}
+          </article>
+        `;
+      }).join("");
+
+      placeResultCount.textContent = items.length;
+      placesEmpty.hidden = items.length !== 0;
+    }
+
+    function filterPlaces() {
+      const selectedCity = placeCityFilter.value;
+      const selectedType = placeTypeFilter.value;
+
+      const filtered = approvedPlaces.filter((place) => {
+        const types = parseMultiValue(place.type);
+
+        const cityMatch =
+          selectedCity === "all" || place.city === selectedCity;
+
+        const typeMatch =
+          selectedType === "all" || types.includes(selectedType);
+
+        return cityMatch && typeMatch;
+      });
+
+      renderPlaces(filtered);
+    }
+
+    async function initPlaces() {
+      try {
+        const { data, error } = await supabase
+          .from("places")
+          .select("*")
+          .eq("review_status", "approved")
+          .eq("consent_public", true)
+          .order("created_at", { ascending: false });
+
+        if (error) throw error;
+
+        approvedPlaces = data || [];
+        filterPlaces();
+
+        placeCityFilter.addEventListener("change", filterPlaces);
+        placeTypeFilter.addEventListener("change", filterPlaces);
+
+        resetPlaceFilters.addEventListener("click", () => {
+          placeCityFilter.value = "all";
+          placeTypeFilter.value = "all";
+          filterPlaces();
+        });
+      } catch (error) {
+        placesGrid.innerHTML = `<p class="error-text">${error.message || "讀取資料失敗"}</p>`;
+      }
+    }
+
+    initPlaces();
+  </script>
 </body>
 </html>
