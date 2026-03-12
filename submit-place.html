@@ -11,10 +11,8 @@
   <link rel="stylesheet" href="style.css" />
 </head>
 <body>
-
   <header class="site-header">
     <div class="nav-wrap">
-
       <a href="index.html" class="logo-link">
         <div class="logo-slot">LOGO</div>
         <div class="brand-block">
@@ -28,16 +26,14 @@
         <a href="interviews.html">Interviews</a>
         <a href="directory.html">Directory</a>
         <a href="places.html">Places</a>
+        <a href="submit.html">加入資料酷</a>
         <a href="contact.html">Contact</a>
       </nav>
-
     </div>
   </header>
 
   <main class="page-content">
-
     <section class="content-card form-card">
-
       <p class="section-label">Submit Place</p>
       <h2>新增酷地方</h2>
 
@@ -47,7 +43,6 @@
       </p>
 
       <form id="submitPlaceForm" class="profile-form">
-
         <label>
           地點名稱
           <input type="text" name="name" required />
@@ -56,7 +51,6 @@
         <label>
           地點城市
           <select name="city" required>
-
             <option value="">選擇城市</option>
 
             <optgroup label="北部">
@@ -98,7 +92,6 @@
               <option value="Orchid Island">蘭嶼 Orchid Island</option>
               <option value="Liuqiu">小琉球 Liuqiu</option>
             </optgroup>
-
           </select>
         </label>
 
@@ -145,13 +138,21 @@
         <button type="submit" class="cta-button">送出地點資料</button>
 
         <p id="placeFormMessage"></p>
-
       </form>
     </section>
   </main>
 
-  <script>
+  <script type="module">
+    import { createClient } from "https://esm.sh/@supabase/supabase-js@2";
+
+    const supabaseUrl = "https://cfkbxrskhwxxeufkxpnd.supabase.co";
+    const supabaseAnonKey =
+      "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImNma2J4cnNraHd4eGV1Zmt4cG5kIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzMyMzUxMzIsImV4cCI6MjA4ODgxMTEzMn0.vDQNQYGv4DeHW-pOJKBuWUjAH8LugMBWjUcCw1HHJ0w";
+
+    const supabase = createClient(supabaseUrl, supabaseAnonKey);
+
     const placeForm = document.getElementById("submitPlaceForm");
+    const msg = document.getElementById("placeFormMessage");
 
     placeForm.addEventListener("submit", async function (e) {
       e.preventDefault();
@@ -166,36 +167,28 @@
         name: formData.get("name"),
         city: formData.get("city"),
         type: types.join(", "),
-        description: formData.get("description"),
-        link: formData.get("link"),
-        consent_public: formData.get("consent_public") === "on"
+        description: formData.get("description") || "",
+        link: formData.get("link") || "",
+        consent_public: formData.get("consent_public") === "on",
+        review_status: "pending"
       };
 
-      const msg = document.getElementById("placeFormMessage");
       msg.textContent = "送出中...";
 
       try {
-        const response = await fetch("/.netlify/functions/submit-place", {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json"
-          },
-          body: JSON.stringify(data)
-        });
+        const { error } = await supabase.from("places").insert([data]);
 
-        const result = await response.json();
-
-        if (response.ok) {
-          msg.textContent = "送出成功，等待審核";
-          placeForm.reset();
-        } else {
-          msg.textContent = result.error || "送出失敗，請稍後再試";
+        if (error) {
+          msg.textContent = error.message || "送出失敗，請稍後再試";
+          return;
         }
+
+        msg.textContent = "送出成功，等待審核";
+        placeForm.reset();
       } catch (error) {
         msg.textContent = "送出失敗，請稍後再試";
       }
     });
   </script>
-
 </body>
 </html>
