@@ -16,17 +16,25 @@ async function getSupabase() {
 /* =========================
    Home news slider
 ========================= */
-const newsSlider = document.getElementById("newsSlider");
-const slideLeft = document.getElementById("slideLeft");
-const slideRight = document.getElementById("slideRight");
+function initNewsSlider() {
+  const newsSlider = document.getElementById("newsSlider");
+  const slideLeft = document.getElementById("slideLeft");
+  const slideRight = document.getElementById("slideRight");
 
-if (newsSlider && slideLeft && slideRight) {
+  if (!newsSlider || !slideLeft || !slideRight) return;
+
   slideLeft.addEventListener("click", () => {
-    newsSlider.scrollBy({ left: -newsSlider.clientWidth, behavior: "smooth" });
+    newsSlider.scrollBy({
+      left: -newsSlider.clientWidth,
+      behavior: "smooth"
+    });
   });
 
   slideRight.addEventListener("click", () => {
-    newsSlider.scrollBy({ left: newsSlider.clientWidth, behavior: "smooth" });
+    newsSlider.scrollBy({
+      left: newsSlider.clientWidth,
+      behavior: "smooth"
+    });
   });
 }
 
@@ -35,7 +43,13 @@ if (newsSlider && slideLeft && slideRight) {
 ========================= */
 function parseMultiValue(value) {
   if (!value) return [];
-  if (Array.isArray(value)) return value.map((item) => String(item).trim()).filter(Boolean);
+
+  if (Array.isArray(value)) {
+    return value
+      .map((item) => String(item).trim())
+      .filter(Boolean);
+  }
+
   return String(value)
     .split(",")
     .map((item) => item.trim())
@@ -50,86 +64,105 @@ function formatRegion(region) {
     east: "東部",
     outer_islands: "離島"
   };
+
   return map[region] || region;
+}
+
+function escapeHtml(value) {
+  return String(value || "")
+    .replaceAll("&", "&amp;")
+    .replaceAll("<", "&lt;")
+    .replaceAll(">", "&gt;")
+    .replaceAll('"', "&quot;")
+    .replaceAll("'", "&#039;");
 }
 
 /* =========================
    Directory page
 ========================= */
-const regionFilter = document.getElementById("regionFilter");
-const roleFilter = document.getElementById("roleFilter");
-const sceneFilter = document.getElementById("sceneFilter");
-const resetButton = document.getElementById("resetFilters");
-const resultCount = document.getElementById("resultCount");
-const directoryGrid = document.getElementById("directoryGrid");
-const directoryEmpty = document.getElementById("directoryEmpty");
+async function initDirectory() {
+  if (page !== "directory") return;
 
-let approvedProfiles = [];
+  const regionFilter = document.getElementById("regionFilter");
+  const roleFilter = document.getElementById("roleFilter");
+  const sceneFilter = document.getElementById("sceneFilter");
+  const resetButton = document.getElementById("resetFilters");
+  const resultCount = document.getElementById("resultCount");
+  const directoryGrid = document.getElementById("directoryGrid");
+  const directoryEmpty = document.getElementById("directoryEmpty");
 
-function renderDirectoryCards(items) {
   if (!directoryGrid) return;
 
-  directoryGrid.innerHTML = items
-    .map((profile) => {
+  let approvedProfiles = [];
+
+  function renderDirectoryCards(items) {
+    if (!items.length) {
+      directoryGrid.innerHTML = "";
+      if (resultCount) resultCount.textContent = "0";
+      if (directoryEmpty) directoryEmpty.hidden = false;
+      return;
+    }
+
+    directoryGrid.innerHTML = items
+      .map((profile) => {
+        const regions = parseMultiValue(profile.city);
+        const roles = parseMultiValue(profile.role);
+        const sceneAffiliations = parseMultiValue(profile.sceneAffiliation);
+
+        const regionText = regions.length
+          ? regions.map(formatRegion).join("、")
+          : "未填寫地區";
+
+        const roleText = roles.length ? roles.join("、") : "未填寫";
+        const sceneAffiliationText = sceneAffiliations.length
+          ? sceneAffiliations.join("、")
+          : "未填寫";
+
+        const nameText = escapeHtml(profile.name || "未命名");
+        const bioText = escapeHtml(profile.bio || "");
+        const contactText = escapeHtml(profile.contact || "未提供");
+
+        return `
+          <article class="profile-card">
+            <h3>${nameText}</h3>
+            <p class="profile-meta">${escapeHtml(regionText)}</p>
+            <p><strong>職能：</strong>${escapeHtml(roleText)}</p>
+            <p><strong>活躍場景：</strong>${escapeHtml(sceneAffiliationText)}</p>
+            ${bioText ? `<p>${bioText}</p>` : ""}
+            <p><strong>聯絡方式：</strong>${contactText}</p>
+          </article>
+        `;
+      })
+      .join("");
+
+    if (resultCount) resultCount.textContent = String(items.length);
+    if (directoryEmpty) directoryEmpty.hidden = true;
+  }
+
+  function filterProfiles() {
+    const selectedRegion = regionFilter?.value || "all";
+    const selectedRole = roleFilter?.value || "all";
+    const selectedScene = sceneFilter?.value || "all";
+
+    const filtered = approvedProfiles.filter((profile) => {
       const regions = parseMultiValue(profile.city);
       const roles = parseMultiValue(profile.role);
       const sceneAffiliations = parseMultiValue(profile.sceneAffiliation);
 
-      const regionText = regions.length
-        ? regions.map(formatRegion).join("、")
-        : "未填寫地區";
+      const regionMatch =
+        selectedRegion === "all" || regions.includes(selectedRegion);
 
-      const roleText = roles.length ? roles.join("、") : "未填寫";
-      const sceneAffiliationText = sceneAffiliations.length
-        ? sceneAffiliations.join("、")
-        : "未填寫";
+      const roleMatch =
+        selectedRole === "all" || roles.includes(selectedRole);
 
-      return `
-      <article class="profile-card">
-        <h3>${profile.name || ""}</h3>
-        <p class="profile-meta">${regionText}</p>
-        <p><strong>職能：</strong>${roleText}</p>
-        <p><strong>活躍場景：</strong>${sceneAffiliationText}</p>
-        <p>${profile.bio || ""}</p>
-        <p><strong>聯絡方式：</strong>${profile.contact || "未提供"}</p>
-      </article>
-    `;
-    })
-    .join("");
-}
+      const sceneMatch =
+        selectedScene === "all" || sceneAffiliations.includes(selectedScene);
 
-function filterProfiles() {
-  const selectedRegion = regionFilter?.value || "all";
-  const selectedRole = roleFilter?.value || "all";
-  const selectedScene = sceneFilter?.value || "all";
+      return regionMatch && roleMatch && sceneMatch;
+    });
 
-  const filtered = approvedProfiles.filter((profile) => {
-    const regions = parseMultiValue(profile.city);
-    const roles = parseMultiValue(profile.role);
-    const sceneAffiliations = parseMultiValue(profile.sceneAffiliation);
-
-    const regionMatch =
-      selectedRegion === "all" || regions.includes(selectedRegion);
-
-    const roleMatch =
-      selectedRole === "all" || roles.includes(selectedRole);
-
-    const sceneMatch =
-      selectedScene === "all" ||
-      sceneAffiliations.length === 0 ||
-      sceneAffiliations.includes(selectedScene);
-
-    return regionMatch && roleMatch && sceneMatch;
-  });
-
-  renderDirectoryCards(filtered);
-
-  if (resultCount) resultCount.textContent = filtered.length;
-  if (directoryEmpty) directoryEmpty.hidden = filtered.length !== 0;
-}
-
-async function initDirectory() {
-  if (page !== "directory") return;
+    renderDirectoryCards(filtered);
+  }
 
   try {
     const supabase = await getSupabase();
@@ -151,15 +184,15 @@ async function initDirectory() {
     sceneFilter?.addEventListener("change", filterProfiles);
 
     resetButton?.addEventListener("click", () => {
-  if (regionFilter) regionFilter.value = "all";
-  if (roleFilter) roleFilter.value = "all";
-  if (sceneFilter) sceneFilter.value = "all";
-  filterProfiles();
-});
+      if (regionFilter) regionFilter.value = "all";
+      if (roleFilter) roleFilter.value = "all";
+      if (sceneFilter) sceneFilter.value = "all";
+      filterProfiles();
+    });
   } catch (error) {
-    if (directoryGrid) {
-      directoryGrid.innerHTML = `<p class="error-text">${error.message || "讀取資料失敗"}</p>`;
-    }
+    directoryGrid.innerHTML = `
+      <p class="error-text">${escapeHtml(error.message || "讀取資料失敗")}</p>
+    `;
   }
 }
 
@@ -174,7 +207,7 @@ async function initSubmit() {
 
   if (!form || !message) return;
 
-  form.addEventListener("submit", async function (e) {
+  form.addEventListener("submit", async (e) => {
     e.preventDefault();
 
     const formData = new FormData(form);
@@ -188,28 +221,16 @@ async function initSubmit() {
     ).map((cb) => cb.value);
 
     const sceneAffiliations = Array.from(
-  document.querySelectorAll('input[name="sceneAffiliation"]:checked')
-).map((cb) => cb.value);
-
-const payload = {
-  name: formData.get("name"),
-  city: regions.join(", "),
-  role: roles.join(", "),
-  sceneAffiliation: sceneAffiliations,
-  bio: formData.get("bio") || "",
-  contact: formData.get("contact") || "",
-  collab: "",
-  consent_public: formData.get("consent_public") === "on",
-  review_status: "pending"
-};
+      document.querySelectorAll('input[name="sceneAffiliation"]:checked')
+    ).map((cb) => cb.value);
 
     const payload = {
-      name: formData.get("name"),
+      name: formData.get("name")?.toString().trim() || "",
       city: regions.join(", "),
       role: roles.join(", "),
-      sceneAffiliation: formData.getAll("sceneAffiliation"),
-      bio: formData.get("bio") || "",
-      contact: formData.get("contact") || "",
+      sceneAffiliation: sceneAffiliations,
+      bio: formData.get("bio")?.toString().trim() || "",
+      contact: formData.get("contact")?.toString().trim() || "",
       collab: "",
       consent_public: formData.get("consent_public") === "on",
       review_status: "pending"
@@ -220,7 +241,9 @@ const payload = {
     try {
       const supabase = await getSupabase();
 
-      const { error } = await supabase.from("profiles").insert([payload]);
+      const { error } = await supabase
+        .from("profiles")
+        .insert([payload]);
 
       if (error) throw error;
 
@@ -235,5 +258,6 @@ const payload = {
 /* =========================
    Init
 ========================= */
+initNewsSlider();
 initDirectory();
 initSubmit();
