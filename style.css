@@ -799,3 +799,19 @@ margin-bottom:15px;
 .page-actions {
   margin: 18px 0 22px 0;
 }
+.site-footer{
+  margin-top:80px;
+  padding:40px 0 60px 0;
+}
+
+.footer-inner{
+  max-width:1200px;
+  margin:auto;
+  padding:0 24px;
+  border-top:1px solid rgba(47,103,97,0.2);
+  padding-top:20px;
+}
+
+.site-footer p{
+  font-size:20px;
+}
