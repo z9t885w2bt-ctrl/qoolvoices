@@ -35,7 +35,8 @@ if (newsSlider && slideLeft && slideRight) {
 ========================= */
 function parseMultiValue(value) {
   if (!value) return [];
-  return value
+  if (Array.isArray(value)) return value.map((item) => String(item).trim()).filter(Boolean);
+  return String(value)
     .split(",")
     .map((item) => item.trim())
     .filter(Boolean);
@@ -57,7 +58,7 @@ function formatRegion(region) {
 ========================= */
 const regionFilter = document.getElementById("regionFilter");
 const roleFilter = document.getElementById("roleFilter");
-const styleFilter = document.getElementById("styleFilter");
+const sceneFilter = document.getElementById("sceneFilter");
 const resetButton = document.getElementById("resetFilters");
 const resultCount = document.getElementById("resultCount");
 const directoryGrid = document.getElementById("directoryGrid");
@@ -72,21 +73,23 @@ function renderDirectoryCards(items) {
     .map((profile) => {
       const regions = parseMultiValue(profile.city);
       const roles = parseMultiValue(profile.role);
-      const styles = parseMultiValue(profile.style);
+      const sceneAffiliations = parseMultiValue(profile.sceneAffiliation);
 
       const regionText = regions.length
         ? regions.map(formatRegion).join("、")
         : "未填寫地區";
 
       const roleText = roles.length ? roles.join("、") : "未填寫";
-      const styleText = styles.length ? styles.join("、") : "未填寫";
+      const sceneAffiliationText = sceneAffiliations.length
+        ? sceneAffiliations.join("、")
+        : "未填寫";
 
       return `
       <article class="profile-card">
         <h3>${profile.name || ""}</h3>
         <p class="profile-meta">${regionText}</p>
         <p><strong>職能：</strong>${roleText}</p>
-        <p><strong>風格：</strong>${styleText}</p>
+        <p><strong>活躍場景：</strong>${sceneAffiliationText}</p>
         <p>${profile.bio || ""}</p>
         <p><strong>聯絡方式：</strong>${profile.contact || "未提供"}</p>
       </article>
@@ -98,12 +101,12 @@ function renderDirectoryCards(items) {
 function filterProfiles() {
   const selectedRegion = regionFilter?.value || "all";
   const selectedRole = roleFilter?.value || "all";
-  const selectedStyle = styleFilter?.value || "all";
+  const selectedScene = sceneFilter?.value || "all";
 
   const filtered = approvedProfiles.filter((profile) => {
     const regions = parseMultiValue(profile.city);
     const roles = parseMultiValue(profile.role);
-    const styles = parseMultiValue(profile.style);
+    const sceneAffiliations = parseMultiValue(profile.sceneAffiliation);
 
     const regionMatch =
       selectedRegion === "all" || regions.includes(selectedRegion);
@@ -111,12 +114,12 @@ function filterProfiles() {
     const roleMatch =
       selectedRole === "all" || roles.includes(selectedRole);
 
-    const styleMatch =
-      selectedStyle === "all" ||
-      styles.length === 0 ||
-      styles.includes(selectedStyle);
+    const sceneMatch =
+      selectedScene === "all" ||
+      sceneAffiliations.length === 0 ||
+      sceneAffiliations.includes(selectedScene);
 
-    return regionMatch && roleMatch && styleMatch;
+    return regionMatch && roleMatch && sceneMatch;
   });
 
   renderDirectoryCards(filtered);
@@ -145,14 +148,14 @@ async function initDirectory() {
 
     regionFilter?.addEventListener("change", filterProfiles);
     roleFilter?.addEventListener("change", filterProfiles);
-    styleFilter?.addEventListener("change", filterProfiles);
+    sceneFilter?.addEventListener("change", filterProfiles);
 
     resetButton?.addEventListener("click", () => {
-      if (regionFilter) regionFilter.value = "all";
-      if (roleFilter) roleFilter.value = "all";
-      if (styleFilter) styleFilter.value = "all";
-      filterProfiles();
-    });
+  if (regionFilter) regionFilter.value = "all";
+  if (roleFilter) roleFilter.value = "all";
+  if (sceneFilter) sceneFilter.value = "all";
+  filterProfiles();
+});
   } catch (error) {
     if (directoryGrid) {
       directoryGrid.innerHTML = `<p class="error-text">${error.message || "讀取資料失敗"}</p>`;
@@ -184,15 +187,27 @@ async function initSubmit() {
       document.querySelectorAll('input[name="roles"]:checked')
     ).map((cb) => cb.value);
 
-    const styles = Array.from(
-      document.querySelectorAll('input[name="styles"]:checked')
-    ).map((cb) => cb.value);
+    const sceneAffiliations = Array.from(
+  document.querySelectorAll('input[name="sceneAffiliation"]:checked')
+).map((cb) => cb.value);
+
+const payload = {
+  name: formData.get("name"),
+  city: regions.join(", "),
+  role: roles.join(", "),
+  sceneAffiliation: sceneAffiliations,
+  bio: formData.get("bio") || "",
+  contact: formData.get("contact") || "",
+  collab: "",
+  consent_public: formData.get("consent_public") === "on",
+  review_status: "pending"
+};
 
     const payload = {
       name: formData.get("name"),
       city: regions.join(", "),
       role: roles.join(", "),
-      style: styles.join(", "),
+      sceneAffiliation: formData.getAll("sceneAffiliation"),
       bio: formData.get("bio") || "",
       contact: formData.get("contact") || "",
       collab: "",
