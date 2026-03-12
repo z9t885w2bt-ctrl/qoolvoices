@@ -815,3 +815,8 @@ margin-bottom:15px;
 .site-footer p{
   font-size:20px;
 }
+.checkbox-group{
+display:grid;
+grid-template-columns:repeat(2,1fr);
+gap:6px;
+}
