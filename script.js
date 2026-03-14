@@ -62,7 +62,8 @@ function formatRegion(region) {
     middle: "中部",
     south: "南部",
     east: "東部",
-    outer_islands: "離島"
+    outer_islands: "離島",
+    abroad: "非臺灣國家"
   };
 
   return map[region] || region;
@@ -75,6 +76,14 @@ function escapeHtml(value) {
     .replaceAll(">", "&gt;")
     .replaceAll('"', "&quot;")
     .replaceAll("'", "&#039;");
+}
+
+function normalizeUrl(url) {
+  const raw = String(url || "").trim();
+  if (!raw) return "";
+
+  if (/^https?:\/\//i.test(raw)) return raw;
+  return `https://${raw}`;
 }
 
 /* =========================
@@ -104,7 +113,7 @@ async function initDirectory() {
     }
 
     directoryGrid.innerHTML = items
-      .map((profile) => {
+      .map((profile, index) => {
         const regions = parseMultiValue(profile.city);
         const roles = parseMultiValue(profile.role);
         const sceneAffiliations = parseMultiValue(profile.sceneAffiliation);
@@ -116,20 +125,57 @@ async function initDirectory() {
         const roleText = roles.length ? roles.join("、") : "未填寫";
         const sceneAffiliationText = sceneAffiliations.length
           ? sceneAffiliations.join("、")
-          : "未填寫";
+          : "";
 
         const nameText = escapeHtml(profile.name || "未命名");
         const bioText = escapeHtml(profile.bio || "");
-        const contactText = escapeHtml(profile.contact || "未提供");
+        const linkValue = normalizeUrl(profile.contact_link || profile.contact || "");
+        const detailId = `profile-detail-${index}`;
 
         return `
-          <article class="profile-card">
-            <h3>${nameText}</h3>
-            <p class="profile-meta">${escapeHtml(regionText)}</p>
-            <p><strong>職能：</strong>${escapeHtml(roleText)}</p>
-            <p><strong>活躍場景：</strong>${escapeHtml(sceneAffiliationText)}</p>
-            ${bioText ? `<p>${bioText}</p>` : ""}
-            <p><strong>聯絡方式：</strong>${contactText}</p>
+          <article class="profile-card profile-card-compact">
+            <div class="profile-card-top">
+              <h3 class="profile-name">${nameText}</h3>
+              <p class="profile-meta">${escapeHtml(regionText)}</p>
+              <p class="profile-role">${escapeHtml(roleText)}</p>
+            </div>
+
+            <div id="${detailId}" class="profile-detail is-collapsed">
+              ${
+                sceneAffiliationText
+                  ? `<p class="profile-detail-text"><strong>活躍場景：</strong>${escapeHtml(sceneAffiliationText)}</p>`
+                  : ""
+              }
+              ${
+                bioText
+                  ? `<p class="profile-detail-text"><strong>自我介紹：</strong>${bioText}</p>`
+                  : ""
+              }
+            </div>
+
+            <div class="profile-card-actions">
+              <button
+                class="expand-btn"
+                type="button"
+                aria-expanded="false"
+                aria-controls="${detailId}">
+                展開
+              </button>
+
+              ${
+                linkValue
+                  ? `
+                    <a
+                      class="contact-btn"
+                      href="${escapeHtml(linkValue)}"
+                      target="_blank"
+                      rel="noopener noreferrer">
+                      Get in touch
+                    </a>
+                  `
+                  : ""
+              }
+            </div>
           </article>
         `;
       })
@@ -163,6 +209,27 @@ async function initDirectory() {
 
     renderDirectoryCards(filtered);
   }
+
+  directoryGrid.addEventListener("click", (e) => {
+    const btn = e.target.closest(".expand-btn");
+    if (!btn) return;
+
+    const card = btn.closest(".profile-card");
+    const detail = card?.querySelector(".profile-detail");
+    if (!detail) return;
+
+    const isCollapsed = detail.classList.contains("is-collapsed");
+
+    if (isCollapsed) {
+      detail.classList.remove("is-collapsed");
+      btn.textContent = "收起";
+      btn.setAttribute("aria-expanded", "true");
+    } else {
+      detail.classList.add("is-collapsed");
+      btn.textContent = "展開";
+      btn.setAttribute("aria-expanded", "false");
+    }
+  });
 
   try {
     const supabase = await getSupabase();
@@ -230,7 +297,7 @@ async function initSubmit() {
       role: roles.join(", "),
       sceneAffiliation: sceneAffiliations,
       bio: formData.get("bio")?.toString().trim() || "",
-      contact: formData.get("contact")?.toString().trim() || "",
+      contact_link: formData.get("contact_link")?.toString().trim() || "",
       collab: "",
       consent_public: formData.get("consent_public") === "on",
       review_status: "pending"
