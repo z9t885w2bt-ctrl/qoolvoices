@@ -820,3 +820,111 @@ display:grid;
 grid-template-columns:repeat(2,1fr);
 gap:6px;
 }
+.form-help {
+  display: block;
+  margin-top: 6px;
+  font-size: 0.9rem;
+  color: #666;
+  line-height: 1.5;
+}
+
+#directoryGrid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+  gap: 16px;
+}
+
+.profile-card-compact {
+  padding: 18px;
+  border: 1px solid #d9d9d9;
+  border-radius: 18px;
+  background: #fff;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.06);
+}
+
+.profile-card-top {
+  margin-bottom: 12px;
+}
+
+.profile-name {
+  margin: 0 0 8px;
+  font-size: 1.15rem;
+  line-height: 1.3;
+}
+
+.profile-meta {
+  margin: 0 0 8px;
+  color: #666;
+  font-size: 0.95rem;
+  line-height: 1.5;
+}
+
+.profile-role {
+  margin: 0;
+  color: #222;
+  font-size: 0.95rem;
+  line-height: 1.6;
+}
+
+.profile-detail {
+  margin-top: 12px;
+  padding-top: 12px;
+  border-top: 1px solid #ececec;
+}
+
+.profile-detail.is-collapsed {
+  display: none;
+}
+
+.profile-detail-text {
+  margin: 0 0 10px;
+  line-height: 1.7;
+  color: #333;
+  white-space: pre-line;
+}
+
+.profile-detail-text:last-child {
+  margin-bottom: 0;
+}
+
+.profile-card-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  margin-top: 14px;
+}
+
+.expand-btn,
+.contact-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 42px;
+  padding: 0 16px;
+  border-radius: 999px;
+  font-size: 0.95rem;
+  font-weight: 600;
+  text-decoration: none;
+  cursor: pointer;
+}
+
+.expand-btn {
+  border: 1px solid #cfcfcf;
+  background: #fff;
+  color: #222;
+}
+
+.contact-btn {
+  border: none;
+  background: #111;
+  color: #fff;
+}
+
+.expand-btn:hover,
+.contact-btn:hover {
+  opacity: 0.9;
+}
+
+.error-text {
+  color: #c62828;
+}
