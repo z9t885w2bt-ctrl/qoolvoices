@@ -928,3 +928,130 @@ gap:6px;
 .error-text {
   color: #c62828;
 }
+/* ===== Directory compact cards override ===== */
+
+.directory-grid,
+#directoryGrid {
+  display: grid !important;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)) !important;
+  gap: 16px !important;
+  align-items: start !important;
+}
+
+.profile-card.profile-card-compact {
+  display: block !important;
+  width: 100% !important;
+  max-width: none !important;
+  min-height: 0 !important;
+  padding: 16px !important;
+  margin: 0 !important;
+  border: 1px solid #ddd !important;
+  border-radius: 16px !important;
+  background: #fff !important;
+  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.05) !important;
+}
+
+.profile-card.profile-card-compact h3,
+.profile-card.profile-card-compact .profile-name {
+  margin: 0 0 8px !important;
+  font-size: 1.05rem !important;
+  line-height: 1.3 !important;
+}
+
+.profile-card.profile-card-compact .profile-meta {
+  margin: 0 0 8px !important;
+  font-size: 0.92rem !important;
+  color: #666 !important;
+  line-height: 1.5 !important;
+}
+
+.profile-card.profile-card-compact .profile-role {
+  margin: 0 !important;
+  font-size: 0.92rem !important;
+  color: #222 !important;
+  line-height: 1.5 !important;
+}
+
+.profile-card-top {
+  margin-bottom: 10px !important;
+}
+
+.profile-detail {
+  margin-top: 12px !important;
+  padding-top: 12px !important;
+  border-top: 1px solid #eee !important;
+}
+
+.profile-detail.is-collapsed {
+  display: none !important;
+}
+
+.profile-detail-text {
+  margin: 0 0 10px !important;
+  font-size: 0.92rem !important;
+  line-height: 1.7 !important;
+  color: #333 !important;
+  white-space: pre-line !important;
+}
+
+.profile-detail-text:last-child {
+  margin-bottom: 0 !important;
+}
+
+.profile-card-actions {
+  display: flex !important;
+  flex-wrap: wrap !important;
+  gap: 10px !important;
+  margin-top: 14px !important;
+}
+
+.expand-btn,
+.contact-btn {
+  display: inline-flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  padding: 10px 14px !important;
+  min-height: 40px !important;
+  border-radius: 999px !important;
+  font-size: 0.92rem !important;
+  font-weight: 600 !important;
+  text-decoration: none !important;
+  cursor: pointer !important;
+}
+
+.expand-btn {
+  border: 1px solid #ccc !important;
+  background: #fff !important;
+  color: #222 !important;
+}
+
+.contact-btn {
+  border: none !important;
+  background: #111 !important;
+  color: #fff !important;
+}
+
+@media (max-width: 640px) {
+  .directory-grid,
+  #directoryGrid {
+    grid-template-columns: 1fr 1fr !important;
+    gap: 12px !important;
+  }
+
+  .profile-card.profile-card-compact {
+    padding: 14px !important;
+    border-radius: 14px !important;
+  }
+
+  .expand-btn,
+  .contact-btn {
+    width: 100% !important;
+  }
+}
+
+@media (max-width: 480px) {
+  .directory-grid,
+  #directoryGrid {
+    grid-template-columns: 1fr !important;
+  }
+}
