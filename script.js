@@ -291,13 +291,16 @@ async function initSubmit() {
       document.querySelectorAll('input[name="sceneAffiliation"]:checked')
     ).map((cb) => cb.value);
 
+    const contactLink = formData.get("contact_link")?.toString().trim() || "";
+
     const payload = {
       name: formData.get("name")?.toString().trim() || "",
       city: regions.join(", "),
       role: roles.join(", "),
       sceneAffiliation: sceneAffiliations,
       bio: formData.get("bio")?.toString().trim() || "",
-      contact_link: formData.get("contact_link")?.toString().trim() || "",
+      contact: contactLink,
+      contact_link: contactLink,
       collab: "",
       consent_public: formData.get("consent_public") === "on",
       review_status: "pending"
