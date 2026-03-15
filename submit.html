@@ -60,6 +60,7 @@
 <input type="text" name="name" required>
 </label>
 
+
 <details class="form-section">
 
 <summary>活動地區（可複選）</summary>
@@ -72,17 +73,18 @@
 <label><input type="checkbox" name="regions" value="east"> 東部</label>
 <label><input type="checkbox" name="regions" value="outer_islands"> 離島</label>
 <label><input type="checkbox" name="regions" value="abroad"> 非臺灣國家</label>
+
 </div>
 
 </details>
 
 
 <details class="form-section">
+
 <summary>職能（可複選）</summary>
 
 <div class="checkbox-group">
 
-<!-- 表演 / 創作 -->
 <label><input type="checkbox" name="roles" value="Singer"> 歌手 Singer</label>
 <label><input type="checkbox" name="roles" value="Rapper"> 饒舌 Rapper</label>
 <label><input type="checkbox" name="roles" value="Instrumentalist"> 樂手 Instrumentalist</label>
@@ -90,33 +92,29 @@
 <label><input type="checkbox" name="roles" value="Songwriter"> 作曲 Songwriter</label>
 <label><input type="checkbox" name="roles" value="Lyricist"> 作詞 Lyricist</label>
 
-<!-- 聲音製作 -->
 <label><input type="checkbox" name="roles" value="Producer"> 製作人 Producer</label>
 <label><input type="checkbox" name="roles" value="Recording Engineer"> 錄音 Recording Engineer</label>
 <label><input type="checkbox" name="roles" value="Mixing Engineer"> 混音 Mixing Engineer</label>
 <label><input type="checkbox" name="roles" value="Mastering Engineer"> 母帶 Mastering Engineer</label>
 
-<!-- 技術 -->
 <label><input type="checkbox" name="roles" value="Live Sound Engineer"> 音響技師 Live Sound Engineer</label>
 <label><input type="checkbox" name="roles" value="Instrument Tech"> 樂器技師 Instrument Tech</label>
 <label><input type="checkbox" name="roles" value="Lighting"> 燈光 Lighting</label>
 
-<!-- 視覺 / 影像 -->
 <label><input type="checkbox" name="roles" value="Photographer"> 攝影 Photographer</label>
 <label><input type="checkbox" name="roles" value="Visual Artist"> 視覺 Visual Artist</label>
 <label><input type="checkbox" name="roles" value="Director"> 導演 Director</label>
 <label><input type="checkbox" name="roles" value="Video Creator"> 影像創作 Video Creator</label>
 <label><input type="checkbox" name="roles" value="Video Editor"> 剪輯 Video Editor</label>
 
-<!-- 產業 -->
 <label><input type="checkbox" name="roles" value="Management"> 經紀 Management</label>
 <label><input type="checkbox" name="roles" value="Marketing"> 行銷 Marketing</label>
 <label><input type="checkbox" name="roles" value="Event Organizer"> 活動企劃 Event Organizer</label>
 <label><input type="checkbox" name="roles" value="Music Education"> 音樂教學 Music Education</label>
+
 </div>
 
 </details>
-
 
 
 <details class="form-section">
@@ -126,17 +124,11 @@
 <div class="checkbox-group">
 
 <label><input type="checkbox" name="sceneAffiliation" value="Live House"> Live House</label>
-
 <label><input type="checkbox" name="sceneAffiliation" value="Indie Scene"> Indie Scene</label>
-
 <label><input type="checkbox" name="sceneAffiliation" value="Club / Party"> Club / Party</label>
-
 <label><input type="checkbox" name="sceneAffiliation" value="Electronic Scene"> Electronic Scene</label>
-
 <label><input type="checkbox" name="sceneAffiliation" value="Experimental Scene"> Experimental Scene</label>
-
 <label><input type="checkbox" name="sceneAffiliation" value="DIY / Underground"> DIY / Underground</label>
-
 <label><input type="checkbox" name="sceneAffiliation" value="Queer Party Scene"> Queer Party Scene</label>
 
 </div>
@@ -159,6 +151,26 @@
 <small class="form-help">
   請提供一個可以聯絡你的連結，例如 IG、官網、Linktree 或其他聯絡頁面。
 </small>
+</label>
+
+
+<!-- 新增 Email -->
+<label>
+電子信箱 Email（選填）
+<input
+  type="email"
+  name="email"
+  placeholder="yourname@example.com">
+<small class="form-help">
+  Email 不會公開顯示，只用於活動與合作通知。
+</small>
+</label>
+
+
+<!-- 新增 mailing list -->
+<label class="consent-check">
+<input type="checkbox" name="join_mailing_list">
+我願意加入酷女聲 mailing list
 </label>
 
 
@@ -188,13 +200,14 @@
 
 
 <footer class="site-footer">
-  <div class="footer-inner">
-    <p class="footer-contact">
-      Contact｜qoolvoices@gmail.com
-    </p>
-  </div>
+<div class="footer-inner">
+<p class="footer-contact">
+Contact｜qoolvoices@gmail.com
+</p>
+</div>
 </footer>
 
-<script src="script.js?v=2"></script>
+<script src="script.js?v=3"></script>
+
 </body>
 </html>
