@@ -292,6 +292,13 @@ async function initSubmit() {
     ).map((cb) => cb.value);
 
     const contactLink = formData.get("contact_link")?.toString().trim() || "";
+    const email = formData.get("email")?.toString().trim() || "";
+    const joinMailingList = formData.get("join_mailing_list") === "on";
+
+    if (joinMailingList && !email) {
+      message.textContent = "如果要加入 mailing list，請填寫電子信箱。";
+      return;
+    }
 
     const payload = {
       name: formData.get("name")?.toString().trim() || "",
@@ -301,6 +308,8 @@ async function initSubmit() {
       bio: formData.get("bio")?.toString().trim() || "",
       contact: contactLink,
       contact_link: contactLink,
+      email: email || null,
+      join_mailing_list: joinMailingList,
       collab: "",
       consent_public: formData.get("consent_public") === "on",
       review_status: "pending"
