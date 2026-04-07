@@ -4,255 +4,305 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Qool Voices 酷女聲 | 台灣女性與酷兒音樂創作者平台</title>
-  <meta
-    name="description"
-    content="酷女聲 Qool Voices 是支持女性與酷兒音樂創作者的文化平台，透過訪談、資料整理與場景連結，留下屬於這個場景的聲音。"
-  />
-  <meta
-    name="keywords"
-    content="酷女聲, Qool Voices, 女性音樂, 酷兒音樂, 音樂創作者, 訪談, 音樂場景, Directory, Interviews"
-  />
+  <meta name="description" content="酷女聲 Qool Voices 是支持女性與酷兒音樂創作者的文化平台，收錄音樂人、場地與訪談，建立合作與互助的音樂社群。" />
   <link rel="stylesheet" href="style.css" />
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Noto+Serif+TC:wght@700;900&family=Space+Mono:wght@700&display=swap');
+
+    .home-wrap {
+      min-height: 100vh;
+      padding: 40px 36px 80px;
+      background:
+        radial-gradient(ellipse at 30% 20%, #d4c8e8 0%, transparent 55%),
+        radial-gradient(ellipse at 75% 65%, #b8e8e0 0%, transparent 50%),
+        radial-gradient(ellipse at 55% 90%, #e8d4b8 0%, transparent 45%),
+        #e8e2f0;
+      font-family: 'Space Mono', monospace;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .orb { position: absolute; border-radius: 50%; pointer-events: none; }
+    .orb1 { width: 280px; height: 280px; top: -60px; right: -40px; background: radial-gradient(circle at 35% 35%, rgba(255,255,255,0.85) 0%, rgba(181,126,220,0.4) 35%, rgba(99,214,198,0.25) 70%, transparent 85%); }
+    .orb2 { width: 180px; height: 180px; bottom: 80px; left: -30px; background: radial-gradient(circle at 40% 35%, rgba(255,255,255,0.8) 0%, rgba(99,214,198,0.4) 40%, transparent 80%); }
+
+    .home-inner { position: relative; z-index: 1; max-width: 1100px; margin: 0 auto; }
+
+    /* topbar */
+    .home-topbar { display: flex; justify-content: space-between; align-items: center; margin-bottom: 56px; }
+    .home-topbar a { font-size: 11px; font-weight: 700; letter-spacing: 2.5px; text-transform: uppercase; text-decoration: none; color: #3a2a5a; padding: 7px 16px; border: 1.5px solid rgba(181,126,220,0.5); border-radius: 2px; background: rgba(255,255,255,0.4); box-shadow: inset 0 1px 0 rgba(255,255,255,0.8), 0 2px 8px rgba(181,126,220,0.15); }
+
+    /* hero */
+    .hero { margin-bottom: 72px; }
+    .hero-brand-zh { font-family: 'Noto Serif TC', serif; font-size: clamp(72px, 13vw, 130px); font-weight: 900; line-height: 0.9; letter-spacing: 8px; display: block; background: linear-gradient(160deg, #fff 0%, #e8d4f5 15%, #b57edc 30%, #7ecdc4 50%, #d4b8e8 65%, #fff 78%, #c8e8e0 90%, #b57edc 100%); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; filter: drop-shadow(0 2px 0 rgba(181,126,220,0.8)) drop-shadow(0 6px 0 rgba(126,205,196,0.4)) drop-shadow(0 12px 24px rgba(100,50,150,0.2)); }
+    .hero-brand-sub { display: flex; align-items: center; gap: 16px; margin-top: 12px; transform: translateX(8px); }
+    .hero-brand-en { font-size: 13px; font-weight: 700; letter-spacing: 3px; text-transform: uppercase; color: #5a3a8a; opacity: 0.7; }
+    .hero-brand-rule { flex: 1; max-width: 180px; height: 1.5px; background: linear-gradient(90deg, rgba(181,126,220,0.8), transparent); }
+
+    .manifesto { margin-top: 40px; max-width: 560px; padding: 24px 28px; background: linear-gradient(135deg, rgba(255,255,255,0.65), rgba(232,210,248,0.4), rgba(200,240,234,0.3)); border: 1px solid rgba(255,255,255,0.9); border-radius: 3px; box-shadow: inset 0 1px 0 rgba(255,255,255,0.9), 0 8px 28px rgba(100,50,150,0.1); transform: rotate(-0.5deg); position: relative; }
+    .manifesto::before { content: ''; position: absolute; left: 0; top: 10px; bottom: 10px; width: 3px; background: linear-gradient(180deg, rgba(255,255,255,0.9), rgba(181,126,220,0.8), rgba(99,214,198,0.6), rgba(255,200,100,0.5), rgba(255,255,255,0.8)); border-radius: 0 2px 2px 0; }
+    .manifesto-label { font-size: 9px; letter-spacing: 3px; text-transform: uppercase; color: #9a6abf; font-weight: 700; margin-bottom: 10px; display: block; }
+    .manifesto-text { font-family: 'Noto Serif TC', serif; font-size: clamp(15px, 2.2vw, 20px); font-weight: 700; color: #2a1a3a; line-height: 1.55; }
+    .manifesto-sub { font-size: 11px; color: #5a7a76; margin-top: 10px; font-style: italic; }
+
+    /* cards */
+    .cards-header { display: flex; align-items: center; gap: 14px; margin-top: 72px; margin-bottom: 48px; }
+    .cards-header-label { font-size: 10px; letter-spacing: 3px; text-transform: uppercase; color: #7a6a9a; font-weight: 700; }
+    .cards-header-rule { flex: 1; height: 1px; background: linear-gradient(90deg, rgba(181,126,220,0.5), transparent); }
+
+    .cards-row { display: flex; flex-direction: row; align-items: flex-end; justify-content: space-around; gap: 0; min-height: 380px; }
+
+    .morph-card { text-decoration: none; color: inherit; display: flex; flex-direction: column; align-items: center; cursor: pointer; flex: 1; padding: 0 12px; }
+    .morph-card:nth-child(1) { align-self: flex-end; }
+    .morph-card:nth-child(2) { align-self: center; margin-bottom: 40px; }
+    .morph-card:nth-child(3) { align-self: flex-end; padding-bottom: 20px; }
+
+    .card-label { text-align: center; margin-top: 20px; }
+    .card-zh { font-family: 'Noto Serif TC', serif; font-size: 20px; font-weight: 900; display: block; background: linear-gradient(160deg, #2a0a4a, #7a4aaa, #2a6a60); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; }
+    .card-en { font-size: 9px; font-weight: 700; letter-spacing: 2px; text-transform: uppercase; color: #7a6a9a; margin-top: 3px; display: block; }
+    .card-desc { font-size: 11px; color: rgba(40,20,70,0.55); margin-top: 6px; text-align: center; max-width: 150px; line-height: 1.5; font-family: Arial, sans-serif; }
+
+    /* 貝殼 */
+    .shell-scene { width: 180px; height: 200px; position: relative; perspective: 400px; }
+    .shell-bot { position: absolute; bottom: 0; left: 50%; transform: translateX(-50%); width: 160px; height: 90px; }
+    .shell-bot svg { width: 100%; height: 100%; }
+    .shell-top { position: absolute; bottom: 80px; left: 50%; transform: translateX(-50%) rotateX(0deg); transform-origin: bottom center; transform-style: preserve-3d; transition: transform 0.55s cubic-bezier(0.34,1.3,0.64,1); width: 160px; height: 100px; }
+    .shell-top svg { width: 100%; height: 100%; }
+    .morph-card:hover .shell-top { transform: translateX(-50%) rotateX(-55deg) translateY(-10px); }
+    .pearl { position: absolute; bottom: 78px; left: 50%; transform: translateX(-50%) scale(0); width: 46px; height: 46px; border-radius: 50%; background: radial-gradient(circle at 32% 28%, #fff 0%, rgba(240,220,255,0.95) 18%, rgba(200,235,228,0.85) 42%, rgba(181,126,220,0.65) 65%, rgba(99,214,198,0.55) 85%, rgba(150,100,200,0.4) 100%); box-shadow: 0 4px 18px rgba(181,126,220,0.55), 0 0 28px rgba(181,126,220,0.25), inset 0 2px 8px rgba(255,255,255,0.85); transition: transform 0.45s cubic-bezier(0.34,1.56,0.64,1) 0.18s; z-index: 5; }
+    .morph-card:hover .pearl { transform: translateX(-50%) scale(1) translateY(-4px); }
+
+    /* 禮盒 */
+    .gift-scene { width: 160px; height: 200px; position: relative; }
+
+    /* 路燈 */
+    .lamp-scene { width: 120px; height: 220px; position: relative; }
+    .lamp-pole { position: absolute; bottom: 0; left: 50%; transform: translateX(-50%); width: 8px; height: 170px; background: linear-gradient(90deg, rgba(255,255,255,0.3), rgba(181,150,220,0.7) 40%, rgba(140,100,200,0.8) 60%, rgba(100,70,160,0.5)); border-radius: 4px; }
+    .lamp-arm { position: absolute; bottom: 162px; left: 50%; width: 44px; height: 7px; background: linear-gradient(180deg, rgba(255,255,255,0.3), rgba(160,120,210,0.7)); border-radius: 4px; }
+    .lamp-head { position: absolute; bottom: 163px; left: calc(50% + 32px); width: 30px; height: 18px; background: linear-gradient(180deg, rgba(200,180,240,0.8), rgba(160,130,210,0.9)); border-radius: 4px 4px 8px 8px; box-shadow: inset 0 2px 4px rgba(255,255,255,0.5); }
+    .lamp-bulb { position: absolute; bottom: 150px; left: calc(50% + 36px); width: 22px; height: 22px; border-radius: 50%; background: rgba(220,200,255,0.3); transition: background 0.3s, box-shadow 0.4s; }
+    .morph-card:hover .lamp-bulb { background: radial-gradient(circle at 40% 35%, #fff 0%, rgba(255,240,140,0.95) 25%, rgba(255,200,80,0.8) 55%, rgba(255,160,40,0.5) 80%, transparent 100%); box-shadow: 0 0 20px rgba(255,220,80,0.9), 0 0 48px rgba(255,200,60,0.6), 0 0 80px rgba(255,180,40,0.3); }
+    .lamp-glow { position: absolute; bottom: 0; left: 50%; transform: translateX(-50%); width: 110px; height: 55px; border-radius: 50%; background: radial-gradient(ellipse, rgba(255,220,80,0) 0%, transparent 100%); transition: background 0.4s; }
+    .morph-card:hover .lamp-glow { background: radial-gradient(ellipse, rgba(255,220,80,0.35) 0%, rgba(255,200,60,0.15) 50%, transparent 80%); }
+    .lamp-cone { position: absolute; bottom: 0; left: calc(50% + 10px); width: 0; height: 0; border-left: 48px solid transparent; border-right: 48px solid transparent; border-bottom: 150px solid transparent; transition: border-bottom-color 0.4s; transform: translateX(-50%); }
+    .morph-card:hover .lamp-cone { border-bottom-color: rgba(255,220,80,0.07); }
+
+    /* footer */
+    .home-footer { margin-top: 72px; padding-top: 20px; border-top: 1px solid rgba(181,126,220,0.35); display: flex; justify-content: space-between; align-items: center; }
+    .footer-contact { font-size: 12px; letter-spacing: 1px; color: #5a6a68; }
+    .footer-mark { font-size: 10px; letter-spacing: 2px; text-transform: uppercase; color: rgba(90,60,130,0.4); font-style: italic; }
+
+    /* 手機：直排 */
+    @media (max-width: 680px) {
+      .home-wrap { padding: 28px 24px 64px; }
+      .cards-row { flex-direction: column; align-items: center; min-height: unset; gap: 56px; }
+      .morph-card:nth-child(1),
+      .morph-card:nth-child(2),
+      .morph-card:nth-child(3) { align-self: center; margin-bottom: 0; padding-bottom: 0; width: 100%; }
+      .shell-scene, .gift-scene, .lamp-scene { margin: 0 auto; }
+      .card-desc { max-width: 200px; }
+    }
+  </style>
 </head>
 <body>
-  <div class="site-wrap">
-    <div class="orb orb1"></div>
-    <div class="orb orb2"></div>
 
-    <div class="site-inner">
-      <header class="site-topbar">
-        <a href="about.html" class="topbar-btn">關於酷女聲 About</a>
+<div class="home-wrap">
+  <div class="orb orb1"></div>
+  <div class="orb orb2"></div>
+  <div class="home-inner">
 
-        <nav class="site-nav">
-          <a href="interviews.html">Interviews</a>
-          <a href="directory.html">Directory</a>
-          <a href="places.html">Places</a>
-          <a href="https://www.instagram.com/qoolvoices" target="_blank" rel="noopener noreferrer">Instagram</a>
-        </nav>
-      </header>
-
-      <main class="page-shell">
-
-        <section class="hero">
-          <span class="hero-brand-zh">酷女聲</span>
-
-          <div class="hero-brand-sub">
-            <span class="hero-brand-en">Qool Voices</span>
-            <div class="hero-brand-rule"></div>
-          </div>
-
-          <div class="manifesto">
-            <span class="manifesto-label">宣言 / Manifesto</span>
-            <p class="manifesto-text">
-              為女性與酷兒音樂創作者留下記憶，
-              連結場景、合作與行動。
-            </p>
-            <p class="manifesto-sub">Archive the voices, connect the scene.</p>
-          </div>
-        </section>
-
-        <section class="section-block">
-          <div class="section-head">
-            <span class="section-label">About / 關於酷女聲</span>
-            <div class="section-rule"></div>
-          </div>
-
-          <div class="glass-card text-block">
-            <p>
-              酷女聲 Qool Voices 是一個以女性與酷兒音樂創作者為核心的文化平台。
-              我們關心音樂場景中的創作、生存、連結與文化記憶，
-              並透過訪談、文章、田野筆記與公共整理，
-              留下屬於這個場景的聲音。
-            </p>
-            <p>
-              這裡不只是資料的收集地，
-              也是讓人可以找到夥伴、看見彼此、慢慢長出支持網絡的地方。
-            </p>
-          </div>
-        </section>
-
-        <section class="enter-section">
-          <div class="enter-header">
-            <span class="enter-label">進入場景 / Enter</span>
-            <div class="enter-rule"></div>
-          </div>
-
-          <div class="cards-row">
-
-            <a href="interviews.html" class="morph-card">
-              <div class="shell-scene">
-                <div class="shell-bot">
-                  <svg viewBox="0 0 160 90" xmlns="http://www.w3.org/2000/svg">
-                    <defs>
-                      <radialGradient id="sg1" cx="45%" cy="40%" r="60%">
-                        <stop offset="0%" stop-color="#fff" stop-opacity="0.95"/>
-                        <stop offset="25%" stop-color="#e0d0f5" stop-opacity="0.9"/>
-                        <stop offset="55%" stop-color="#b57edc" stop-opacity="0.75"/>
-                        <stop offset="80%" stop-color="#8a50c0" stop-opacity="0.85"/>
-                        <stop offset="100%" stop-color="#6a30a0" stop-opacity="0.9"/>
-                      </radialGradient>
-                      <radialGradient id="sg1h" cx="50%" cy="0%" r="80%">
-                        <stop offset="0%" stop-color="#fff" stop-opacity="0.6"/>
-                        <stop offset="100%" stop-color="#fff" stop-opacity="0"/>
-                      </radialGradient>
-                    </defs>
-                    <path d="M80,4 C40,4 8,30 4,70 Q4,88 80,88 Q156,88 156,70 C152,30 120,4 80,4Z" fill="url(#sg1)"/>
-                    <path d="M80,8 Q60,45 52,86" stroke="rgba(255,255,255,0.4)" stroke-width="1.5" fill="none"/>
-                    <path d="M80,8 Q72,46 68,86" stroke="rgba(255,255,255,0.3)" stroke-width="1" fill="none"/>
-                    <path d="M80,8 Q88,46 92,86" stroke="rgba(255,255,255,0.3)" stroke-width="1" fill="none"/>
-                    <path d="M80,8 Q100,45 108,86" stroke="rgba(255,255,255,0.35)" stroke-width="1.5" fill="none"/>
-                    <path d="M80,8 Q116,44 124,82" stroke="rgba(255,255,255,0.25)" stroke-width="1" fill="none"/>
-                    <path d="M80,8 Q44,44 36,82" stroke="rgba(255,255,255,0.25)" stroke-width="1" fill="none"/>
-                    <path d="M80,4 C40,4 8,30 4,70 Q4,88 80,88 Q156,88 156,70 C152,30 120,4 80,4Z" fill="url(#sg1h)"/>
-                  </svg>
-                </div>
-
-                <div class="shell-top">
-                  <svg viewBox="0 0 160 100" xmlns="http://www.w3.org/2000/svg">
-                    <defs>
-                      <radialGradient id="sg2" cx="45%" cy="55%" r="60%">
-                        <stop offset="0%" stop-color="#fff" stop-opacity="0.95"/>
-                        <stop offset="20%" stop-color="#ead0f8" stop-opacity="0.9"/>
-                        <stop offset="50%" stop-color="#c090e0" stop-opacity="0.8"/>
-                        <stop offset="80%" stop-color="#9060c0" stop-opacity="0.85"/>
-                        <stop offset="100%" stop-color="#7040a8" stop-opacity="0.9"/>
-                      </radialGradient>
-                      <radialGradient id="sg2h" cx="40%" cy="60%" r="70%">
-                        <stop offset="0%" stop-color="#fff" stop-opacity="0.55"/>
-                        <stop offset="100%" stop-color="#fff" stop-opacity="0"/>
-                      </radialGradient>
-                    </defs>
-                    <path d="M80,98 C36,98 4,70 4,38 Q4,4 80,4 Q156,4 156,38 C156,70 124,98 80,98Z" fill="url(#sg2)"/>
-                    <path d="M80,96 Q58,52 52,6" stroke="rgba(255,255,255,0.4)" stroke-width="1.5" fill="none"/>
-                    <path d="M80,96 Q68,53 66,6" stroke="rgba(255,255,255,0.3)" stroke-width="1" fill="none"/>
-                    <path d="M80,96 Q92,53 94,6" stroke="rgba(255,255,255,0.3)" stroke-width="1" fill="none"/>
-                    <path d="M80,96 Q102,52 108,6" stroke="rgba(255,255,255,0.35)" stroke-width="1.5" fill="none"/>
-                    <path d="M80,4 C36,4 4,30 4,38 Q4,4 80,4 Q156,4 156,38 C156,30 124,4 80,4Z" fill="url(#sg2h)"/>
-                  </svg>
-                </div>
-
-                <div class="pearl"></div>
-              </div>
-
-              <div class="card-label">
-                <span class="card-zh">記憶酷</span>
-                <span class="card-en">Interviews</span>
-                <span class="card-desc">採訪、場景筆記、文化紀錄</span>
-              </div>
-            </a>
-
-            <a href="directory.html" class="morph-card">
-              <div class="gift-scene">
-                <svg width="160" height="200" viewBox="0 0 160 200" xmlns="http://www.w3.org/2000/svg">
-                  <defs>
-                    <linearGradient id="boxg" x1="0%" y1="0%" x2="100%" y2="100%">
-                      <stop offset="0%" stop-color="#fff" stop-opacity="0.9"/>
-                      <stop offset="40%" stop-color="#a0e8de" stop-opacity="0.8"/>
-                      <stop offset="100%" stop-color="#50c0b0" stop-opacity="0.85"/>
-                    </linearGradient>
-                    <linearGradient id="lidg" x1="0%" y1="0%" x2="100%" y2="100%">
-                      <stop offset="0%" stop-color="#fff" stop-opacity="0.95"/>
-                      <stop offset="50%" stop-color="#80d8cc" stop-opacity="0.85"/>
-                      <stop offset="100%" stop-color="#40b0a0" stop-opacity="0.9"/>
-                    </linearGradient>
-                    <linearGradient id="ribv" x1="0%" y1="0%" x2="100%" y2="0%">
-                      <stop offset="0%" stop-color="rgba(181,126,220,0.2)"/>
-                      <stop offset="35%" stop-color="rgba(255,255,255,0.85)"/>
-                      <stop offset="65%" stop-color="rgba(181,126,220,0.5)"/>
-                      <stop offset="100%" stop-color="rgba(140,90,200,0.3)"/>
-                    </linearGradient>
-                    <linearGradient id="ribh" x1="0%" y1="0%" x2="0%" y2="100%">
-                      <stop offset="0%" stop-color="rgba(181,126,220,0.25)"/>
-                      <stop offset="35%" stop-color="rgba(255,255,255,0.85)"/>
-                      <stop offset="65%" stop-color="rgba(181,126,220,0.45)"/>
-                      <stop offset="100%" stop-color="rgba(140,90,200,0.3)"/>
-                    </linearGradient>
-                    <radialGradient id="bowg" cx="38%" cy="35%" r="65%">
-                      <stop offset="0%" stop-color="#fff" stop-opacity="0.98"/>
-                      <stop offset="30%" stop-color="#ddc0f5" stop-opacity="0.9"/>
-                      <stop offset="65%" stop-color="#b57edc" stop-opacity="0.75"/>
-                      <stop offset="100%" stop-color="#8040c0" stop-opacity="0.85"/>
-                    </radialGradient>
-                    <linearGradient id="lidhigh" x1="0%" y1="0%" x2="0%" y2="100%">
-                      <stop offset="0%" stop-color="rgba(255,255,255,0.6)"/>
-                      <stop offset="100%" stop-color="rgba(255,255,255,0)"/>
-                    </linearGradient>
-                  </defs>
-
-                  <g class="gift-body-g">
-                    <rect x="18" y="108" width="124" height="84" rx="6" fill="url(#boxg)"/>
-                    <rect x="18" y="108" width="124" height="84" rx="6" fill="url(#lidhigh)" opacity="0.5"/>
-                    <rect x="72" y="108" width="16" height="84" fill="url(#ribv)" opacity="0.9"/>
-                  </g>
-
-                  <g class="gift-lid-g" style="transform-origin:80px 108px;transition:transform 0.5s cubic-bezier(0.34,1.4,0.64,1);">
-                    <rect x="12" y="96" width="136" height="16" rx="4" fill="url(#lidg)"/>
-                    <rect x="12" y="96" width="136" height="16" rx="4" fill="url(#lidhigh)" opacity="0.5"/>
-                    <rect x="12" y="96" width="136" height="16" rx="4" fill="url(#ribh)" opacity="0.9"/>
-                  </g>
-
-                  <g class="bow-g" style="transform-origin:80px 96px;transition:transform 0.45s cubic-bezier(0.34,1.56,0.64,1);">
-                    <ellipse cx="52" cy="76" rx="26" ry="18" fill="url(#bowg)" transform="rotate(-20,52,76)"/>
-                    <ellipse cx="108" cy="76" rx="26" ry="18" fill="url(#bowg)" transform="rotate(20,108,76)"/>
-                    <circle cx="80" cy="82" r="11" fill="url(#bowg)"/>
-                    <circle cx="80" cy="82" r="11" fill="rgba(255,255,255,0.35)"/>
-                    <ellipse cx="48" cy="70" rx="10" ry="6" fill="rgba(255,255,255,0.5)" transform="rotate(-20,48,70)"/>
-                    <ellipse cx="112" cy="70" rx="10" ry="6" fill="rgba(255,255,255,0.5)" transform="rotate(20,112,70)"/>
-                  </g>
-                </svg>
-              </div>
-
-              <div class="card-label">
-                <span class="card-zh">資料酷</span>
-                <span class="card-en">Directory</span>
-                <span class="card-desc">創作者媒合，緣分是禮物</span>
-              </div>
-            </a>
-
-            <a href="places.html" class="morph-card">
-              <div class="lamp-scene">
-                <div class="lamp-cone"></div>
-                <div class="lamp-glow"></div>
-                <div class="lamp-pole"></div>
-                <div class="lamp-arm"></div>
-                <div class="lamp-head"></div>
-                <div class="lamp-bulb"></div>
-              </div>
-
-              <div class="card-label">
-                <span class="card-zh">酷地方</span>
-                <span class="card-en">Places</span>
-                <span class="card-desc">場景地圖，點亮你的所在</span>
-              </div>
-            </a>
-
-          </div>
-        </section>
-      </main>
-
-      <footer class="site-footer">
-        <span class="footer-contact">Contact｜qoolvoices@gmail.com</span>
-        <span class="footer-mark">Est. 2026 · Taipei</span>
-      </footer>
+    <div class="home-topbar">
+      <a href="about.html">關於酷女聲 About</a>
+      <a href="https://www.instagram.com/qoolvoices" target="_blank">Instagram</a>
     </div>
+
+    <div class="hero">
+      <span class="hero-brand-zh">酷女聲</span>
+      <div class="hero-brand-sub">
+        <span class="hero-brand-en">Qool Voices</span>
+        <div class="hero-brand-rule"></div>
+      </div>
+      <div class="manifesto">
+        <span class="manifesto-label">宣言 / Manifesto</span>
+        <p class="manifesto-text">為女性與酷兒音樂創作者留下記憶，連結場景、合作與行動。</p>
+        <p class="manifesto-sub">Archive the voices, connect the scene.</p>
+      </div>
+    </div>
+
+    <div class="cards-header">
+      <span class="cards-header-label">進入場景 / Enter</span>
+      <div class="cards-header-rule"></div>
+    </div>
+
+    <div class="cards-row">
+
+      <!-- 記憶酷：貝殼 -->
+      <a href="interviews.html" class="morph-card">
+        <div class="shell-scene">
+          <div class="shell-bot">
+            <svg viewBox="0 0 160 90" xmlns="http://www.w3.org/2000/svg">
+              <defs>
+                <radialGradient id="sg1" cx="45%" cy="40%" r="60%">
+                  <stop offset="0%" stop-color="#fff" stop-opacity="0.95"/>
+                  <stop offset="25%" stop-color="#e0d0f5" stop-opacity="0.9"/>
+                  <stop offset="55%" stop-color="#b57edc" stop-opacity="0.75"/>
+                  <stop offset="80%" stop-color="#8a50c0" stop-opacity="0.85"/>
+                  <stop offset="100%" stop-color="#6a30a0" stop-opacity="0.9"/>
+                </radialGradient>
+                <radialGradient id="sg1h" cx="50%" cy="0%" r="80%">
+                  <stop offset="0%" stop-color="#fff" stop-opacity="0.6"/>
+                  <stop offset="100%" stop-color="#fff" stop-opacity="0"/>
+                </radialGradient>
+              </defs>
+              <path d="M80,4 C40,4 8,30 4,70 Q4,88 80,88 Q156,88 156,70 C152,30 120,4 80,4Z" fill="url(#sg1)"/>
+              <path d="M80,8 Q60,45 52,86" stroke="rgba(255,255,255,0.4)" stroke-width="1.5" fill="none"/>
+              <path d="M80,8 Q72,46 68,86" stroke="rgba(255,255,255,0.3)" stroke-width="1" fill="none"/>
+              <path d="M80,8 Q88,46 92,86" stroke="rgba(255,255,255,0.3)" stroke-width="1" fill="none"/>
+              <path d="M80,8 Q100,45 108,86" stroke="rgba(255,255,255,0.35)" stroke-width="1.5" fill="none"/>
+              <path d="M80,8 Q116,44 124,82" stroke="rgba(255,255,255,0.25)" stroke-width="1" fill="none"/>
+              <path d="M80,8 Q44,44 36,82" stroke="rgba(255,255,255,0.25)" stroke-width="1" fill="none"/>
+              <path d="M80,4 C40,4 8,30 4,70 Q4,88 80,88 Q156,88 156,70 C152,30 120,4 80,4Z" fill="url(#sg1h)"/>
+            </svg>
+          </div>
+          <div class="shell-top">
+            <svg viewBox="0 0 160 100" xmlns="http://www.w3.org/2000/svg">
+              <defs>
+                <radialGradient id="sg2" cx="45%" cy="55%" r="60%">
+                  <stop offset="0%" stop-color="#fff" stop-opacity="0.95"/>
+                  <stop offset="20%" stop-color="#ead0f8" stop-opacity="0.9"/>
+                  <stop offset="50%" stop-color="#c090e0" stop-opacity="0.8"/>
+                  <stop offset="80%" stop-color="#9060c0" stop-opacity="0.85"/>
+                  <stop offset="100%" stop-color="#7040a8" stop-opacity="0.9"/>
+                </radialGradient>
+                <radialGradient id="sg2h" cx="40%" cy="60%" r="70%">
+                  <stop offset="0%" stop-color="#fff" stop-opacity="0.55"/>
+                  <stop offset="100%" stop-color="#fff" stop-opacity="0"/>
+                </radialGradient>
+              </defs>
+              <path d="M80,98 C36,98 4,70 4,38 Q4,4 80,4 Q156,4 156,38 C156,70 124,98 80,98Z" fill="url(#sg2)"/>
+              <path d="M80,96 Q58,52 52,6" stroke="rgba(255,255,255,0.4)" stroke-width="1.5" fill="none"/>
+              <path d="M80,96 Q68,53 66,6" stroke="rgba(255,255,255,0.3)" stroke-width="1" fill="none"/>
+              <path d="M80,96 Q92,53 94,6" stroke="rgba(255,255,255,0.3)" stroke-width="1" fill="none"/>
+              <path d="M80,96 Q102,52 108,6" stroke="rgba(255,255,255,0.35)" stroke-width="1.5" fill="none"/>
+              <path d="M80,4 C36,4 4,30 4,38 Q4,4 80,4 Q156,4 156,38 C156,30 124,4 80,4Z" fill="url(#sg2h)"/>
+            </svg>
+          </div>
+          <div class="pearl"></div>
+        </div>
+        <div class="card-label">
+          <span class="card-zh">記憶酷</span>
+          <span class="card-en">Interviews</span>
+          <span class="card-desc">採訪、場景筆記、文化紀錄</span>
+        </div>
+      </a>
+
+      <!-- 資料酷：禮盒 -->
+      <a href="directory.html" class="morph-card">
+        <div class="gift-scene">
+          <svg width="160" height="200" viewBox="0 0 160 200" xmlns="http://www.w3.org/2000/svg">
+            <defs>
+              <linearGradient id="boxg" x1="0%" y1="0%" x2="100%" y2="100%">
+                <stop offset="0%" stop-color="#fff" stop-opacity="0.9"/>
+                <stop offset="40%" stop-color="#a0e8de" stop-opacity="0.8"/>
+                <stop offset="100%" stop-color="#50c0b0" stop-opacity="0.85"/>
+              </linearGradient>
+              <linearGradient id="lidg" x1="0%" y1="0%" x2="100%" y2="100%">
+                <stop offset="0%" stop-color="#fff" stop-opacity="0.95"/>
+                <stop offset="50%" stop-color="#80d8cc" stop-opacity="0.85"/>
+                <stop offset="100%" stop-color="#40b0a0" stop-opacity="0.9"/>
+              </linearGradient>
+              <linearGradient id="ribv" x1="0%" y1="0%" x2="100%" y2="0%">
+                <stop offset="0%" stop-color="rgba(181,126,220,0.2)"/>
+                <stop offset="35%" stop-color="rgba(255,255,255,0.85)"/>
+                <stop offset="65%" stop-color="rgba(181,126,220,0.5)"/>
+                <stop offset="100%" stop-color="rgba(140,90,200,0.3)"/>
+              </linearGradient>
+              <linearGradient id="ribh" x1="0%" y1="0%" x2="0%" y2="100%">
+                <stop offset="0%" stop-color="rgba(181,126,220,0.25)"/>
+                <stop offset="35%" stop-color="rgba(255,255,255,0.85)"/>
+                <stop offset="65%" stop-color="rgba(181,126,220,0.45)"/>
+                <stop offset="100%" stop-color="rgba(140,90,200,0.3)"/>
+              </linearGradient>
+              <radialGradient id="bowg" cx="38%" cy="35%" r="65%">
+                <stop offset="0%" stop-color="#fff" stop-opacity="0.98"/>
+                <stop offset="30%" stop-color="#ddc0f5" stop-opacity="0.9"/>
+                <stop offset="65%" stop-color="#b57edc" stop-opacity="0.75"/>
+                <stop offset="100%" stop-color="#8040c0" stop-opacity="0.85"/>
+              </radialGradient>
+              <linearGradient id="lidhigh" x1="0%" y1="0%" x2="0%" y2="100%">
+                <stop offset="0%" stop-color="rgba(255,255,255,0.6)"/>
+                <stop offset="100%" stop-color="rgba(255,255,255,0)"/>
+              </linearGradient>
+            </defs>
+            <g class="gift-body-g">
+              <rect x="18" y="108" width="124" height="84" rx="6" fill="url(#boxg)"/>
+              <rect x="18" y="108" width="124" height="84" rx="6" fill="url(#lidhigh)" opacity="0.5"/>
+              <rect x="72" y="108" width="16" height="84" fill="url(#ribv)" opacity="0.9"/>
+            </g>
+            <g class="gift-lid-g" style="transform-origin:80px 108px;transition:transform 0.5s cubic-bezier(0.34,1.4,0.64,1);">
+              <rect x="12" y="96" width="136" height="16" rx="4" fill="url(#lidg)"/>
+              <rect x="12" y="96" width="136" height="16" rx="4" fill="url(#lidhigh)" opacity="0.5"/>
+              <rect x="12" y="96" width="136" height="16" rx="4" fill="url(#ribh)" opacity="0.9"/>
+            </g>
+            <g class="bow-g" style="transform-origin:80px 96px;transition:transform 0.45s cubic-bezier(0.34,1.56,0.64,1);">
+              <ellipse cx="52" cy="76" rx="26" ry="18" fill="url(#bowg)" transform="rotate(-20,52,76)"/>
+              <ellipse cx="108" cy="76" rx="26" ry="18" fill="url(#bowg)" transform="rotate(20,108,76)"/>
+              <circle cx="80" cy="82" r="11" fill="url(#bowg)"/>
+              <circle cx="80" cy="82" r="11" fill="rgba(255,255,255,0.35)"/>
+              <ellipse cx="48" cy="70" rx="10" ry="6" fill="rgba(255,255,255,0.5)" transform="rotate(-20,48,70)"/>
+              <ellipse cx="112" cy="70" rx="10" ry="6" fill="rgba(255,255,255,0.5)" transform="rotate(20,112,70)"/>
+            </g>
+          </svg>
+        </div>
+        <div class="card-label">
+          <span class="card-zh">資料酷</span>
+          <span class="card-en">Directory</span>
+          <span class="card-desc">創作者媒合，緣分是禮物</span>
+        </div>
+      </a>
+
+      <!-- 酷地方：路燈 -->
+      <a href="places.html" class="morph-card">
+        <div class="lamp-scene">
+          <div class="lamp-cone"></div>
+          <div class="lamp-glow"></div>
+          <div class="lamp-pole"></div>
+          <div class="lamp-arm"></div>
+          <div class="lamp-head"></div>
+          <div class="lamp-bulb"></div>
+        </div>
+        <div class="card-label">
+          <span class="card-zh">酷地方</span>
+          <span class="card-en">Places</span>
+          <span class="card-desc">場景地圖，點亮你的所在</span>
+        </div>
+      </a>
+
+    </div>
+
+    <div class="home-footer">
+      <span class="footer-contact">Contact｜qoolvoices@gmail.com</span>
+      <span class="footer-mark">Est. 2026 · Taipei</span>
+    </div>
+
   </div>
+</div>
 
-  <script>
-    const lidG = document.querySelector('.gift-lid-g');
-    const bowG = document.querySelector('.bow-g');
-    const card2 = document.querySelectorAll('.morph-card')[1];
+<script>
+  const lidG = document.querySelector('.gift-lid-g');
+  const bowG = document.querySelector('.bow-g');
+  const card2 = document.querySelectorAll('.morph-card')[1];
+  if (card2) {
+    card2.addEventListener('mouseenter', () => {
+      lidG.style.transform = 'rotate(-14deg) translateY(-22px)';
+      bowG.style.transform = 'translateY(-26px) scale(1.1)';
+    });
+    card2.addEventListener('mouseleave', () => {
+      lidG.style.transform = '';
+      bowG.style.transform = '';
+    });
+  }
+</script>
 
-    if (card2 && lidG && bowG) {
-      card2.addEventListener('mouseenter', () => {
-        lidG.style.transform = 'rotate(-14deg) translateY(-22px)';
-        bowG.style.transform = 'translateY(-26px) scale(1.1)';
-      });
-
-      card2.addEventListener('mouseleave', () => {
-        lidG.style.transform = '';
-        bowG.style.transform = '';
-      });
-    }
-  </script>
 </body>
 </html>
