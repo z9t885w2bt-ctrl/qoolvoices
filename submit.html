@@ -1,212 +1,359 @@
 <!DOCTYPE html>
 <html lang="zh-Hant">
-
 <head>
-<meta charset="UTF-8" />
-<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>加入資料酷｜Qool Voices 酷女聲</title>
+<link rel="stylesheet" href="style.css">
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Noto+Serif+TC:wght@700;900&family=Space+Mono:wght@400;700&display=swap');
 
-<title>加入資料酷｜Qool Voices</title>
+* { box-sizing: border-box; margin: 0; padding: 0; }
 
-<link rel="stylesheet" href="style.css" />
+body {
+  min-height: 100vh;
+  background:
+    radial-gradient(ellipse at 20% 15%, #d4c8e8 0%, transparent 52%),
+    radial-gradient(ellipse at 80% 60%, #b8e8e0 0%, transparent 48%),
+    radial-gradient(ellipse at 50% 95%, #e8d4b8 0%, transparent 44%),
+    #e8e2f0;
+  font-family: 'Space Mono', monospace;
+  overflow-x: hidden;
+  position: relative;
+}
 
+.orb { position: fixed; border-radius: 50%; pointer-events: none; z-index: 0; }
+.orb1 { width: 340px; height: 340px; top: -80px; right: -60px; background: radial-gradient(circle at 35% 35%, rgba(255,255,255,0.8) 0%, rgba(181,126,220,0.35) 40%, rgba(99,214,198,0.2) 70%, transparent 85%); }
+.orb2 { width: 220px; height: 220px; bottom: 10%; left: -50px; background: radial-gradient(circle at 40% 35%, rgba(255,255,255,0.75) 0%, rgba(99,214,198,0.35) 45%, transparent 80%); }
+
+.page-wrap { position: relative; z-index: 1; max-width: 1100px; margin: 0 auto; padding: 0 36px 100px; }
+
+/* NAV */
+nav {
+  display: flex; justify-content: space-between; align-items: center;
+  padding: 28px 36px; margin: 0 -36px; position: sticky; top: 0;
+  background: rgba(232,226,240,0.75); backdrop-filter: blur(14px); -webkit-backdrop-filter: blur(14px);
+  z-index: 50; border-bottom: 1px solid rgba(181,126,220,0.18);
+}
+.nav-logo { text-decoration: none; display: flex; align-items: baseline; gap: 10px; }
+.nav-logo-zh {
+  font-family: 'Noto Serif TC', serif; font-size: 18px; font-weight: 900;
+  background: linear-gradient(135deg, #2a0a4a, #7a4aaa, #2a6a60);
+  -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;
+}
+.nav-logo-en { font-size: 10px; font-weight: 700; letter-spacing: 2.5px; text-transform: uppercase; color: #5a3a8a; opacity: 0.6; }
+.nav-links { display: flex; gap: 6px; list-style: none; }
+.nav-links a {
+  font-size: 10px; font-weight: 700; letter-spacing: 2px; text-transform: uppercase;
+  text-decoration: none; color: #3a2a5a; padding: 6px 13px;
+  border: 1.5px solid rgba(181,126,220,0.3); border-radius: 2px;
+  background: rgba(255,255,255,0.35); box-shadow: inset 0 1px 0 rgba(255,255,255,0.7); transition: all 0.2s;
+}
+.nav-links a:hover { background: rgba(255,255,255,0.6); border-color: rgba(181,126,220,0.6); color: #5a2a9a; }
+.nav-links a.active {
+  background: linear-gradient(135deg, rgba(181,126,220,0.25), rgba(99,214,198,0.15));
+  border-color: rgba(181,126,220,0.55); color: #5a2a9a;
+}
+
+/* PAGE HEADER */
+.page-header { padding: 52px 0 40px; max-width: 640px; }
+.page-label {
+  font-size: 10px; font-weight: 700; letter-spacing: 3px; text-transform: uppercase;
+  color: #9a6abf; display: flex; align-items: center; gap: 10px; margin-bottom: 16px;
+}
+.page-label::after { content: ''; flex: 1; max-width: 120px; height: 1px; background: linear-gradient(90deg, rgba(181,126,220,0.6), transparent); }
+.page-title {
+  font-family: 'Noto Serif TC', serif; font-size: clamp(36px, 6vw, 60px);
+  font-weight: 900; line-height: 1; letter-spacing: 4px;
+  background: linear-gradient(160deg, #2a0a4a 0%, #7a4aaa 45%, #2a6a60 85%);
+  -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;
+  margin-bottom: 14px;
+}
+.page-desc {
+  font-size: 12px; color: rgba(40,20,70,0.5); line-height: 1.8;
+  font-family: Arial, sans-serif; max-width: 480px;
+}
+
+/* FORM CARD */
+.form-card {
+  background: linear-gradient(135deg, rgba(255,255,255,0.65), rgba(232,210,248,0.35), rgba(200,240,234,0.22));
+  border: 1px solid rgba(255,255,255,0.88);
+  border-radius: 4px;
+  box-shadow: inset 0 1px 0 rgba(255,255,255,0.88), 0 8px 32px rgba(100,50,150,0.09);
+  padding: 48px 52px;
+  max-width: 640px;
+}
+
+/* FORM ELEMENTS */
+.form-group {
+  display: flex; flex-direction: column; gap: 6px; margin-bottom: 24px;
+}
+
+.form-label {
+  font-size: 9px; font-weight: 700; letter-spacing: 2.5px; text-transform: uppercase;
+  color: #7a4aaa;
+}
+
+.form-input, .form-textarea {
+  font-family: 'Space Mono', monospace; font-size: 12px;
+  color: #2a1a3a; background: rgba(255,255,255,0.55);
+  border: 1.5px solid rgba(181,126,220,0.28); border-radius: 2px;
+  padding: 10px 14px; transition: border-color 0.2s, background 0.2s;
+  width: 100%;
+}
+.form-input:focus, .form-textarea:focus {
+  outline: none; border-color: rgba(181,126,220,0.6);
+  background: rgba(255,255,255,0.75);
+}
+.form-input::placeholder, .form-textarea::placeholder { color: rgba(40,20,70,0.28); }
+.form-textarea { resize: vertical; min-height: 100px; line-height: 1.7; }
+
+.form-help {
+  font-size: 9px; color: rgba(40,20,70,0.38); font-family: Arial, sans-serif;
+  line-height: 1.6; letter-spacing: 0;
+}
+
+/* DETAILS / ACCORDION */
+.form-details {
+  margin-bottom: 24px;
+  border: 1.5px solid rgba(181,126,220,0.25); border-radius: 2px;
+  background: rgba(255,255,255,0.38); overflow: hidden;
+}
+
+.form-details summary {
+  font-size: 9px; font-weight: 700; letter-spacing: 2.5px; text-transform: uppercase;
+  color: #7a4aaa; padding: 12px 16px; cursor: pointer; list-style: none;
+  display: flex; justify-content: space-between; align-items: center;
+  user-select: none; transition: background 0.2s;
+}
+.form-details summary::-webkit-details-marker { display: none; }
+.form-details summary::after { content: '＋'; font-size: 14px; font-weight: 400; opacity: 0.6; }
+.form-details[open] summary::after { content: '－'; }
+.form-details summary:hover { background: rgba(181,126,220,0.08); }
+
+.checkbox-group {
+  padding: 12px 16px 16px;
+  display: grid; grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+  gap: 6px;
+  border-top: 1px solid rgba(181,126,220,0.15);
+}
+
+.checkbox-group label {
+  display: flex; align-items: center; gap: 8px;
+  font-size: 11px; color: rgba(40,20,70,0.65);
+  font-family: Arial, sans-serif; cursor: pointer;
+  padding: 4px 6px; border-radius: 2px; transition: background 0.15s;
+}
+.checkbox-group label:hover { background: rgba(181,126,220,0.08); }
+
+.checkbox-group input[type="checkbox"] {
+  accent-color: #7a4aaa; width: 14px; height: 14px; flex-shrink: 0; cursor: pointer;
+}
+
+/* CONSENT */
+.consent-label {
+  display: flex; align-items: flex-start; gap: 10px;
+  font-size: 11px; color: rgba(40,20,70,0.6); font-family: Arial, sans-serif;
+  line-height: 1.6; cursor: pointer; margin-bottom: 16px;
+}
+.consent-label input[type="checkbox"] {
+  accent-color: #7a4aaa; width: 14px; height: 14px; flex-shrink: 0; margin-top: 3px; cursor: pointer;
+}
+
+/* DIVIDER */
+.form-divider {
+  height: 1px; background: rgba(181,126,220,0.15); margin: 8px 0 24px;
+}
+
+/* SUBMIT BUTTON */
+#submitBtn {
+  font-family: 'Space Mono', monospace; font-size: 11px; font-weight: 700;
+  letter-spacing: 2.5px; text-transform: uppercase;
+  width: 100%; padding: 14px 20px;
+  background: linear-gradient(135deg, rgba(181,126,220,0.3), rgba(99,214,198,0.22));
+  border: 1.5px solid rgba(181,126,220,0.5); border-radius: 2px; color: #3a1a6a;
+  box-shadow: inset 0 1px 0 rgba(255,255,255,0.8), 0 4px 16px rgba(181,126,220,0.15);
+  cursor: pointer; transition: all 0.2s;
+}
+#submitBtn:hover {
+  background: linear-gradient(135deg, rgba(181,126,220,0.45), rgba(99,214,198,0.32));
+  border-color: rgba(181,126,220,0.7);
+  box-shadow: inset 0 1px 0 rgba(255,255,255,0.9), 0 6px 24px rgba(181,126,220,0.22);
+}
+#submitBtn:disabled { opacity: 0.5; cursor: not-allowed; }
+
+/* FORM MESSAGE */
+#formMessage {
+  margin-top: 16px; font-size: 11px; font-family: Arial, sans-serif;
+  line-height: 1.6; text-align: center; min-height: 20px;
+  color: rgba(40,20,70,0.55);
+}
+#formMessage.success { color: #2a7a5a; }
+#formMessage.error   { color: #8a2a2a; }
+
+/* FOOTER */
+footer { margin-top: 72px; padding-top: 20px; border-top: 1px solid rgba(181,126,220,0.28); display: flex; justify-content: space-between; align-items: center; }
+.footer-contact { font-size: 12px; letter-spacing: 1px; color: #5a6a68; }
+.footer-mark { font-size: 10px; letter-spacing: 2px; text-transform: uppercase; color: rgba(90,60,130,0.4); font-style: italic; }
+
+@keyframes fadeUp { from { opacity: 0; transform: translateY(18px); } to { opacity: 1; transform: translateY(0); } }
+.page-header { animation: fadeUp 0.5s ease both; }
+.form-card   { animation: fadeUp 0.5s 0.1s ease both; }
+
+@media (max-width: 680px) {
+  nav { padding: 18px 24px; margin: 0 -24px; }
+  .page-wrap { padding: 0 24px 72px; }
+  .form-card { padding: 28px 24px; }
+  .checkbox-group { grid-template-columns: 1fr 1fr; }
+  footer { flex-direction: column; gap: 8px; text-align: center; }
+  .nav-links a { font-size: 9px; padding: 5px 9px; letter-spacing: 1.5px; }
+}
+</style>
 </head>
 
+<!-- ★ data-page="submit" 必須保留，script.js 靠這個執行送出邏輯 -->
 <body data-page="submit">
 
-<header class="site-header">
+<div class="orb orb1"></div>
+<div class="orb orb2"></div>
 
-<div class="nav-wrap">
-
-<a href="index.html" class="logo-link">
-
-<div class="logo-slot">LOGO</div>
-
-<div class="brand-block">
-<p class="brand-en">Qool Voices</p>
-<h1 class="brand-zh">酷女聲</h1>
-</div>
-
-</a>
-
-<nav class="main-nav">
-<a href="about.html">About</a>
-<a href="interviews.html">Interviews</a>
-<a href="directory.html">Directory</a>
+<nav>
+  <a href="index.html" class="nav-logo">
+    <span class="nav-logo-zh">酷女聲</span>
+    <span class="nav-logo-en">Qool Voices</span>
+  </a>
+  <ul class="nav-links">
+    <li><a href="about.html">About</a></li>
+    <li><a href="interviews.html">Interviews</a></li>
+    <li><a href="directory.html">Directory</a></li>
+    <li><a href="places.html">Places</a></li>
+  </ul>
 </nav>
 
+<div class="page-wrap">
+
+  <header class="page-header">
+    <p class="page-label">Join Directory</p>
+    <h1 class="page-title">加入資料酷</h1>
+    <p class="page-desc">填寫資料後，酷女聲會進行審核，通過後你的資料會出現在資料酷中。</p>
+  </header>
+
+  <!-- ★ id="submitForm" 必須保留，script.js 靠這個抓 submit 事件 -->
+  <form id="submitForm" class="form-card">
+
+    <!-- 名字 -->
+    <div class="form-group">
+      <label class="form-label" for="name">名字 / 藝名</label>
+      <input class="form-input" type="text" id="name" name="name" required placeholder="你的名字或藝名">
+    </div>
+
+    <!-- 活動地區 -->
+    <details class="form-details" name="regions-section">
+      <summary>活動地區（可複選）</summary>
+      <div class="checkbox-group">
+        <label><input type="checkbox" name="regions" value="north"> 北部</label>
+        <label><input type="checkbox" name="regions" value="middle"> 中部</label>
+        <label><input type="checkbox" name="regions" value="south"> 南部</label>
+        <label><input type="checkbox" name="regions" value="east"> 東部</label>
+        <label><input type="checkbox" name="regions" value="outer_islands"> 離島</label>
+        <label><input type="checkbox" name="regions" value="abroad"> 非臺灣國家</label>
+      </div>
+    </details>
+
+    <!-- 職能 -->
+    <details class="form-details" name="roles-section">
+      <summary>職能（可複選）</summary>
+      <div class="checkbox-group">
+        <label><input type="checkbox" name="roles" value="Singer"> 歌手 Singer</label>
+        <label><input type="checkbox" name="roles" value="Rapper"> 饒舌 Rapper</label>
+        <label><input type="checkbox" name="roles" value="Instrumentalist"> 樂手 Instrumentalist</label>
+        <label><input type="checkbox" name="roles" value="DJ"> DJ</label>
+        <label><input type="checkbox" name="roles" value="Songwriter"> 作曲 Songwriter</label>
+        <label><input type="checkbox" name="roles" value="Lyricist"> 作詞 Lyricist</label>
+        <label><input type="checkbox" name="roles" value="Producer"> 製作人 Producer</label>
+        <label><input type="checkbox" name="roles" value="Recording Engineer"> 錄音 Recording Engineer</label>
+        <label><input type="checkbox" name="roles" value="Mixing Engineer"> 混音 Mixing Engineer</label>
+        <label><input type="checkbox" name="roles" value="Mastering Engineer"> 母帶 Mastering Engineer</label>
+        <label><input type="checkbox" name="roles" value="Live Sound Engineer"> 音響技師 Live Sound Engineer</label>
+        <label><input type="checkbox" name="roles" value="Instrument Tech"> 樂器技師 Instrument Tech</label>
+        <label><input type="checkbox" name="roles" value="Lighting"> 燈光 Lighting</label>
+        <label><input type="checkbox" name="roles" value="Photographer"> 攝影 Photographer</label>
+        <label><input type="checkbox" name="roles" value="Visual Artist"> 視覺 Visual Artist</label>
+        <label><input type="checkbox" name="roles" value="Director"> 導演 Director</label>
+        <label><input type="checkbox" name="roles" value="Video Creator"> 影像創作 Video Creator</label>
+        <label><input type="checkbox" name="roles" value="Video Editor"> 剪輯 Video Editor</label>
+        <label><input type="checkbox" name="roles" value="Management"> 經紀 Management</label>
+        <label><input type="checkbox" name="roles" value="Marketing"> 行銷 Marketing</label>
+        <label><input type="checkbox" name="roles" value="Event Organizer"> 活動企劃 Event Organizer</label>
+        <label><input type="checkbox" name="roles" value="Music Education"> 音樂教學 Music Education</label>
+      </div>
+    </details>
+
+    <!-- 場景 -->
+    <details class="form-details" name="scene-section">
+      <summary>活躍場景（可複選）</summary>
+      <div class="checkbox-group">
+        <label><input type="checkbox" name="sceneAffiliation" value="Live House"> Live House</label>
+        <label><input type="checkbox" name="sceneAffiliation" value="Indie Scene"> Indie Scene</label>
+        <label><input type="checkbox" name="sceneAffiliation" value="Club / Party"> Club / Party</label>
+        <label><input type="checkbox" name="sceneAffiliation" value="Electronic Scene"> Electronic Scene</label>
+        <label><input type="checkbox" name="sceneAffiliation" value="Experimental Scene"> Experimental Scene</label>
+        <label><input type="checkbox" name="sceneAffiliation" value="DIY / Underground"> DIY / Underground</label>
+        <label><input type="checkbox" name="sceneAffiliation" value="Queer Party Scene"> Queer Party Scene</label>
+      </div>
+    </details>
+
+    <div class="form-divider"></div>
+
+    <!-- 自我介紹 -->
+    <div class="form-group">
+      <label class="form-label" for="bio">自我介紹</label>
+      <textarea class="form-textarea" id="bio" name="bio" rows="5" placeholder="讓大家知道跟你一起工作有多好玩！"></textarea>
+    </div>
+
+    <!-- 聯絡連結 -->
+    <div class="form-group">
+      <label class="form-label" for="contact_link">聯絡連結</label>
+      <input class="form-input" type="url" id="contact_link" name="contact_link" placeholder="https://instagram.com/yourname">
+      <span class="form-help">請提供一個可以聯絡你的連結，例如 IG、官網、Linktree 或其他聯絡頁面。</span>
+    </div>
+
+    <!-- Email -->
+    <div class="form-group">
+      <label class="form-label" for="email">電子信箱 Email <span style="opacity:0.45;font-weight:400">（選填）</span></label>
+      <input class="form-input" type="email" id="email" name="email" placeholder="yourname@example.com">
+      <span class="form-help">Email 不會公開顯示，只用於活動與合作通知。</span>
+    </div>
+
+    <div class="form-divider"></div>
+
+    <!-- Mailing list -->
+    <label class="consent-label">
+      <input type="checkbox" name="join_mailing_list">
+      我願意加入酷女聲 mailing list（如果勾選，請在資料填寫後注意電子信箱發送的邀請）
+    </label>
+
+    <!-- 同意公開 -->
+    <label class="consent-label">
+      <input type="checkbox" name="consent_public" required>
+      我同意酷女聲公開我的資料
+    </label>
+
+    <button type="submit" id="submitBtn">送出資料</button>
+
+    <!-- ★ id="formMessage" 必須保留，script.js 靠這個顯示送出狀態 -->
+    <p id="formMessage"></p>
+
+  </form>
+
+  <footer>
+    <span class="footer-contact">Contact｜qoolvoices@gmail.com</span>
+    <span class="footer-mark">Est. 2026 · Taipei</span>
+  </footer>
+
 </div>
 
-</header>
-
-
-<main class="page-content">
-
-<section class="content-card form-card">
-
-<p class="section-label">Join Directory</p>
-
-<h2>加入資料酷</h2>
-
-<p class="section-intro">
-填寫資料後，酷女聲會進行審核，
-通過後你的資料會出現在 資料酷 中。
-</p>
-
-
-<form id="submitForm" class="profile-form">
-
-<label>
-名字 / 藝名
-<input type="text" name="name" required>
-</label>
-
-
-<details class="form-section">
-
-<summary>活動地區（可複選）</summary>
-
-<div class="checkbox-group">
-
-<label><input type="checkbox" name="regions" value="north"> 北部</label>
-<label><input type="checkbox" name="regions" value="middle"> 中部</label>
-<label><input type="checkbox" name="regions" value="south"> 南部</label>
-<label><input type="checkbox" name="regions" value="east"> 東部</label>
-<label><input type="checkbox" name="regions" value="outer_islands"> 離島</label>
-<label><input type="checkbox" name="regions" value="abroad"> 非臺灣國家</label>
-
-</div>
-
-</details>
-
-
-<details class="form-section">
-
-<summary>職能（可複選）</summary>
-
-<div class="checkbox-group">
-
-<label><input type="checkbox" name="roles" value="Singer"> 歌手 Singer</label>
-<label><input type="checkbox" name="roles" value="Rapper"> 饒舌 Rapper</label>
-<label><input type="checkbox" name="roles" value="Instrumentalist"> 樂手 Instrumentalist</label>
-<label><input type="checkbox" name="roles" value="DJ"> DJ</label>
-<label><input type="checkbox" name="roles" value="Songwriter"> 作曲 Songwriter</label>
-<label><input type="checkbox" name="roles" value="Lyricist"> 作詞 Lyricist</label>
-
-<label><input type="checkbox" name="roles" value="Producer"> 製作人 Producer</label>
-<label><input type="checkbox" name="roles" value="Recording Engineer"> 錄音 Recording Engineer</label>
-<label><input type="checkbox" name="roles" value="Mixing Engineer"> 混音 Mixing Engineer</label>
-<label><input type="checkbox" name="roles" value="Mastering Engineer"> 母帶 Mastering Engineer</label>
-
-<label><input type="checkbox" name="roles" value="Live Sound Engineer"> 音響技師 Live Sound Engineer</label>
-<label><input type="checkbox" name="roles" value="Instrument Tech"> 樂器技師 Instrument Tech</label>
-<label><input type="checkbox" name="roles" value="Lighting"> 燈光 Lighting</label>
-
-<label><input type="checkbox" name="roles" value="Photographer"> 攝影 Photographer</label>
-<label><input type="checkbox" name="roles" value="Visual Artist"> 視覺 Visual Artist</label>
-<label><input type="checkbox" name="roles" value="Director"> 導演 Director</label>
-<label><input type="checkbox" name="roles" value="Video Creator"> 影像創作 Video Creator</label>
-<label><input type="checkbox" name="roles" value="Video Editor"> 剪輯 Video Editor</label>
-
-<label><input type="checkbox" name="roles" value="Management"> 經紀 Management</label>
-<label><input type="checkbox" name="roles" value="Marketing"> 行銷 Marketing</label>
-<label><input type="checkbox" name="roles" value="Event Organizer"> 活動企劃 Event Organizer</label>
-<label><input type="checkbox" name="roles" value="Music Education"> 音樂教學 Music Education</label>
-
-</div>
-
-</details>
-
-
-<details class="form-section">
-
-<summary>活躍場景（可複選）</summary>
-
-<div class="checkbox-group">
-
-<label><input type="checkbox" name="sceneAffiliation" value="Live House"> Live House</label>
-<label><input type="checkbox" name="sceneAffiliation" value="Indie Scene"> Indie Scene</label>
-<label><input type="checkbox" name="sceneAffiliation" value="Club / Party"> Club / Party</label>
-<label><input type="checkbox" name="sceneAffiliation" value="Electronic Scene"> Electronic Scene</label>
-<label><input type="checkbox" name="sceneAffiliation" value="Experimental Scene"> Experimental Scene</label>
-<label><input type="checkbox" name="sceneAffiliation" value="DIY / Underground"> DIY / Underground</label>
-<label><input type="checkbox" name="sceneAffiliation" value="Queer Party Scene"> Queer Party Scene</label>
-
-</div>
-
-</details>
-
-
-<label>
-自我介紹（讓大家知道跟你一起工作有多好玩！）
-<textarea name="bio" rows="5"></textarea>
-</label>
-
-
-<label>
-聯絡連結
-<input
-  type="url"
-  name="contact_link"
-  placeholder="https://instagram.com/yourname">
-<small class="form-help">
-  請提供一個可以聯絡你的連結，例如 IG、官網、Linktree 或其他聯絡頁面。
-</small>
-</label>
-
-
-<!-- 新增 Email -->
-<label>
-電子信箱 Email（選填）
-<input
-  type="email"
-  name="email"
-  placeholder="yourname@example.com">
-<small class="form-help">
-  Email 不會公開顯示，只用於活動與合作通知。
-</small>
-</label>
-
-
-<!-- 新增 mailing list -->
-<label class="consent-check">
-<input type="checkbox" name="join_mailing_list">
-我願意加入酷女聲 mailing list(如果勾選願意，請在資料填寫後注意電子信箱發送的邀請)
-</label>
-
-
-<label class="consent-check">
-
-<input type="checkbox" name="consent_public" required>
-
-我同意酷女聲公開我的資料
-
-</label>
-
-
-<button type="submit" class="cta-button">
-送出資料
-</button>
-
-
-<p id="formMessage"></p>
-
-
-</form>
-
-
-</section>
-
-</main>
-
-
-<footer class="site-footer">
-<div class="footer-inner">
-<p class="footer-contact">
-Contact｜qoolvoices@gmail.com
-</p>
-</div>
-</footer>
-
+<!-- ★ script.js 完全不動，負責 Supabase 送出 -->
 <script src="script.js?v=3"></script>
 
 </body>
