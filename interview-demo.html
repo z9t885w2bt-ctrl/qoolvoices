@@ -1,59 +1,322 @@
 <!DOCTYPE html>
 <html lang="zh-Hant">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>在舞台邊緣發光的人｜Qool Voices</title>
-  <link rel="stylesheet" href="style.css" />
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>在舞台邊緣發光的人｜Qool Voices 酷女聲</title>
+<link rel="stylesheet" href="style.css">
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Noto+Serif+TC:wght@400;700;900&family=Space+Mono:wght@400;700&display=swap');
+
+* { box-sizing: border-box; margin: 0; padding: 0; }
+
+body {
+  min-height: 100vh;
+  background:
+    radial-gradient(ellipse at 20% 15%, #d4c8e8 0%, transparent 52%),
+    radial-gradient(ellipse at 80% 60%, #b8e8e0 0%, transparent 48%),
+    radial-gradient(ellipse at 50% 95%, #e8d4b8 0%, transparent 44%),
+    #e8e2f0;
+  font-family: 'Space Mono', monospace;
+  overflow-x: hidden;
+  position: relative;
+}
+
+.orb { position: fixed; border-radius: 50%; pointer-events: none; z-index: 0; }
+.orb1 { width: 340px; height: 340px; top: -80px; right: -60px; background: radial-gradient(circle at 35% 35%, rgba(255,255,255,0.8) 0%, rgba(181,126,220,0.35) 40%, rgba(99,214,198,0.2) 70%, transparent 85%); }
+.orb2 { width: 220px; height: 220px; bottom: 10%; left: -50px; background: radial-gradient(circle at 40% 35%, rgba(255,255,255,0.75) 0%, rgba(99,214,198,0.35) 45%, transparent 80%); }
+
+.page-wrap { position: relative; z-index: 1; max-width: 1100px; margin: 0 auto; padding: 0 36px 100px; }
+
+/* NAV */
+nav {
+  display: flex; justify-content: space-between; align-items: center;
+  padding: 28px 36px; margin: 0 -36px; position: sticky; top: 0;
+  background: rgba(232,226,240,0.75); backdrop-filter: blur(14px); -webkit-backdrop-filter: blur(14px);
+  z-index: 50; border-bottom: 1px solid rgba(181,126,220,0.18);
+}
+.nav-logo { text-decoration: none; display: flex; align-items: baseline; gap: 10px; }
+.nav-logo-zh {
+  font-family: 'Noto Serif TC', serif; font-size: 18px; font-weight: 900;
+  background: linear-gradient(135deg, #2a0a4a, #7a4aaa, #2a6a60);
+  -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;
+}
+.nav-logo-en { font-size: 10px; font-weight: 700; letter-spacing: 2.5px; text-transform: uppercase; color: #5a3a8a; opacity: 0.6; }
+.nav-links { display: flex; gap: 6px; list-style: none; }
+.nav-links a {
+  font-size: 10px; font-weight: 700; letter-spacing: 2px; text-transform: uppercase;
+  text-decoration: none; color: #3a2a5a; padding: 6px 13px;
+  border: 1.5px solid rgba(181,126,220,0.3); border-radius: 2px;
+  background: rgba(255,255,255,0.35); box-shadow: inset 0 1px 0 rgba(255,255,255,0.7); transition: all 0.2s;
+}
+.nav-links a:hover { background: rgba(255,255,255,0.6); border-color: rgba(181,126,220,0.6); color: #5a2a9a; }
+.nav-links a.active {
+  background: linear-gradient(135deg, rgba(181,126,220,0.25), rgba(99,214,198,0.15));
+  border-color: rgba(181,126,220,0.55); color: #5a2a9a;
+}
+
+/* ── ARTICLE LAYOUT ── */
+.article-wrap {
+  max-width: 720px;
+  margin: 0 auto;
+  padding: 56px 0 0;
+}
+
+/* BACK LINK */
+.back-link {
+  display: inline-flex; align-items: center; gap: 6px;
+  font-size: 9px; font-weight: 700; letter-spacing: 2px; text-transform: uppercase;
+  text-decoration: none; color: #9a6abf;
+  margin-bottom: 36px;
+  transition: gap 0.2s, color 0.2s;
+}
+.back-link:hover { gap: 10px; color: #5a2a9a; }
+.back-link::before { content: '←'; font-size: 11px; }
+
+/* ARTICLE HEADER */
+.article-header { margin-bottom: 40px; }
+
+.article-type {
+  display: inline-block; font-family: 'Space Mono', monospace; font-size: 8px;
+  font-weight: 700; letter-spacing: 2.5px; text-transform: uppercase;
+  padding: 3px 10px; border-radius: 2px; margin-bottom: 16px;
+  background: rgba(181,126,220,0.18); color: #7a3aaa; border: 1px solid rgba(181,126,220,0.32);
+}
+
+.article-title {
+  font-family: 'Noto Serif TC', serif;
+  font-size: clamp(28px, 5vw, 48px);
+  font-weight: 900;
+  line-height: 1.2;
+  letter-spacing: 2px;
+  background: linear-gradient(160deg, #2a0a4a 0%, #7a4aaa 50%, #2a6a60 90%);
+  -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;
+  margin-bottom: 16px;
+}
+
+.article-meta {
+  display: flex; align-items: center; gap: 16px; flex-wrap: wrap;
+  font-size: 9px; font-weight: 700; letter-spacing: 2px; text-transform: uppercase;
+  color: rgba(40,20,70,0.38);
+}
+
+.article-meta-divider { opacity: 0.3; }
+
+/* COVER IMAGE */
+.article-cover {
+  width: 100%; aspect-ratio: 16/9; border-radius: 4px; margin-bottom: 40px;
+  overflow: hidden;
+  border: 1px solid rgba(255,255,255,0.85);
+  box-shadow: inset 0 1px 0 rgba(255,255,255,0.88), 0 8px 32px rgba(100,50,150,0.1);
+}
+
+.article-cover img {
+  width: 100%; height: 100%; object-fit: cover;
+  filter: saturate(0.88);
+}
+
+/* gradient cover fallback */
+.cover-gradient {
+  width: 100%; height: 100%;
+  background: linear-gradient(135deg, #d4c8e8 0%, #b8dce0 40%, #e8d4c0 80%, #d0c8e8 100%);
+  display: flex; align-items: center; justify-content: center;
+  font-family: 'Noto Serif TC', serif; font-size: 48px; font-weight: 900;
+  opacity: 0.3; letter-spacing: 4px; color: #5a3a8a;
+}
+
+/* ARTICLE BODY */
+.article-body {
+  background: linear-gradient(135deg, rgba(255,255,255,0.62), rgba(232,210,248,0.32), rgba(200,240,234,0.2));
+  border: 1px solid rgba(255,255,255,0.88);
+  border-radius: 4px;
+  box-shadow: inset 0 1px 0 rgba(255,255,255,0.88), 0 8px 28px rgba(100,50,150,0.08);
+  padding: 48px 52px;
+}
+
+.article-body p {
+  font-family: 'Noto Serif TC', serif;
+  font-size: 16px;
+  line-height: 2;
+  color: #2a1a3a;
+  margin-bottom: 24px;
+  font-weight: 400;
+}
+
+.article-body p:last-child { margin-bottom: 0; }
+
+/* pull quote */
+.article-body blockquote {
+  margin: 32px 0;
+  padding: 24px 28px;
+  background: linear-gradient(135deg, rgba(181,126,220,0.1), rgba(99,214,198,0.08));
+  border-left: 3px solid rgba(181,126,220,0.55);
+  border-radius: 0 4px 4px 0;
+}
+
+.article-body blockquote p {
+  font-family: 'Noto Serif TC', serif;
+  font-size: 18px; font-weight: 700;
+  color: #4a2a7a; line-height: 1.7;
+  margin-bottom: 0; font-style: italic;
+}
+
+/* section divider */
+.article-body hr {
+  border: none; border-top: 1px solid rgba(181,126,220,0.2); margin: 36px 0;
+}
+
+/* interview Q&A style */
+.article-body .qa-q {
+  font-family: 'Space Mono', monospace; font-size: 10px; font-weight: 700;
+  letter-spacing: 2px; text-transform: uppercase; color: #9a6abf;
+  margin-bottom: 6px; margin-top: 28px;
+}
+
+.article-body .qa-a {
+  font-family: 'Noto Serif TC', serif; font-size: 16px; line-height: 2;
+  color: #2a1a3a; margin-bottom: 0; padding-left: 16px;
+  border-left: 2px solid rgba(181,126,220,0.25);
+}
+
+/* ARTICLE FOOTER */
+.article-footer {
+  margin-top: 48px;
+  padding-top: 28px;
+  border-top: 1px solid rgba(181,126,220,0.18);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 16px;
+}
+
+.article-tags { display: flex; gap: 6px; flex-wrap: wrap; }
+.article-tag {
+  font-size: 8px; font-weight: 700; letter-spacing: 2px; text-transform: uppercase;
+  padding: 3px 10px; border-radius: 2px;
+  background: rgba(181,126,220,0.12); color: #7a3aaa; border: 1px solid rgba(181,126,220,0.25);
+}
+
+.back-link-bottom {
+  display: inline-flex; align-items: center; gap: 6px;
+  font-size: 9px; font-weight: 700; letter-spacing: 2px; text-transform: uppercase;
+  text-decoration: none; color: #9a6abf; transition: gap 0.2s, color 0.2s;
+}
+.back-link-bottom:hover { gap: 10px; color: #5a2a9a; }
+.back-link-bottom::before { content: '←'; font-size: 11px; }
+
+/* FOOTER */
+footer { margin-top: 72px; padding-top: 20px; border-top: 1px solid rgba(181,126,220,0.28); display: flex; justify-content: space-between; align-items: center; }
+.footer-contact { font-size: 12px; letter-spacing: 1px; color: #5a6a68; }
+.footer-mark { font-size: 10px; letter-spacing: 2px; text-transform: uppercase; color: rgba(90,60,130,0.4); font-style: italic; }
+
+/* ANIMATIONS */
+@keyframes fadeUp { from { opacity: 0; transform: translateY(18px); } to { opacity: 1; transform: translateY(0); } }
+.article-wrap { animation: fadeUp 0.5s ease both; }
+
+/* RESPONSIVE */
+@media (max-width: 680px) {
+  nav { padding: 18px 24px; margin: 0 -24px; }
+  .page-wrap { padding: 0 24px 72px; }
+  .article-wrap { padding: 40px 0 0; }
+  .article-body { padding: 28px 24px; }
+  footer { flex-direction: column; gap: 8px; text-align: center; }
+  .nav-links a { font-size: 9px; padding: 5px 9px; letter-spacing: 1.5px; }
+  .article-footer { flex-direction: column; align-items: flex-start; }
+}
+</style>
 </head>
 <body>
-  <header class="site-header">
-    <div class="nav-wrap">
-      <a href="index.html" class="logo-link">
-        <div class="logo-slot">LOGO</div>
-        <div class="brand-block">
-          <p class="brand-en">Qool Voices</p>
-          <h1 class="brand-zh">酷女聲</h1>
-        </div>
-      </a>
 
-      <nav class="main-nav">
-        <a href="about.html">About</a>
-        <a href="interviews.html" class="active-nav">Interviews</a>
-        <a href="directory.html">Directory</a>
-      </nav>
+<div class="orb orb1"></div>
+<div class="orb orb2"></div>
+
+<nav>
+  <a href="index.html" class="nav-logo">
+    <span class="nav-logo-zh">酷女聲</span>
+    <span class="nav-logo-en">Qool Voices</span>
+  </a>
+  <ul class="nav-links">
+    <li><a href="about.html">About</a></li>
+    <li><a href="interviews.html" class="active">Interviews</a></li>
+    <li><a href="directory.html">Directory</a></li>
+    <li><a href="places.html">Places</a></li>
+  </ul>
+</nav>
+
+<div class="page-wrap">
+  <div class="article-wrap">
+
+    <a href="interviews.html" class="back-link">回到記憶酷</a>
+
+    <header class="article-header">
+      <span class="article-type">Interview</span>
+      <h1 class="article-title">在舞台邊緣發光的人</h1>
+      <div class="article-meta">
+        <span>2026</span>
+        <span class="article-meta-divider">·</span>
+        <span>Qool Voices</span>
+        <span class="article-meta-divider">·</span>
+        <span>示範文章頁</span>
+      </div>
+    </header>
+
+    <!-- 封面圖：有圖片就換 src，沒圖片 gradient 會顯示 -->
+    <div class="article-cover">
+      <img src="images/tan.jpg" alt="在舞台邊緣發光的人"
+           onerror="this.style.display='none';this.nextElementSibling.style.display='flex'">
+      <div class="cover-gradient" style="display:none">酷女聲</div>
     </div>
-  </header>
 
-  <main class="page-content">
-    <section class="article-card">
-      <p class="section-label">Interview</p>
-      <h2>在舞台邊緣發光的人</h2>
-      <p class="article-meta">示範文章頁</p>
-
-      <div class="article-cover gradient-one"></div>
+    <div class="article-body">
 
       <p>
         這裡是單獨文章頁的樣子。你之後可以把這裡換成真正的採訪內容，
         包括受訪者故事、創作歷程、場景經驗、生存策略與你的田野觀察。
       </p>
 
-      <p>
-        你之後如果要新增文章，最簡單的方法就是複製這個檔案，
-        然後改檔名、改標題、改內文。
+      <!-- Q&A 格式範例 -->
+      <p class="qa-q">Q · 你是怎麼開始進入音樂場景的？</p>
+      <p class="qa-a">
+        這裡放受訪者的回答。字體用 Noto Serif TC，行距寬一點，讀起來舒服。
+        可以很長，也可以很短。
       </p>
 
-      <a href="interviews.html" class="back-link">← 回到記憶酷</a>
-    </section>
-  </main>
-  <footer class="site-footer">
-  <div class="footer-inner">
+      <p class="qa-q">Q · 在場景裡身為女性或酷兒，有什麼特別的經驗？</p>
+      <p class="qa-a">
+        第二個問題的回答放這裡。每組 Q&amp;A 之間會自動有間距。
+      </p>
 
-    <p class="footer-contact">
-      Contact｜qoolvoices@gmail.com
-    </p>
+      <hr>
+
+      <!-- 引言格式範例 -->
+      <blockquote>
+        <p>「那個舞台對我來說不只是表演，是一種存在的宣示。」</p>
+      </blockquote>
+
+      <p>
+        你之後如果要新增文章，最簡單的方法就是複製這個檔案，
+        然後改檔名、改標題、改內文就好。
+      </p>
+
+    </div>
+
+    <div class="article-footer">
+      <div class="article-tags">
+        <span class="article-tag">Interview</span>
+        <span class="article-tag">Taipei</span>
+        <span class="article-tag">Live Scene</span>
+      </div>
+      <a href="interviews.html" class="back-link-bottom">回到記憶酷</a>
+    </div>
 
   </div>
-</footer>
+
+  <footer>
+    <span class="footer-contact">Contact｜qoolvoices@gmail.com</span>
+    <span class="footer-mark">Est. 2026 · Taipei</span>
+  </footer>
+</div>
+
 </body>
 </html>
