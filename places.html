@@ -79,7 +79,7 @@ nav {
 }
 .header-cta:hover { background: rgba(232,200,120,0.2); border-color: rgba(181,150,80,0.75); }
 
-/* FILTER PANEL — select dropdown 版（對應原版 id） */
+/* FILTER PANEL */
 .filter-panel {
   display: grid; grid-template-columns: 1fr 1fr auto;
   border: 1px solid rgba(255,255,255,0.75); border-radius: 4px;
@@ -91,7 +91,6 @@ nav {
 .filter-section:last-child { border-right: none; display: flex; align-items: flex-end; padding: 14px 16px; }
 .filter-section-label { font-size: 8px; font-weight: 700; letter-spacing: 2.5px; text-transform: uppercase; color: #9a7a30; margin-bottom: 8px; display: block; }
 
-/* ★ 原版 id 保留：placeCityFilter, placeTypeFilter */
 #placeCityFilter, #placeTypeFilter {
   width: 100%; background: rgba(255,255,255,0.55);
   border: 1.5px solid rgba(181,150,80,0.28); border-radius: 2px;
@@ -105,7 +104,6 @@ nav {
 #placeCityFilter:focus, #placeTypeFilter:focus { outline: none; border-color: rgba(181,150,80,0.65); }
 #placeCityFilter option, #placeTypeFilter option { background: #ece8e0; color: #3a2a10; }
 
-/* ★ 原版 id 保留：resetPlaceFilters */
 #resetPlaceFilters {
   font-family: 'Space Mono', monospace; font-size: 9px; font-weight: 700;
   letter-spacing: 2px; text-transform: uppercase; white-space: nowrap;
@@ -120,17 +118,16 @@ nav {
   border-bottom: 1px solid rgba(181,150,80,0.18);
 }
 .result-count-text { font-size: 10px; letter-spacing: 2px; color: rgba(40,25,5,0.42); }
-/* ★ 原版 id 保留：placeResultCount */
 .result-count-text #placeResultCount { font-family: 'Noto Serif TC', serif; font-size: 20px; color: #9a6010; margin-right: 4px; }
 
-/* PLACES GRID — ★ 原版 id 保留：placesGrid */
+/* PLACES GRID */
 #placesGrid {
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
   gap: 16px;
 }
 
-/* Place cards — renderPlaces() 產生 .profile-card，套新樣式 */
+/* Place cards */
 #placesGrid .profile-card,
 #placesGrid article {
   background: linear-gradient(135deg, rgba(255,255,255,0.62), rgba(240,228,190,0.35), rgba(220,210,240,0.2));
@@ -154,7 +151,6 @@ nav {
 #placesGrid .profile-card:hover::before,
 #placesGrid article:hover::before { transform: scaleX(1); }
 
-/* 卡片內文字 */
 #placesGrid h3 {
   font-family: 'Noto Serif TC', serif; font-size: 18px; font-weight: 900;
   color: #2a1a05; line-height: 1.35; margin-bottom: 6px;
@@ -192,7 +188,7 @@ nav {
   text-decoration: none !important;
 }
 
-/* EMPTY STATE — ★ 原版 id 保留：placesEmpty */
+/* EMPTY STATE */
 #placesEmpty {
   display: block; padding: 72px 36px; text-align: center;
   background: linear-gradient(135deg, rgba(255,255,255,0.48), rgba(240,228,190,0.28));
@@ -208,6 +204,8 @@ nav {
 /* FOOTER */
 footer { margin-top: 72px; padding-top: 20px; border-top: 1px solid rgba(181,150,80,0.28); display: flex; justify-content: space-between; align-items: center; }
 .footer-contact { font-size: 12px; letter-spacing: 1px; color: #6a5a3a; }
+.footer-contact a { color: inherit; text-decoration: none; }
+.footer-contact a:hover { text-decoration: underline; }
 .footer-mark { font-size: 10px; letter-spacing: 2px; text-transform: uppercase; color: rgba(80,60,20,0.35); font-style: italic; }
 
 @keyframes fadeUp { from { opacity: 0; transform: translateY(18px); } to { opacity: 1; transform: translateY(0); } }
@@ -255,7 +253,6 @@ footer { margin-top: 72px; padding-top: 20px; border-top: 1px solid rgba(181,150
     <a href="submit-place.html" class="header-cta">＋ 新增酷地方</a>
   </header>
 
-  <!-- ★ 篩選器：id 完全對應原版 Supabase script -->
   <div class="filter-panel">
     <div class="filter-section">
       <span class="filter-section-label">城市</span>
@@ -288,6 +285,7 @@ footer { margin-top: 72px; padding-top: 20px; border-top: 1px solid rgba(181,150
         <option value="Liuqiu">小琉球 Liuqiu</option>
       </select>
     </div>
+
     <div class="filter-section">
       <span class="filter-section-label">類型</span>
       <select id="placeTypeFilter">
@@ -304,6 +302,7 @@ footer { margin-top: 72px; padding-top: 20px; border-top: 1px solid rgba(181,150
         <option value="Community Space">多功能空間 Community Space</option>
       </select>
     </div>
+
     <div class="filter-section">
       <button id="resetPlaceFilters" type="button">清除篩選</button>
     </div>
@@ -313,63 +312,92 @@ footer { margin-top: 72px; padding-top: 20px; border-top: 1px solid rgba(181,150
     <p class="result-count-text">找到 <span id="placeResultCount">0</span> 個地方</p>
   </div>
 
-  <!-- ★ id 完全對應原版：placesGrid, placesEmpty -->
   <div id="placesGrid"></div>
   <p id="placesEmpty" hidden>目前沒有符合條件的地方。</p>
 
   <footer>
-    <span class="footer-contact">Contact｜<a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="ee9f8181829881878d8b9dae89838f8782c08d8183">[email&#160;protected]</a></span>
+    <span class="footer-contact">Contact｜<a href="mailto:qoolvoices@gmail.com">qoolvoices@gmail.com</a></span>
     <span class="footer-mark">Est. 2026 · Taipei</span>
   </footer>
 
 </div>
 
-<!-- ★ 原版 Supabase module script，完整保留，一字未動 -->
-<script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script type="module">
+<script type="module">
   import { createClient } from "https://esm.sh/@supabase/supabase-js@2";
 
   const supabaseUrl = "https://cfkbxrskhwxxeufkxpnd.supabase.co";
   const supabaseAnonKey =
-    "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImNma2J4cnNraHd4eGV1Zmt4cG5kIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzMyMzUxMzIsImV4cCI6MjA4ODgxMTEzMn0.vDQNQYGv4DeHW-pOJKBuWUjAH8LugMBWjUcCw1HHJ0w";
+    "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdWIiLCJyZWYiOiJjZmtieHJza2h3eHhldWZreHBuZCIsInJvbGUiOiJhbm9uIiwiaWF0IjoxNzczMjM1MTMyLCJleHAiOjIwODg4MTExMzJ9.vDQNQYGv4DeHW-pOJKBuWUjAH8LugMBWjUcCw1HHJ0w";
 
   const supabase = createClient(supabaseUrl, supabaseAnonKey);
 
-  const placeCityFilter    = document.getElementById("placeCityFilter");
-  const placeTypeFilter    = document.getElementById("placeTypeFilter");
-  const resetPlaceFilters  = document.getElementById("resetPlaceFilters");
-  const placesGrid         = document.getElementById("placesGrid");
-  const placesEmpty        = document.getElementById("placesEmpty");
-  const placeResultCount   = document.getElementById("placeResultCount");
+  const placeCityFilter = document.getElementById("placeCityFilter");
+  const placeTypeFilter = document.getElementById("placeTypeFilter");
+  const resetPlaceFilters = document.getElementById("resetPlaceFilters");
+  const placesGrid = document.getElementById("placesGrid");
+  const placesEmpty = document.getElementById("placesEmpty");
+  const placeResultCount = document.getElementById("placeResultCount");
 
   let approvedPlaces = [];
 
   function parseMultiValue(value) {
     if (!value) return [];
-    return value.split(",").map(item => item.trim()).filter(Boolean);
+    return String(value)
+      .split(",")
+      .map(item => item.trim())
+      .filter(Boolean);
+  }
+
+  function escapeHtml(value) {
+    return String(value ?? "")
+      .replaceAll("&", "&amp;")
+      .replaceAll("<", "&lt;")
+      .replaceAll(">", "&gt;")
+      .replaceAll('"', "&quot;")
+      .replaceAll("'", "&#039;");
+  }
+
+  function normalizeUrl(url) {
+    if (!url) return "";
+    const trimmed = String(url).trim();
+    if (!trimmed) return "";
+    if (/^https?:\/\//i.test(trimmed)) return trimmed;
+    return `https://${trimmed}`;
   }
 
   function renderPlaces(items) {
-    placesGrid.innerHTML = items.map((place) => {
-      const types = parseMultiValue(place.type);
-      const typeText = types.length ? types.join("、") : "未填寫類型";
+    if (!Array.isArray(items) || items.length === 0) {
+      placesGrid.innerHTML = "";
+      placeResultCount.textContent = "0";
+      placesEmpty.hidden = false;
+      return;
+    }
 
-      const linkHtml = place.link
-        ? `<a class="place-link-btn" href="${place.link}" target="_blank" rel="noopener noreferrer">Get in touch →</a>`
+    placesGrid.innerHTML = items.map((place) => {
+      const name = escapeHtml(place.name || "");
+      const city = escapeHtml(place.city || "未填寫城市");
+      const description = place.description ? escapeHtml(place.description) : "";
+      const types = parseMultiValue(place.type);
+      const typeText = types.length ? escapeHtml(types.join("、")) : "未填寫類型";
+
+      const safeLink = normalizeUrl(place.link);
+      const linkHtml = safeLink
+        ? `<a class="place-link-btn" href="${escapeHtml(safeLink)}" target="_blank" rel="noopener noreferrer">Get in touch →</a>`
         : "";
 
       return `
         <article class="profile-card">
-          <h3>${place.name || ""}</h3>
-          <p class="profile-meta">◎ ${place.city || "未填寫城市"}</p>
+          <h3>${name}</h3>
+          <p class="profile-meta">◎ ${city}</p>
           <p><strong>類型：</strong>${typeText}</p>
-          ${place.description ? `<p>${place.description}</p>` : ""}
+          ${description ? `<p>${description}</p>` : ""}
           ${linkHtml}
         </article>
       `;
     }).join("");
 
-    placeResultCount.textContent = items.length;
-    placesEmpty.hidden = items.length !== 0;
+    placeResultCount.textContent = String(items.length);
+    placesEmpty.hidden = true;
   }
 
   function filterPlaces() {
@@ -397,7 +425,7 @@ footer { margin-top: 72px; padding-top: 20px; border-top: 1px solid rgba(181,150
 
       if (error) throw error;
 
-      approvedPlaces = data || [];
+      approvedPlaces = Array.isArray(data) ? data : [];
       filterPlaces();
 
       placeCityFilter.addEventListener("change", filterPlaces);
@@ -405,4 +433,19 @@ footer { margin-top: 72px; padding-top: 20px; border-top: 1px solid rgba(181,150
 
       resetPlaceFilters.addEventListener("click", () => {
         placeCityFilter.value = "all";
-        placeType
+        placeTypeFilter.value = "all";
+        filterPlaces();
+      });
+    } catch (error) {
+      console.error("載入 places 失敗：", error);
+      placesGrid.innerHTML = `<p class="error-text">資料載入失敗，請稍後再試。</p>`;
+      placeResultCount.textContent = "0";
+      placesEmpty.hidden = true;
+    }
+  }
+
+  initPlaces();
+</script>
+
+</body>
+</html>
