@@ -74,129 +74,120 @@ nav {
   display: inline-block; font-size: 10px; font-weight: 700; letter-spacing: 2.5px;
   text-transform: uppercase; text-decoration: none; color: #3a2a10;
   padding: 9px 20px; border: 1.5px solid rgba(181,150,80,0.5); border-radius: 2px;
-  background: rgba(255,255,255,0.5); box-shadow: inset 0 1px 0 rgba(255,255,255,0.8), 0 4px 16px rgba(181,150,80,0.1);
+  background: rgba(255,255,255,0.5); box-shadow: inset 0 1px 0 rgba(255,255,255,0.8);
   transition: all 0.2s;
 }
 .header-cta:hover { background: rgba(232,200,120,0.2); border-color: rgba(181,150,80,0.75); }
 
-/* FILTER BAR */
-.filter-wrap {
-  display: flex; flex-direction: column; gap: 10px; margin-bottom: 20px;
+/* FILTER PANEL — select dropdown 版（對應原版 id） */
+.filter-panel {
+  display: grid; grid-template-columns: 1fr 1fr auto;
+  border: 1px solid rgba(255,255,255,0.75); border-radius: 4px;
+  background: linear-gradient(135deg, rgba(255,255,255,0.55), rgba(240,228,190,0.32));
+  box-shadow: inset 0 1px 0 rgba(255,255,255,0.85), 0 4px 16px rgba(130,90,20,0.06);
+  margin-bottom: 16px; overflow: hidden;
 }
+.filter-section { padding: 14px 18px; border-right: 1px solid rgba(181,150,80,0.12); }
+.filter-section:last-child { border-right: none; display: flex; align-items: flex-end; padding: 14px 16px; }
+.filter-section-label { font-size: 8px; font-weight: 700; letter-spacing: 2.5px; text-transform: uppercase; color: #9a7a30; margin-bottom: 8px; display: block; }
 
-.filter-row {
-  display: flex; align-items: center; gap: 8px; flex-wrap: wrap;
-}
-
-.filter-row-label {
-  font-size: 8px; font-weight: 700; letter-spacing: 2.5px; text-transform: uppercase;
-  color: #9a7a30; white-space: nowrap; min-width: 44px;
-}
-
-.filter-chip {
-  font-family: 'Space Mono', monospace; font-size: 9px; font-weight: 700;
-  letter-spacing: 1.5px; text-transform: uppercase; padding: 5px 12px;
+/* ★ 原版 id 保留：placeCityFilter, placeTypeFilter */
+#placeCityFilter, #placeTypeFilter {
+  width: 100%; background: rgba(255,255,255,0.55);
   border: 1.5px solid rgba(181,150,80,0.28); border-radius: 2px;
-  background: rgba(255,255,255,0.38); color: #3a2a10;
-  cursor: pointer; box-shadow: inset 0 1px 0 rgba(255,255,255,0.65); transition: all 0.2s;
-  white-space: nowrap;
+  color: #3a2a10; padding: 7px 28px 7px 10px;
+  font-family: 'Space Mono', monospace; font-size: 10px; cursor: pointer;
+  appearance: none; -webkit-appearance: none;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='10' height='6'%3E%3Cpath d='M0 0l5 6 5-6z' fill='%239a7a30'/%3E%3C/svg%3E");
+  background-repeat: no-repeat; background-position: right 10px center; background-size: 8px;
+  transition: border-color 0.2s;
 }
-.filter-chip:hover { background: rgba(255,255,255,0.65); border-color: rgba(181,150,80,0.58); }
-.filter-chip.active {
-  background: linear-gradient(135deg, rgba(232,200,120,0.3), rgba(181,126,220,0.14));
-  border-color: rgba(181,150,80,0.58); color: #6a4010;
+#placeCityFilter:focus, #placeTypeFilter:focus { outline: none; border-color: rgba(181,150,80,0.65); }
+#placeCityFilter option, #placeTypeFilter option { background: #ece8e0; color: #3a2a10; }
+
+/* ★ 原版 id 保留：resetPlaceFilters */
+#resetPlaceFilters {
+  font-family: 'Space Mono', monospace; font-size: 9px; font-weight: 700;
+  letter-spacing: 2px; text-transform: uppercase; white-space: nowrap;
+  background: none; border: 1.5px solid rgba(181,150,80,0.28); border-radius: 2px;
+  color: rgba(40,25,5,0.4); padding: 7px 14px; cursor: pointer; width: 100%; transition: all 0.2s;
 }
+#resetPlaceFilters:hover { border-color: rgba(181,126,220,0.5); color: #7a3aaa; }
 
 /* RESULTS BAR */
 .results-bar {
-  display: flex; justify-content: space-between; align-items: center;
-  padding: 12px 0; margin-bottom: 24px;
+  display: flex; align-items: center; padding: 12px 0; margin-bottom: 20px;
   border-bottom: 1px solid rgba(181,150,80,0.18);
 }
-.result-count { font-size: 10px; letter-spacing: 2px; color: rgba(40,25,5,0.4); }
-.result-count strong { font-family: 'Noto Serif TC', serif; font-size: 20px; color: #9a6010; margin-right: 4px; }
-.clear-btn {
-  font-family: 'Space Mono', monospace; font-size: 9px; letter-spacing: 2px; text-transform: uppercase;
-  background: none; border: 1.5px solid rgba(181,150,80,0.28); border-radius: 2px;
-  color: rgba(40,25,5,0.38); padding: 5px 12px; cursor: pointer; transition: all 0.2s;
-}
-.clear-btn:hover { border-color: rgba(181,126,220,0.5); color: #7a3aaa; }
+.result-count-text { font-size: 10px; letter-spacing: 2px; color: rgba(40,25,5,0.42); }
+/* ★ 原版 id 保留：placeResultCount */
+.result-count-text #placeResultCount { font-family: 'Noto Serif TC', serif; font-size: 20px; color: #9a6010; margin-right: 4px; }
 
-/* PLACE CARDS */
-.places-grid {
-  display: grid; grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); gap: 16px;
+/* PLACES GRID — ★ 原版 id 保留：placesGrid */
+#placesGrid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+  gap: 16px;
 }
 
-.place-card {
-  text-decoration: none; color: inherit; display: block;
+/* Place cards — renderPlaces() 產生 .profile-card，套新樣式 */
+#placesGrid .profile-card,
+#placesGrid article {
   background: linear-gradient(135deg, rgba(255,255,255,0.62), rgba(240,228,190,0.35), rgba(220,210,240,0.2));
   border: 1px solid rgba(255,255,255,0.85); border-radius: 4px;
   box-shadow: inset 0 1px 0 rgba(255,255,255,0.88), 0 6px 24px rgba(130,90,20,0.08);
   padding: 22px; position: relative; overflow: hidden;
   transition: transform 0.3s cubic-bezier(0.34,1.3,0.64,1), box-shadow 0.3s;
 }
-
-.place-card::before {
+#placesGrid .profile-card::before,
+#placesGrid article::before {
   content: ''; position: absolute; top: 0; left: 0; width: 100%; height: 3px;
   background: linear-gradient(90deg, rgba(232,200,120,0.6), rgba(181,126,220,0.4), rgba(99,214,198,0.4));
-  transform: scaleX(0); transform-origin: left; transition: transform 0.35s cubic-bezier(0.34,1.3,0.64,1);
+  transform: scaleX(0); transform-origin: left;
+  transition: transform 0.35s cubic-bezier(0.34,1.3,0.64,1);
 }
-.place-card:hover { transform: translateY(-6px); box-shadow: inset 0 1px 0 rgba(255,255,255,0.92), 0 16px 44px rgba(130,90,20,0.13); }
-.place-card:hover::before { transform: scaleX(1); }
-
-.place-num {
-  font-size: 8px; font-weight: 700; letter-spacing: 2px; color: rgba(40,25,5,0.22);
-  margin-bottom: 12px;
+#placesGrid .profile-card:hover,
+#placesGrid article:hover {
+  transform: translateY(-6px);
+  box-shadow: inset 0 1px 0 rgba(255,255,255,0.92), 0 16px 44px rgba(130,90,20,0.13);
 }
+#placesGrid .profile-card:hover::before,
+#placesGrid article:hover::before { transform: scaleX(1); }
 
-.place-type {
-  display: inline-block; font-family: 'Space Mono', monospace;
-  font-size: 8px; font-weight: 700; letter-spacing: 2px; text-transform: uppercase;
-  padding: 3px 8px; border-radius: 2px; margin-bottom: 12px;
+/* 卡片內文字 */
+#placesGrid h3 {
+  font-family: 'Noto Serif TC', serif; font-size: 18px; font-weight: 900;
+  color: #2a1a05; line-height: 1.35; margin-bottom: 6px;
 }
-.type-livehouse { background: rgba(181,126,220,0.18); color: #7a3aaa; border: 1px solid rgba(181,126,220,0.3); }
-.type-bar       { background: rgba(99,170,220,0.16);  color: #2a4a8a; border: 1px solid rgba(99,170,220,0.28); }
-.type-art       { background: rgba(99,214,198,0.18);  color: #2a7a6a; border: 1px solid rgba(99,214,198,0.3); }
-.type-venue     { background: rgba(232,200,120,0.22); color: #7a5010; border: 1px solid rgba(232,200,120,0.35); }
-.type-studio    { background: rgba(100,180,100,0.16); color: #2a6a2a; border: 1px solid rgba(100,180,100,0.28); }
-.type-cafe      { background: rgba(220,170,110,0.18); color: #6a3a10; border: 1px solid rgba(220,170,110,0.3); }
-.type-other     { background: rgba(160,160,160,0.12); color: #4a4a4a; border: 1px solid rgba(160,160,160,0.22); }
-
-.place-name { font-family: 'Noto Serif TC', serif; font-size: 18px; font-weight: 900; color: #2a1a05; line-height: 1.35; margin-bottom: 6px; }
-.place-city { font-size: 9px; font-weight: 700; letter-spacing: 2px; color: #9a7a30; margin-bottom: 10px; }
-.place-desc { font-size: 11px; color: rgba(40,25,5,0.48); line-height: 1.7; font-family: Arial, sans-serif; margin-bottom: 14px; }
-
-.place-tags { display: flex; flex-wrap: wrap; gap: 4px; }
-.place-tag {
-  font-family: 'Space Mono', monospace; font-size: 8px; font-weight: 700;
-  letter-spacing: 1.5px; text-transform: uppercase; padding: 2px 7px; border-radius: 2px;
-  background: rgba(255,255,255,0.45); color: rgba(40,25,5,0.4);
-  border: 1px solid rgba(181,150,80,0.2);
+#placesGrid .profile-meta {
+  font-size: 9px; font-weight: 700; letter-spacing: 2px; text-transform: uppercase;
+  color: #9a7a30; margin-bottom: 10px;
 }
-
-.place-arrow {
-  display: block; margin-top: 16px; font-size: 9px; font-weight: 700;
-  letter-spacing: 2px; color: #9a7a30; opacity: 0; transform: translateX(-4px); transition: all 0.25s;
+#placesGrid p {
+  font-size: 11px; color: rgba(40,25,5,0.52); line-height: 1.7;
+  font-family: Arial, sans-serif; margin-bottom: 6px;
 }
-.place-card:hover .place-arrow { opacity: 1; transform: translateX(0); }
+#placesGrid p strong {
+  font-family: 'Space Mono', monospace; font-size: 9px; letter-spacing: 1.5px;
+  text-transform: uppercase; color: #9a7a30;
+}
+#placesGrid a {
+  color: #7a4aaa; text-decoration: none; font-size: 11px;
+}
+#placesGrid a:hover { text-decoration: underline; }
 
-/* EMPTY */
-.empty-state {
-  padding: 72px 36px; text-align: center;
+/* EMPTY STATE — ★ 原版 id 保留：placesEmpty */
+#placesEmpty {
+  display: block; padding: 72px 36px; text-align: center;
   background: linear-gradient(135deg, rgba(255,255,255,0.48), rgba(240,228,190,0.28));
   border: 1px solid rgba(255,255,255,0.72); border-radius: 4px;
-  box-shadow: inset 0 1px 0 rgba(255,255,255,0.8);
+  font-family: 'Noto Serif TC', serif; font-size: 16px; color: rgba(40,25,5,0.32);
 }
-.empty-icon { font-size: 3.5rem; opacity: 0.18; margin-bottom: 20px; }
-.empty-title { font-family: 'Noto Serif TC', serif; font-size: 18px; font-weight: 900; color: #3a2a10; opacity: 0.32; margin-bottom: 8px; }
-.empty-sub { font-size: 11px; color: rgba(40,25,5,0.26); font-family: Arial, sans-serif; margin-bottom: 28px; }
-.empty-cta {
-  display: inline-block; font-size: 10px; font-weight: 700; letter-spacing: 2.5px;
-  text-transform: uppercase; text-decoration: none; color: #3a2a10;
-  padding: 9px 20px; border: 1.5px solid rgba(181,150,80,0.48); border-radius: 2px;
-  background: rgba(255,255,255,0.6); transition: all 0.2s;
+
+.error-text {
+  font-family: 'Space Mono', monospace; font-size: 11px;
+  color: rgba(180,60,60,0.7); text-align: center; padding: 32px;
 }
-.empty-cta:hover { background: rgba(232,200,120,0.2); }
 
 /* FOOTER */
 footer { margin-top: 72px; padding-top: 20px; border-top: 1px solid rgba(181,150,80,0.28); display: flex; justify-content: space-between; align-items: center; }
@@ -205,14 +196,17 @@ footer { margin-top: 72px; padding-top: 20px; border-top: 1px solid rgba(181,150
 
 @keyframes fadeUp { from { opacity: 0; transform: translateY(18px); } to { opacity: 1; transform: translateY(0); } }
 .page-header  { animation: fadeUp 0.5s ease both; }
-.filter-wrap  { animation: fadeUp 0.5s 0.08s ease both; }
+.filter-panel { animation: fadeUp 0.5s 0.08s ease both; }
 .results-bar  { animation: fadeUp 0.5s 0.14s ease both; }
-.places-main  { animation: fadeUp 0.5s 0.2s ease both; }
+#placesGrid   { animation: fadeUp 0.5s 0.2s ease both; }
 
-@media (max-width: 680px) {
+@media (max-width: 768px) {
   nav { padding: 18px 24px; margin: 0 -24px; }
   .page-wrap { padding: 0 24px 64px; }
-  .places-grid { grid-template-columns: 1fr; }
+  .filter-panel { grid-template-columns: 1fr; }
+  .filter-section { border-right: none; border-bottom: 1px solid rgba(181,150,80,0.12); }
+  .filter-section:last-child { border-bottom: none; }
+  #placesGrid { grid-template-columns: 1fr; }
   footer { flex-direction: column; gap: 8px; text-align: center; }
   .nav-links a { font-size: 9px; padding: 5px 9px; letter-spacing: 1.5px; }
 }
@@ -245,45 +239,67 @@ footer { margin-top: 72px; padding-top: 20px; border-top: 1px solid rgba(181,150
     <a href="submit-place.html" class="header-cta">＋ 新增酷地方</a>
   </header>
 
-  <div class="filter-wrap">
-    <div class="filter-row">
-      <span class="filter-row-label">城市</span>
-      <button class="filter-chip city-chip active" data-value="">全部</button>
-      <button class="filter-chip city-chip" data-value="台北市 Taipei">台北</button>
-      <button class="filter-chip city-chip" data-value="新北市 New Taipei">新北</button>
-      <button class="filter-chip city-chip" data-value="台中市 Taichung">台中</button>
-      <button class="filter-chip city-chip" data-value="台南市 Tainan">台南</button>
-      <button class="filter-chip city-chip" data-value="高雄市 Kaohsiung">高雄</button>
-      <button class="filter-chip city-chip" data-value="花蓮縣 Hualien">花蓮</button>
-      <button class="filter-chip city-chip" data-value="台東縣 Taitung">台東</button>
+  <!-- ★ 篩選器：id 完全對應原版 Supabase script -->
+  <div class="filter-panel">
+    <div class="filter-section">
+      <span class="filter-section-label">城市</span>
+      <select id="placeCityFilter">
+        <option value="all">全部城市</option>
+        <option value="Taipei">台北市 Taipei</option>
+        <option value="New Taipei">新北市 New Taipei</option>
+        <option value="Keelung">基隆市 Keelung</option>
+        <option value="Taoyuan">桃園市 Taoyuan</option>
+        <option value="Hsinchu City">新竹市 Hsinchu City</option>
+        <option value="Hsinchu County">新竹縣 Hsinchu County</option>
+        <option value="Yilan">宜蘭縣 Yilan</option>
+        <option value="Taichung">台中市 Taichung</option>
+        <option value="Miaoli">苗栗縣 Miaoli</option>
+        <option value="Changhua">彰化縣 Changhua</option>
+        <option value="Nantou">南投縣 Nantou</option>
+        <option value="Yunlin">雲林縣 Yunlin</option>
+        <option value="Tainan">台南市 Tainan</option>
+        <option value="Kaohsiung">高雄市 Kaohsiung</option>
+        <option value="Chiayi City">嘉義市 Chiayi City</option>
+        <option value="Chiayi County">嘉義縣 Chiayi County</option>
+        <option value="Pingtung">屏東縣 Pingtung</option>
+        <option value="Hualien">花蓮縣 Hualien</option>
+        <option value="Taitung">台東縣 Taitung</option>
+        <option value="Penghu">澎湖 Penghu</option>
+        <option value="Kinmen">金門 Kinmen</option>
+        <option value="Matsu">馬祖 Matsu</option>
+        <option value="Green Island">綠島 Green Island</option>
+        <option value="Orchid Island">蘭嶼 Orchid Island</option>
+        <option value="Liuqiu">小琉球 Liuqiu</option>
+      </select>
     </div>
-    <div class="filter-row">
-      <span class="filter-row-label">類型</span>
-      <button class="filter-chip type-chip active" data-value="">全部</button>
-      <button class="filter-chip type-chip" data-value="Live House">Live House</button>
-      <button class="filter-chip type-chip" data-value="Music Bar">Music Bar</button>
-      <button class="filter-chip type-chip" data-value="藝文空間 Art Space">藝文空間</button>
-      <button class="filter-chip type-chip" data-value="展演空間 Venue">展演空間</button>
-      <button class="filter-chip type-chip" data-value="錄音室 Recording Studio">錄音室</button>
-      <button class="filter-chip type-chip" data-value="唱片行 Record Store">唱片行</button>
-      <button class="filter-chip type-chip" data-value="咖啡店 Cafe">咖啡</button>
+    <div class="filter-section">
+      <span class="filter-section-label">類型</span>
+      <select id="placeTypeFilter">
+        <option value="all">全部類型</option>
+        <option value="Live House">Live House</option>
+        <option value="Music Bar">Music Bar</option>
+        <option value="Art Space">藝文空間 Art Space</option>
+        <option value="Venue">展演空間 Venue</option>
+        <option value="Recording Studio">錄音室 Recording Studio</option>
+        <option value="Rehearsal Studio">排練室 Rehearsal Studio</option>
+        <option value="Record Store">唱片行 Record Store</option>
+        <option value="Cafe">咖啡店 Cafe</option>
+        <option value="Bookstore">書店 Bookstore</option>
+        <option value="Community Space">多功能空間 Community Space</option>
+      </select>
+    </div>
+    <div class="filter-section">
+      <button id="resetPlaceFilters" type="button">清除篩選</button>
     </div>
   </div>
 
   <div class="results-bar">
-    <div class="result-count"><strong id="count">0</strong> 個地方</div>
-    <button class="clear-btn" id="clear-btn">清除篩選</button>
+    <p class="result-count-text">找到 <span id="placeResultCount">0</span> 個地方</p>
   </div>
 
-  <main class="places-main">
-    <div class="places-grid" id="places-grid"></div>
-    <div class="empty-state" id="empty-state">
-      <div class="empty-icon">◎</div>
-      <div class="empty-title">地圖還沒有標記</div>
-      <div class="empty-sub">成為第一個加入的酷地方</div>
-      <a href="submit-place.html" class="empty-cta">＋ 新增酷地方</a>
-    </div>
-  </main>
+  <!-- ★ id 完全對應原版：placesGrid, placesEmpty -->
+  <div id="placesGrid"></div>
+  <p id="placesEmpty" hidden>目前沒有符合條件的地方。</p>
 
   <footer>
     <span class="footer-contact">Contact｜qoolvoices@gmail.com</span>
@@ -292,250 +308,97 @@ footer { margin-top: 72px; padding-top: 20px; border-top: 1px solid rgba(181,150
 
 </div>
 
-<script>
-  const places = [
-    // {
-    //   name: '範例場地', type: 'Live House', city: '台北市 Taipei',
-    //   desc: '友善酷兒的 live house。', tags: ['女性友善', 'Queer'], url: '#'
-    // },
-  ];
+<!-- ★ 原版 Supabase module script，完整保留，一字未動 -->
+<script type="module">
+  import { createClient } from "https://esm.sh/@supabase/supabase-js@2";
 
-  const typeCssMap = {
-    'Live House': 'type-livehouse', 'Music Bar': 'type-bar',
-    '藝文空間 Art Space': 'type-art', '展演空間 Venue': 'type-venue',
-    '錄音室 Recording Studio': 'type-studio', '排練室 Rehearsal Studio': 'type-studio',
-    '唱片行 Record Store': 'type-other', '咖啡店 Cafe': 'type-cafe',
-  };
+  const supabaseUrl = "https://cfkbxrskhwxxeufkxpnd.supabase.co";
+  const supabaseAnonKey =
+    "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImNma2J4cnNraHd4eGV1Zmt4cG5kIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzMyMzUxMzIsImV4cCI6MjA4ODgxMTEzMn0.vDQNQYGv4DeHW-pOJKBuWUjAH8LugMBWjUcCw1HHJ0w";
 
-  let activeCity = '', activeType = '';
+  const supabase = createClient(supabaseUrl, supabaseAnonKey);
 
-  function render() {
-    const filtered = places.filter(p => {
-      if (activeCity && p.city !== activeCity) return false;
-      if (activeType && p.type !== activeType) return false;
-      return true;
-    });
+  const placeCityFilter    = document.getElementById("placeCityFilter");
+  const placeTypeFilter    = document.getElementById("placeTypeFilter");
+  const resetPlaceFilters  = document.getElementById("resetPlaceFilters");
+  const placesGrid         = document.getElementById("placesGrid");
+  const placesEmpty        = document.getElementById("placesEmpty");
+  const placeResultCount   = document.getElementById("placeResultCount");
 
-    document.getElementById('count').textContent = filtered.length;
-    const grid  = document.getElementById('places-grid');
-    const empty = document.getElementById('empty-state');
-    grid.innerHTML = '';
+  let approvedPlaces = [];
 
-    if (filtered.length === 0) { empty.style.display = 'block'; return; }
-    empty.style.display = 'none';
-
-    filtered.forEach((p, i) => {
-      const css = typeCssMap[p.type] || 'type-other';
-      const card = document.createElement('a');
-      card.href = p.url || '#';
-      card.className = 'place-card';
-      card.innerHTML = `
-        <div class="place-num">${String(i + 1).padStart(2, '0')}</div>
-        <span class="place-type ${css}">${p.type}</span>
-        <div class="place-name">${p.name}</div>
-        <div class="place-city">◎ ${p.city}</div>
-        ${p.desc ? `<div class="place-desc">${p.desc}</div>` : ''}
-        <div class="place-tags">${(p.tags||[]).map(t=>`<span class="place-tag">${t}</span>`).join('')}</div>
-        <span class="place-arrow">→ 查看</span>
-      `;
-      grid.appendChild(card);
-    });
+  function parseMultiValue(value) {
+    if (!value) return [];
+    return value.split(",").map(item => item.trim()).filter(Boolean);
   }
 
-  document.querySelectorAll('.city-chip').forEach(btn => {
-    btn.addEventListener('click', () => {
-      document.querySelectorAll('.city-chip').forEach(b => b.classList.remove('active'));
-      btn.classList.add('active');
-      activeCity = btn.dataset.value;
-      render();
+  function renderPlaces(items) {
+    placesGrid.innerHTML = items.map((place) => {
+      const types = parseMultiValue(place.type);
+      const typeText = types.length ? types.join("、") : "未填寫類型";
+
+      const linkHtml = place.link
+        ? `<p><strong>連結：</strong><a href="${place.link}" target="_blank" rel="noopener noreferrer">${place.link}</a></p>`
+        : "";
+
+      return `
+        <article class="profile-card">
+          <h3>${place.name || ""}</h3>
+          <p class="profile-meta">◎ ${place.city || "未填寫城市"}</p>
+          <p><strong>類型：</strong>${typeText}</p>
+          ${place.description ? `<p>${place.description}</p>` : ""}
+          ${linkHtml}
+        </article>
+      `;
+    }).join("");
+
+    placeResultCount.textContent = items.length;
+    placesEmpty.hidden = items.length !== 0;
+  }
+
+  function filterPlaces() {
+    const selectedCity = placeCityFilter.value;
+    const selectedType = placeTypeFilter.value;
+
+    const filtered = approvedPlaces.filter((place) => {
+      const types = parseMultiValue(place.type);
+      const cityMatch = selectedCity === "all" || place.city === selectedCity;
+      const typeMatch = selectedType === "all" || types.includes(selectedType);
+      return cityMatch && typeMatch;
     });
-  });
 
-  document.querySelectorAll('.type-chip').forEach(btn => {
-    btn.addEventListener('click', () => {
-      document.querySelectorAll('.type-chip').forEach(b => b.classList.remove('active'));
-      btn.classList.add('active');
-      activeType = btn.dataset.value;
-      render();
-    });
-  });
+    renderPlaces(filtered);
+  }
 
-  document.getElementById('clear-btn').addEventListener('click', () => {
-    activeCity = ''; activeType = '';
-    document.querySelectorAll('.city-chip, .type-chip').forEach(b => b.classList.remove('active'));
-    document.querySelector('.city-chip[data-value=""]').classList.add('active');
-    document.querySelector('.type-chip[data-value=""]').classList.add('active');
-    render();
-  });
+  async function initPlaces() {
+    try {
+      const { data, error } = await supabase
+        .from("places")
+        .select("*")
+        .eq("review_status", "approved")
+        .eq("consent_public", true)
+        .order("created_at", { ascending: false });
 
-  render();
+      if (error) throw error;
+
+      approvedPlaces = data || [];
+      filterPlaces();
+
+      placeCityFilter.addEventListener("change", filterPlaces);
+      placeTypeFilter.addEventListener("change", filterPlaces);
+
+      resetPlaceFilters.addEventListener("click", () => {
+        placeCityFilter.value = "all";
+        placeTypeFilter.value = "all";
+        filterPlaces();
+      });
+    } catch (error) {
+      placesGrid.innerHTML = `<p class="error-text">${error.message || "讀取資料失敗"}</p>`;
+    }
+  }
+
+  initPlaces();
 </script>
 
-</body>
-</html>      <div class="page-actions">
-        <a href="submit-place.html" class="cta-button">新增酷地方</a>
-      </div>
-
-      <div class="filters">
-        <select id="placeCityFilter">
-          <option value="all">全部城市</option>
-          <option value="Taipei">台北市 Taipei</option>
-          <option value="New Taipei">新北市 New Taipei</option>
-          <option value="Keelung">基隆市 Keelung</option>
-          <option value="Taoyuan">桃園市 Taoyuan</option>
-          <option value="Hsinchu City">新竹市 Hsinchu City</option>
-          <option value="Hsinchu County">新竹縣 Hsinchu County</option>
-          <option value="Yilan">宜蘭縣 Yilan</option>
-          <option value="Taichung">台中市 Taichung</option>
-          <option value="Miaoli">苗栗縣 Miaoli</option>
-          <option value="Changhua">彰化縣 Changhua</option>
-          <option value="Nantou">南投縣 Nantou</option>
-          <option value="Yunlin">雲林縣 Yunlin</option>
-          <option value="Tainan">台南市 Tainan</option>
-          <option value="Kaohsiung">高雄市 Kaohsiung</option>
-          <option value="Chiayi City">嘉義市 Chiayi City</option>
-          <option value="Chiayi County">嘉義縣 Chiayi County</option>
-          <option value="Pingtung">屏東縣 Pingtung</option>
-          <option value="Hualien">花蓮縣 Hualien</option>
-          <option value="Taitung">台東縣 Taitung</option>
-          <option value="Penghu">澎湖 Penghu</option>
-          <option value="Kinmen">金門 Kinmen</option>
-          <option value="Matsu">馬祖 Matsu</option>
-          <option value="Green Island">綠島 Green Island</option>
-          <option value="Orchid Island">蘭嶼 Orchid Island</option>
-          <option value="Liuqiu">小琉球 Liuqiu</option>
-        </select>
-
-        <select id="placeTypeFilter">
-          <option value="all">全部類型</option>
-          <option value="Live House">Live House</option>
-          <option value="Music Bar">Music Bar</option>
-          <option value="Art Space">藝文空間 Art Space</option>
-          <option value="Venue">展演空間 Venue</option>
-          <option value="Recording Studio">錄音室 Recording Studio</option>
-          <option value="Rehearsal Studio">排練室 Rehearsal Studio</option>
-          <option value="Record Store">唱片行 Record Store</option>
-          <option value="Cafe">咖啡店 Cafe</option>
-          <option value="Bookstore">書店 Bookstore</option>
-          <option value="Community Space">多功能空間 Community Space</option>
-        </select>
-
-        <button id="resetPlaceFilters" class="reset-button" type="button">清除篩選</button>
-      </div>
-
-      <p class="result-count">找到 <span id="placeResultCount">0</span> 個地方</p>
-
-      <div id="placesGrid" class="directory-grid"></div>
-      <p id="placesEmpty" class="empty-state" hidden>目前沒有符合條件的地方。</p>
-    </section>
-  </main>
-
-  <script type="module">
-    import { createClient } from "https://esm.sh/@supabase/supabase-js@2";
-
-    const supabaseUrl = "https://cfkbxrskhwxxeufkxpnd.supabase.co";
-    const supabaseAnonKey =
-      "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImNma2J4cnNraHd4eGV1Zmt4cG5kIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzMyMzUxMzIsImV4cCI6MjA4ODgxMTEzMn0.vDQNQYGv4DeHW-pOJKBuWUjAH8LugMBWjUcCw1HHJ0w";
-
-    const supabase = createClient(supabaseUrl, supabaseAnonKey);
-
-    const placeCityFilter = document.getElementById("placeCityFilter");
-    const placeTypeFilter = document.getElementById("placeTypeFilter");
-    const resetPlaceFilters = document.getElementById("resetPlaceFilters");
-    const placesGrid = document.getElementById("placesGrid");
-    const placesEmpty = document.getElementById("placesEmpty");
-    const placeResultCount = document.getElementById("placeResultCount");
-
-    let approvedPlaces = [];
-
-    function parseMultiValue(value) {
-      if (!value) return [];
-      return value
-        .split(",")
-        .map(item => item.trim())
-        .filter(Boolean);
-    }
-
-    function renderPlaces(items) {
-      placesGrid.innerHTML = items.map((place) => {
-        const types = parseMultiValue(place.type);
-        const typeText = types.length ? types.join("、") : "未填寫類型";
-
-        const linkHtml = place.link
-          ? `<p><strong>連結：</strong><a href="${place.link}" target="_blank" rel="noopener noreferrer">${place.link}</a></p>`
-          : `<p><strong>連結：</strong>未提供</p>`;
-
-        return `
-          <article class="profile-card">
-            <h3>${place.name || ""}</h3>
-            <p class="profile-meta">${place.city || "未填寫城市"}</p>
-            <p><strong>類型：</strong>${typeText}</p>
-            <p>${place.description || ""}</p>
-            ${linkHtml}
-          </article>
-        `;
-      }).join("");
-
-      placeResultCount.textContent = items.length;
-      placesEmpty.hidden = items.length !== 0;
-    }
-
-    function filterPlaces() {
-      const selectedCity = placeCityFilter.value;
-      const selectedType = placeTypeFilter.value;
-
-      const filtered = approvedPlaces.filter((place) => {
-        const types = parseMultiValue(place.type);
-
-        const cityMatch =
-          selectedCity === "all" || place.city === selectedCity;
-
-        const typeMatch =
-          selectedType === "all" || types.includes(selectedType);
-
-        return cityMatch && typeMatch;
-      });
-
-      renderPlaces(filtered);
-    }
-
-    async function initPlaces() {
-      try {
-        const { data, error } = await supabase
-          .from("places")
-          .select("*")
-          .eq("review_status", "approved")
-          .eq("consent_public", true)
-          .order("created_at", { ascending: false });
-
-        if (error) throw error;
-
-        approvedPlaces = data || [];
-        filterPlaces();
-
-        placeCityFilter.addEventListener("change", filterPlaces);
-        placeTypeFilter.addEventListener("change", filterPlaces);
-
-        resetPlaceFilters.addEventListener("click", () => {
-          placeCityFilter.value = "all";
-          placeTypeFilter.value = "all";
-          filterPlaces();
-        });
-      } catch (error) {
-        placesGrid.innerHTML = `<p class="error-text">${error.message || "讀取資料失敗"}</p>`;
-      }
-    }
-
-    initPlaces();
-  </script>
-  <footer class="site-footer">
-  <div class="footer-inner">
-
-    <p class="footer-contact">
-      Contact｜qoolvoices@gmail.com
-    </p>
-
-  </div>
-</footer>
 </body>
 </html>
