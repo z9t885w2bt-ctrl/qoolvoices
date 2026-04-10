@@ -1,357 +1,3 @@
-
-酷女聲網站管理
-/
-我首頁改好了，我還要改記憶庫、資料庫、酷地方點進去的樣式
-
-4月7日
-
-Searched the web
-Searched the web
-好，我看了三個頁面的現況。在開始之前想先確認一下設計方向——
-
-請回答以上三個問題，我就可以馬上開工！
-
-Q: 首頁現在是什麼風格？（讓我對齊）
-A: 鮮豔撞色、酷兒派對感
-
-Q: 這三頁你想改什麼層面？
-A: 兩者都要，全面升級
-
-Q: 你是直接給我 HTML/CSS 來改，還是要我先出設計稿讓你看過再做？
-A: 直接給我完整 HTML/CSS 代碼
-
-4月7日
-讓我先看一下首頁的原始碼對齊風格，再開始做。
-
-
-Searched the web, viewed a file
-Searched the web, viewed a file
-好，我對齊了首頁風格（鮮豔撞色、酷兒派對感），現在幫你把三頁全部做出來。我先做 記憶酷（interviews.html），再做資料酷和酷地方。
-
-
-Created 3 files, read a file
-Created 3 files, read a file
-三頁都做好了，設計語言統一，三個主色各自呼應頁面身份：
-
-記憶酷 — 粉紅 
-#ff2d78，卡片格線排版，有圖無圖都能適應，篩選 tag 列在最上方
-
-資料酷 — 青綠 
-#00f0d4，表格 / 卡片雙視圖可切換，三欄篩選下拉選單，空資料庫有 empty state 引導加入
-
-酷地方 — 橘 
-#ff6b1a，城市 + 類型雙層 chip 橫向篩選，卡片懸停有左邊框動畫
-
-三頁共用：
-
-黑底 
-#0a0a0a + 黃框 
-#ffe600 nav，與首頁保持一致
-Space Mono + Noto Sans TC 字型搭配
-fadeUp 進場動畫
-空狀態都有「加入」的引導 CTA
-把 HTML 檔案放進你的 GitHub repo 的對應位置就可以了。如果要調整顏色、卡片排數、或是文案，告訴我！
-
-Interviews
-Code · HTML 
-Directory
-Code · HTML 
-Places
-Code · HTML 
-
-<!DOCTYPE html> <html lang="zh-Hant"> <head> <meta charset="UTF-8" /> <meta name="viewport" content="width=device-width, initial-scale=1.0" /> <title>Qool Voices 酷女聲 | 台灣女性與酷兒音樂創作者平台</title> <meta name="description" content="酷女聲 Qool Voices 是支持女性與酷兒音樂創作者的文化平台，收錄音樂人、場地與訪談，建立合作與互助的音樂社群。" />
-
-pasted
-
-不對，這是我首頁的程式碼，風格參考一下好嗎
-
-下午1:31
-好，這下對到了！首頁是淡紫米白漸層底、玻璃感、Noto Serif TC + Space Mono、柔光珠光質感——完全不是黑底撞色，我之前做錯了方向。馬上重做三頁。
-
-
-Created 4 files, ran a command, read a file
-Created 4 files, ran a command, read a file
-重做好了，這次完全對齊首頁語言：
-
-設計一致性：
-
-同款 radial-gradient 背景光暈 + 固定 orb 球體
-Nav 用毛玻璃 backdrop-filter: blur + 同款按鈕邊框風格
-Noto Serif TC 標題 + Space Mono 標籤，與首頁完全一致
-玻璃卡片：rgba 白底 + inset 高光 + 柔和陰影
-filter/tag 全部走同款 border-radius 2px 淡邊框按鈕
-各頁面主色調：
-
-記憶酷 — 紫羅蘭漸層背景（呼應首頁貝殼紫）
-資料酷 — 青綠漸層背景（呼應首頁禮盒青）
-酷地方 — 暖金/米褐漸層背景（呼應首頁路燈金）
-把三個 html 放進你的 repo 就好。如果要調任何細節告訴我！
-
-Interviews
-Code · HTML 
-Directory
-Code · HTML 
-Places
-Code · HTML 
-
-<!DOCTYPE html> <html lang="zh-Hant"> <head> <meta charset="UTF-8"> <meta name="viewport" content="width=device-width, initial-scale=1.0"> <title>記憶酷 Interviews｜Qool Voices 酷女聲</title> <link rel="stylesheet" href="style.css"> <style> @import url('https://fonts.googleapis.com/css2?family=Noto+Serif+T
-
-pasted
-
-為什麼我改了程式碼還是原樣
-
-下午1:42
-你貼的這個 HTML 跟我剛做的版本是一樣的——所以問題不是程式碼，是部署的問題。
-
-最常見的原因：
-
-1. 瀏覽器快取 最快的測試方法：按 Ctrl + Shift + R（Mac 是 Cmd + Shift + R）強制重新整理，或開無痕視窗看看。
-
-2. GitHub Pages 還沒更新 你 push 上去之後，GitHub Pages 通常需要等 1–3 分鐘 才會生效。可以去 repo 的 Settings → Pages 確認最新 deploy 狀態，或看 repo 首頁右下角的 deployment badge。
-
-3. 改的檔案沒有存到對的路徑 確認你改的 interviews.html 是在 repo 的根目錄（跟 index.html 同層），不是放在子資料夾裡。
-
-快速確認步驟：
-
-去你的 GitHub repo，直接點開 interviews.html 看原始碼
-確認內容跟你改的版本一致
-如果一致但網頁沒變 → 等幾分鐘再 + 強制重整
-你現在是哪個步驟卡住了？
-
-你更新後的頁面很好看，但我原本在supabase的資料無法在網頁顯示了
-
-下午1:46
-讓我看一下你原本的 directory 和 places 的程式碼，才能知道你原本怎麼串 Supabase 的。你可以把原版的 directory.html 和 places.html 貼給我嗎？
-
-或者你告訴我：
-
-Supabase 的資料是用什麼方式抓的？（fetch API、Supabase JS client、還是其他）
-是 directory 還是 places 還是兩個都壞了？
-
-<!DOCTYPE html> <html lang="zh-Hant"> <head> <meta charset="UTF-8" /> <meta name="viewport" content="width=device-width, initial-scale=1.0" /> <title>資料酷｜Qool Voices</title> <link rel="stylesheet" href="style.css" /> </head> <body data-page="directory"> <header class="site-header"> <d
-
-pasted
-
-都壞了而且地點那邊還更怪， 這是原版
-
-下午1:48
-看到了，原版是靠 script.js 來串 Supabase 的。可以把 script.js 的內容也貼給我嗎？這樣我才能把 Supabase 邏輯完整移植進新版樣式裡。
-
-
-const page = document.body.dataset.page; /* ========================= Supabase client ========================= */ async function getSupabase() { const { createClient } = await import("https://esm.sh/@supabase/supabase-js@2"); const supabaseUrl = "https://cfkbxrskhwxxeufkxpnd.supabase.co";
-
-pasted
-
-下午1:49
-好，看到了。你的新版 directory.html 缺少兩個東西：
-
-data-page="directory" — script.js 靠這個判斷要不要執行
-<script src="script.js"> — 根本沒載入
-而且新版把篩選器改成我自己的 JS，跟 script.js 的邏輯衝突了。
-
-解法是：保留你的 script.js 不動，只把新版樣式套進原本的 HTML 結構。現在幫你做：
-
-
-Created 2 files, ran a command
-Created 2 files, ran a command
-現在 places 也需要原版的程式碼。你有原版的 places.html 嗎？可以貼給我嗎？這樣我才能確認它的 data-page 值和 script.js 裡對應的邏輯是什麼，才能一樣只換樣式不動邏輯。
-
-
-Presented file
-Presented file
-directory.html 先給你，這版的關鍵修復是：
-
-<body data-page="directory"> 補回去了（原本我的新版漏掉這個，script.js 看不到就不執行）
-所有 id（regionFilter、roleFilter、sceneFilter、resetFilters、resultCount、directoryGrid、directoryEmpty）完全保留原版，script.js 完全不需要動
-<script src="script.js?v=2"> 照原本載入
-把原版 places.html 貼給我，我來做 places 的版本！
-
-Directory
-Code · HTML 
-
-<!DOCTYPE html> <html lang="zh-Hant"> <head> <meta charset="UTF-8"> <meta name="viewport" content="width=device-width, initial-scale=1.0"> <title>酷地方 Places｜Qool Voices 酷女聲</title> <link rel="stylesheet" href="style.css"> <style> @import url('https://fonts.googleapis.com/css2?family=Noto+Serif+TC:wg
-
-pasted
-
-
-<!DOCTYPE html> <html lang="zh-Hant"> <head> <meta charset="UTF-8"> <meta name="viewport" content="width=device-width, initial-scale=1.0"> <title>記憶酷 Interviews｜Qool Voices 酷女聲</title> <link rel="stylesheet" href="style.css"> <style> @import url('https://fonts.googleapis.com/css2?family=Noto+Serif+T
-
-pasted
-
-
-<!DOCTYPE html> <html lang="zh-Hant"> <head> <meta charset="UTF-8" /> <meta name="viewport" content="width=device-width, initial-scale=1.0" /> <title>新增酷地方｜Qool Voices</title> <meta name="description" content="投稿酷地方，推薦支持女性與酷兒音樂創作者的場地、空間與店家。" /> <link rel="stylesheet" href="style.
-
-pasted
-
-
-<!DOCTYPE html> <html lang="zh-Hant"> <head> <meta charset="UTF-8" /> <meta name="viewport" content="width=device-width, initial-scale=1.0" /> <title>加入資料酷｜Qool Voices</title> <link rel="stylesheet" href="style.css" /> </head> <body data-page="submit"> <header class="site-header"> <div class=
-
-pasted
-
-我還有幾個頁面要修改，interview的地方是你有設幾個篩選的東西，但按了並不會有真的篩選作用，點進去的文章的美感也要修改。酷地方和資料庫送出表單的地方都要一起美化，還有每個人的自我介紹展開的地方如果長一點下面的部分就會被切掉，應該要設計成可以往下滑的。而且要記得還是要能夠把資料送進supabase，about也要修改美感，
-
-下午3:34
-好，我把所有需求整理一下確認：
-
-interviews.html — 篩選功能要真的能過濾卡片（現在只是視覺）
-interview 文章頁（interview-demo.html / tan-interview.html）— 美化內頁樣式
-places.html — 修好 Supabase 串接（原版用 <script type="module"> 直接串，不靠 script.js）
-directory.html — 展開自我介紹時內容被截斷，改成可往下滑
-submit.html（加入資料酷表單）— 美化，保留 Supabase 送出
-submit-place.html（新增酷地方表單）— 美化，保留 Supabase 送出
-about.html — 美化
-東西比較多，我一頁一頁做。先問你幾個問題：
-
-好，請回答這三個問題，我就可以開始動工！
-
-Q: about.html 目前有什麼內容？（可以直接貼程式碼或告訴我大概有哪些段落）
-A: 我來貼程式碼
-
-Q: interview 文章內頁（interview-demo.html）你有現成的程式碼嗎？
-A: 有，我來貼
-
-Q: 要幾頁一起給你還是一頁一頁給？
-A: 一頁一頁來，做完一頁確認再繼續
-
-下午3:34
-好，那請先貼 about.html 的程式碼給我！
-
-<!DOCTYPE html>
-<html lang="zh-Hant">
-<head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>酷女聲 Qool Voices｜女性與酷兒音樂組織媒合平台</title>
-  <meta name="description" content="酷女聲 Qool Voices 是一個專為女性音樂組織與酷兒音樂創作者打造的媒合平台。我們透過訪談、與網絡空間製造，連結女性與酷兒音樂社群，留下屬於這個場景的聲音。">
-  <meta name="keywords" content="女性音樂組織, 酷兒音樂組織, 酷兒女性媒合平台, 酷女聲, Qool Voices, 音樂創作者">
-  <link rel="stylesheet" href="style.css" />
-</head>
-<body>
-  <header class="site-header">
-    <div class="nav-wrap">
-      <a href="index.html" class="logo-link">
-        <div class="logo-slot">LOGO</div>
-        <div class="brand-block">
-          <p class="brand-en">Qool Voices</p>
-          <h1 class="brand-zh">酷女聲｜酷兒女性音樂媒合平台</h1>
-        </div>
-      </a>
-      <nav class="main-nav">
-        <a href="interviews.html">Interviews</a>
-        <a href="directory.html">Directory</a>
-      </nav>
-    </div>
-  </header>
-  <main class="page-content">
-    <section class="content-card">
-      <p class="section-label">About</p>
-      <h2>關於酷女聲</h2>
-      <p>
-        酷女聲 Qool Voices 是一個以女性與酷兒音樂創作者為核心的文化平台。
-        我們關心音樂場景中的創作、生存、連結與文化記憶，
-        並透過訪談、文章、田野筆記與公共整理，留下屬於這個場景的聲音。
-      </p>
-      <p>
-        歡迎提出訪談、活動邀約
-      </p>
-    </section>
-    <section class="content-card">
-      <p class="section-label">Method</p>
-      <h2>我們在做什麼</h2>
-      <p>訪談、文化紀錄、場景觀察、文章書寫與合作網絡整理。</p>
-    </section>
-  </main>
-  <footer class="site-footer">
-  <div class="footer-inner">
-    <p class="footer-contact">
-      Contact｜qoolvoices@gmail.com
-    </p>
-  </div>
-</footer>
-</body>
-</html>
-
-Show more
-下午3:35
-收到！現在幫你做美化版的 about.html。
-
-
-Ran a command, created a file, read a file
-Ran a command, created a file, read a file
-about.html 做好了。設計重點：
-
-左右分欄 hero：左邊大標題，右邊沿用首頁的玻璃宣言卡（微微旋轉，帶左側彩色邊）
-兩欄 section：「關於酷女聲」＋「我們在做什麼」並排，滑過有上浮動畫
-聯絡區塊：底部橫條，email 和 IG 按鈕直接可以點
-nav 有 About 的 active 狀態
-確認沒問題的話，請貼下一頁（interview-demo.html）！
-
-About
-Code · HTML 
-<!DOCTYPE html>
-<html lang="zh-Hant">
-<head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>在舞台邊緣發光的人｜Qool Voices</title>
-  <link rel="stylesheet" href="style.css" />
-</head>
-<body>
-  <header class="site-header">
-    <div class="nav-wrap">
-      <a href="index.html" class="logo-link">
-        <div class="logo-slot">LOGO</div>
-        <div class="brand-block">
-          <p class="brand-en">Qool Voices</p>
-          <h1 class="brand-zh">酷女聲</h1>
-        </div>
-      </a>
-      <nav class="main-nav">
-        <a href="about.html">About</a>
-        <a href="interviews.html" class="active-nav">Interviews</a>
-        <a href="directory.html">Directory</a>
-      </nav>
-    </div>
-  </header>
-  <main class="page-content">
-    <section class="article-card">
-      <p class="section-label">Interview</p>
-      <h2>在舞台邊緣發光的人</h2>
-      <p class="article-meta">示範文章頁</p>
-      <div class="article-cover gradient-one"></div>
-      <p>
-        這裡是單獨文章頁的樣子。你之後可以把這裡換成真正的採訪內容，
-        包括受訪者故事、創作歷程、場景經驗、生存策略與你的田野觀察。
-      </p>
-      <p>
-        你之後如果要新增文章，最簡單的方法就是複製這個檔案，
-        然後改檔名、改標題、改內文。
-      </p>
-      <a href="interviews.html" class="back-link">← 回到記憶酷</a>
-    </section>
-  </main>
-  <footer class="site-footer">
-  <div class="footer-inner">
-    <p class="footer-contact">
-      Contact｜qoolvoices@gmail.com
-    </p>
-  </div>
-</footer>
-</body>
-</html>
-
-Show more
-下午3:40
-Taking longer than usual. Trying again shortly (attempt 2)
-
-
-
-
-
-Claude is AI and can make mistakes. Please double-check responses.
-About · HTML
-Copy
-
 <!DOCTYPE html>
 <html lang="zh-Hant">
 <head>
@@ -362,9 +8,9 @@ Copy
 <link rel="stylesheet" href="style.css">
 <style>
 @import url('https://fonts.googleapis.com/css2?family=Noto+Serif+TC:wght@700;900&family=Space+Mono:wght@400;700&display=swap');
- 
+
 * { box-sizing: border-box; margin: 0; padding: 0; }
- 
+
 body {
   min-height: 100vh;
   background:
@@ -376,14 +22,14 @@ body {
   overflow-x: hidden;
   position: relative;
 }
- 
+
 .orb { position: fixed; border-radius: 50%; pointer-events: none; z-index: 0; }
 .orb1 { width: 360px; height: 360px; top: -80px; right: -70px; background: radial-gradient(circle at 35% 35%, rgba(255,255,255,0.82) 0%, rgba(181,126,220,0.32) 42%, rgba(99,214,198,0.18) 72%, transparent 86%); }
 .orb2 { width: 240px; height: 240px; bottom: 12%; left: -60px; background: radial-gradient(circle at 40% 38%, rgba(255,255,255,0.78) 0%, rgba(99,214,198,0.32) 46%, transparent 82%); }
 .orb3 { width: 180px; height: 180px; top: 40%; left: 20%; background: radial-gradient(circle at 50% 50%, rgba(255,230,180,0.35) 0%, transparent 75%); }
- 
+
 .page-wrap { position: relative; z-index: 1; max-width: 1100px; margin: 0 auto; padding: 0 36px 100px; }
- 
+
 /* NAV */
 nav {
   display: flex; justify-content: space-between; align-items: center;
@@ -410,7 +56,7 @@ nav {
   background: linear-gradient(135deg, rgba(181,126,220,0.25), rgba(99,214,198,0.15));
   border-color: rgba(181,126,220,0.55); color: #5a2a9a;
 }
- 
+
 /* HERO */
 .about-hero {
   padding: 64px 0 56px;
@@ -420,15 +66,15 @@ nav {
   align-items: center;
   border-bottom: 1px solid rgba(181,126,220,0.14);
 }
- 
+
 .hero-left {}
- 
+
 .page-label {
   font-size: 10px; font-weight: 700; letter-spacing: 3px; text-transform: uppercase;
   color: #9a6abf; display: flex; align-items: center; gap: 10px; margin-bottom: 20px;
 }
 .page-label::after { content: ''; flex: 1; max-width: 100px; height: 1px; background: linear-gradient(90deg, rgba(181,126,220,0.6), transparent); }
- 
+
 .hero-title {
   font-family: 'Noto Serif TC', serif;
   font-size: clamp(44px, 8vw, 80px);
@@ -439,7 +85,7 @@ nav {
   -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;
   margin-bottom: 24px;
 }
- 
+
 .hero-tagline {
   font-family: 'Space Mono', monospace;
   font-size: 11px;
@@ -448,13 +94,13 @@ nav {
   font-style: italic;
   line-height: 1.8;
 }
- 
+
 .hero-right {
   display: flex;
   flex-direction: column;
   gap: 0;
 }
- 
+
 /* manifesto block */
 .manifesto-block {
   background: linear-gradient(135deg, rgba(255,255,255,0.65), rgba(232,210,248,0.38), rgba(200,240,234,0.25));
@@ -465,7 +111,7 @@ nav {
   position: relative;
   transform: rotate(0.4deg);
 }
- 
+
 .manifesto-block::before {
   content: '';
   position: absolute;
@@ -474,23 +120,23 @@ nav {
   background: linear-gradient(180deg, rgba(255,255,255,0.9), rgba(181,126,220,0.8), rgba(99,214,198,0.6), rgba(232,180,100,0.5), rgba(255,255,255,0.8));
   border-radius: 0 2px 2px 0;
 }
- 
+
 .manifesto-label {
   font-size: 8px; font-weight: 700; letter-spacing: 3px; text-transform: uppercase;
   color: #9a6abf; margin-bottom: 14px; display: block;
 }
- 
+
 .manifesto-text {
   font-family: 'Noto Serif TC', serif;
   font-size: 17px; font-weight: 700;
   color: #2a1a3a; line-height: 1.7;
   margin-bottom: 10px;
 }
- 
+
 .manifesto-sub {
   font-size: 10px; color: #5a7a76; font-style: italic; letter-spacing: 1px;
 }
- 
+
 /* CONTENT SECTIONS */
 .about-body {
   padding: 64px 0 0;
@@ -498,7 +144,7 @@ nav {
   grid-template-columns: 1fr 1fr;
   gap: 24px;
 }
- 
+
 .about-section {
   background: linear-gradient(135deg, rgba(255,255,255,0.58), rgba(232,210,248,0.3), rgba(200,240,234,0.18));
   border: 1px solid rgba(255,255,255,0.85);
@@ -511,29 +157,29 @@ nav {
   transform: translateY(-4px);
   box-shadow: inset 0 1px 0 rgba(255,255,255,0.9), 0 14px 40px rgba(100,50,150,0.12);
 }
- 
+
 /* Full-width section */
 .about-section.full {
   grid-column: 1 / -1;
 }
- 
+
 .section-label-sm {
   font-size: 8px; font-weight: 700; letter-spacing: 3px; text-transform: uppercase;
   color: #9a6abf; margin-bottom: 14px; display: block;
 }
- 
+
 .section-title {
   font-family: 'Noto Serif TC', serif; font-size: 22px; font-weight: 900;
   color: #2a1a3a; margin-bottom: 16px; letter-spacing: 1px;
 }
- 
+
 .section-body {
   font-size: 13px; color: rgba(40,20,70,0.58); line-height: 1.9;
   font-family: Arial, sans-serif;
 }
- 
+
 .section-body p + p { margin-top: 12px; }
- 
+
 /* METHOD LIST */
 .method-list {
   list-style: none; display: flex; flex-direction: column; gap: 10px; margin-top: 4px;
@@ -545,7 +191,7 @@ nav {
 .method-list li::before {
   content: '◈'; color: #9a6abf; font-size: 10px; margin-top: 4px; flex-shrink: 0;
 }
- 
+
 /* CONTACT SECTION */
 .contact-section {
   margin-top: 24px;
@@ -560,14 +206,14 @@ nav {
   gap: 24px;
   flex-wrap: wrap;
 }
- 
+
 .contact-left {}
 .contact-label { font-size: 8px; font-weight: 700; letter-spacing: 3px; text-transform: uppercase; color: #9a6abf; margin-bottom: 8px; display: block; }
 .contact-title { font-family: 'Noto Serif TC', serif; font-size: 20px; font-weight: 900; color: #2a1a3a; margin-bottom: 6px; }
 .contact-sub { font-size: 11px; color: rgba(40,20,70,0.45); font-family: Arial, sans-serif; }
- 
+
 .contact-links { display: flex; gap: 10px; flex-wrap: wrap; }
- 
+
 .contact-btn {
   display: inline-block; font-family: 'Space Mono', monospace; font-size: 10px;
   font-weight: 700; letter-spacing: 2px; text-transform: uppercase; text-decoration: none;
@@ -584,18 +230,18 @@ nav {
   box-shadow: inset 0 1px 0 rgba(255,255,255,0.7);
 }
 .contact-btn-secondary:hover { background: rgba(255,255,255,0.7); border-color: rgba(181,126,220,0.55); }
- 
+
 /* FOOTER */
 footer { margin-top: 72px; padding-top: 20px; border-top: 1px solid rgba(181,126,220,0.28); display: flex; justify-content: space-between; align-items: center; }
 .footer-contact { font-size: 12px; letter-spacing: 1px; color: #5a6a68; }
 .footer-mark { font-size: 10px; letter-spacing: 2px; text-transform: uppercase; color: rgba(90,60,130,0.4); font-style: italic; }
- 
+
 /* ANIMATIONS */
 @keyframes fadeUp { from { opacity: 0; transform: translateY(18px); } to { opacity: 1; transform: translateY(0); } }
 .about-hero   { animation: fadeUp 0.5s ease both; }
 .about-body   { animation: fadeUp 0.5s 0.1s ease both; }
 .contact-section { animation: fadeUp 0.5s 0.18s ease both; }
- 
+
 /* RESPONSIVE */
 @media (max-width: 768px) {
   nav { padding: 18px 24px; margin: 0 -24px; }
@@ -611,11 +257,11 @@ footer { margin-top: 72px; padding-top: 20px; border-top: 1px solid rgba(181,126
 </style>
 </head>
 <body>
- 
+
 <div class="orb orb1"></div>
 <div class="orb orb2"></div>
 <div class="orb orb3"></div>
- 
+
 <nav>
   <a href="index.html" class="nav-logo">
     <span class="nav-logo-zh">酷女聲</span>
@@ -628,9 +274,9 @@ footer { margin-top: 72px; padding-top: 20px; border-top: 1px solid rgba(181,126
     <li><a href="places.html">Places</a></li>
   </ul>
 </nav>
- 
+
 <div class="page-wrap">
- 
+
   <!-- HERO -->
   <div class="about-hero">
     <div class="hero-left">
@@ -650,10 +296,10 @@ footer { margin-top: 72px; padding-top: 20px; border-top: 1px solid rgba(181,126
       </div>
     </div>
   </div>
- 
+
   <!-- BODY SECTIONS -->
   <div class="about-body">
- 
+
     <div class="about-section">
       <span class="section-label-sm">About</span>
       <h2 class="section-title">關於酷女聲</h2>
@@ -662,7 +308,7 @@ footer { margin-top: 72px; padding-top: 20px; border-top: 1px solid rgba(181,126
         <p>我們關心音樂場景中的創作、生存、連結與文化記憶，並透過訪談、文章、田野筆記與公共整理，留下屬於這個場景的聲音。</p>
       </div>
     </div>
- 
+
     <div class="about-section">
       <span class="section-label-sm">Method</span>
       <h2 class="section-title">我們在做什麼</h2>
@@ -675,9 +321,9 @@ footer { margin-top: 72px; padding-top: 20px; border-top: 1px solid rgba(181,126
         <li>合作網絡連結</li>
       </ul>
     </div>
- 
+
   </div>
- 
+
   <!-- CONTACT -->
   <div class="contact-section">
     <div class="contact-left">
@@ -686,18 +332,10 @@ footer { margin-top: 72px; padding-top: 20px; border-top: 1px solid rgba(181,126
       <p class="contact-sub">訪談邀約、活動合作、場景投稿，都歡迎來信或 IG 私訊。</p>
     </div>
     <div class="contact-links">
-      <a href="mailto:qoolvoices@gmail.com" class="contact-btn contact-btn-primary">✉ qoolvoices@gmail.com</a>
+      <a href="/cdn-cgi/l/email-protection#572638383b21383e34322417303a363e3b7934383a" class="contact-btn contact-btn-primary">✉ <span class="__cf_email__" data-cfemail="12637d7d7e647d7b71776152757f737b7e3c717d7f">[email&#160;protected]</span></a>
       <a href="https://www.instagram.com/qoolvoices" target="_blank" class="contact-btn contact-btn-secondary">Instagram →</a>
     </div>
   </div>
- 
+
   <footer>
-    <span class="footer-contact">Contact｜qoolvoices@gmail.com</span>
-    <span class="footer-mark">Est. 2026 · Taipei</span>
-  </footer>
- 
-</div>
- 
-</body>
-</html>
- 
+    <span class="footer-cont
