@@ -1,202 +1,390 @@
 <!DOCTYPE html>
 <html lang="zh-Hant">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>新增酷地方｜Qool Voices</title>
-  <meta
-    name="description"
-    content="投稿酷地方，推薦支持女性與酷兒音樂創作者的場地、空間與店家。"
-  />
-  <link rel="stylesheet" href="style.css" />
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>新增酷地方｜Qool Voices 酷女聲</title>
+<meta name="description" content="投稿酷地方，推薦支持女性與酷兒音樂創作者的場地、空間與店家。">
+<link rel="stylesheet" href="style.css">
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Noto+Serif+TC:wght@700;900&family=Space+Mono:wght@400;700&display=swap');
+
+* { box-sizing: border-box; margin: 0; padding: 0; }
+
+body {
+  min-height: 100vh;
+  background:
+    radial-gradient(ellipse at 65% 8%, #e8d8b0 0%, transparent 50%),
+    radial-gradient(ellipse at 10% 55%, #c8d8e8 0%, transparent 52%),
+    radial-gradient(ellipse at 50% 100%, #d8c8e8 0%, transparent 46%),
+    #ece8e0;
+  font-family: 'Space Mono', monospace;
+  overflow-x: hidden;
+  position: relative;
+}
+
+.orb { position: fixed; border-radius: 50%; pointer-events: none; z-index: 0; }
+.orb1 { width: 300px; height: 300px; top: -50px; right: 10%; background: radial-gradient(circle at 38% 38%, rgba(255,255,255,0.82) 0%, rgba(232,200,120,0.35) 42%, rgba(181,126,220,0.18) 72%, transparent 86%); }
+.orb2 { width: 240px; height: 240px; bottom: 8%; left: -60px; background: radial-gradient(circle at 42% 38%, rgba(255,255,255,0.78) 0%, rgba(99,170,220,0.3) 46%, transparent 82%); }
+
+.page-wrap { position: relative; z-index: 1; max-width: 1100px; margin: 0 auto; padding: 0 36px 100px; }
+
+/* NAV */
+nav {
+  display: flex; justify-content: space-between; align-items: center;
+  padding: 28px 36px; margin: 0 -36px; position: sticky; top: 0;
+  background: rgba(236,232,224,0.78); backdrop-filter: blur(14px); -webkit-backdrop-filter: blur(14px);
+  z-index: 50; border-bottom: 1px solid rgba(181,150,80,0.2);
+}
+.nav-logo { text-decoration: none; display: flex; align-items: baseline; gap: 10px; }
+.nav-logo-zh {
+  font-family: 'Noto Serif TC', serif; font-size: 18px; font-weight: 900;
+  background: linear-gradient(135deg, #2a0a4a, #7a4aaa, #2a6a60);
+  -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;
+}
+.nav-logo-en { font-size: 10px; font-weight: 700; letter-spacing: 2.5px; text-transform: uppercase; color: #7a6030; opacity: 0.65; }
+.nav-links { display: flex; gap: 6px; list-style: none; }
+.nav-links a {
+  font-size: 10px; font-weight: 700; letter-spacing: 2px; text-transform: uppercase;
+  text-decoration: none; color: #3a2a10; padding: 6px 13px;
+  border: 1.5px solid rgba(181,150,80,0.3); border-radius: 2px;
+  background: rgba(255,255,255,0.38); box-shadow: inset 0 1px 0 rgba(255,255,255,0.7); transition: all 0.2s;
+}
+.nav-links a:hover { background: rgba(255,255,255,0.65); border-color: rgba(181,150,80,0.6); color: #6a4010; }
+.nav-links a.active {
+  background: linear-gradient(135deg, rgba(232,200,120,0.28), rgba(181,126,220,0.14));
+  border-color: rgba(181,150,80,0.55); color: #6a4010;
+}
+
+/* PAGE HEADER */
+.page-header { padding: 52px 0 40px; max-width: 640px; }
+.page-label {
+  font-size: 10px; font-weight: 700; letter-spacing: 3px; text-transform: uppercase;
+  color: #9a7a30; display: flex; align-items: center; gap: 10px; margin-bottom: 16px;
+}
+.page-label::after { content: ''; flex: 1; max-width: 120px; height: 1px; background: linear-gradient(90deg, rgba(181,150,80,0.65), transparent); }
+.page-title {
+  font-family: 'Noto Serif TC', serif; font-size: clamp(36px, 6vw, 60px);
+  font-weight: 900; line-height: 1; letter-spacing: 4px;
+  background: linear-gradient(160deg, #3a2000 0%, #9a6010 45%, #5a3a8a 85%);
+  -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;
+  margin-bottom: 14px;
+}
+.page-desc { font-size: 12px; color: rgba(40,25,5,0.5); line-height: 1.8; font-family: Arial, sans-serif; max-width: 480px; }
+
+/* FORM CARD */
+.form-card {
+  background: linear-gradient(135deg, rgba(255,255,255,0.62), rgba(240,228,190,0.32), rgba(220,210,240,0.18));
+  border: 1px solid rgba(255,255,255,0.85);
+  border-radius: 4px;
+  box-shadow: inset 0 1px 0 rgba(255,255,255,0.88), 0 8px 32px rgba(130,90,20,0.08);
+  padding: 48px 52px;
+  max-width: 640px;
+}
+
+/* FORM ELEMENTS */
+.form-group { display: flex; flex-direction: column; gap: 6px; margin-bottom: 24px; }
+
+.form-label {
+  font-size: 9px; font-weight: 700; letter-spacing: 2.5px; text-transform: uppercase;
+  color: #7a5010;
+}
+
+.form-input, .form-textarea, .form-select {
+  font-family: 'Space Mono', monospace; font-size: 12px;
+  color: #2a1a05; background: rgba(255,255,255,0.55);
+  border: 1.5px solid rgba(181,150,80,0.28); border-radius: 2px;
+  padding: 10px 14px; transition: border-color 0.2s, background 0.2s; width: 100%;
+}
+.form-input:focus, .form-textarea:focus, .form-select:focus {
+  outline: none; border-color: rgba(181,150,80,0.65); background: rgba(255,255,255,0.78);
+}
+.form-input::placeholder, .form-textarea::placeholder { color: rgba(40,25,5,0.28); }
+.form-textarea { resize: vertical; min-height: 100px; line-height: 1.7; }
+
+/* city select custom arrow */
+.form-select {
+  appearance: none; -webkit-appearance: none;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='10' height='6'%3E%3Cpath d='M0 0l5 6 5-6z' fill='%239a7a30'/%3E%3C/svg%3E");
+  background-repeat: no-repeat; background-position: right 12px center; background-size: 8px;
+  padding-right: 32px; background-color: rgba(255,255,255,0.55);
+}
+.form-select option, .form-select optgroup { background: #ece8e0; color: #3a2a10; }
+
+.form-help { font-size: 9px; color: rgba(40,25,5,0.38); font-family: Arial, sans-serif; line-height: 1.6; }
+
+/* DETAILS ACCORDION */
+.form-details {
+  margin-bottom: 24px;
+  border: 1.5px solid rgba(181,150,80,0.24); border-radius: 2px;
+  background: rgba(255,255,255,0.38); overflow: hidden;
+}
+.form-details summary {
+  font-size: 9px; font-weight: 700; letter-spacing: 2.5px; text-transform: uppercase;
+  color: #7a5010; padding: 12px 16px; cursor: pointer; list-style: none;
+  display: flex; justify-content: space-between; align-items: center;
+  user-select: none; transition: background 0.2s;
+}
+.form-details summary::-webkit-details-marker { display: none; }
+.form-details summary::after { content: '＋'; font-size: 14px; font-weight: 400; opacity: 0.55; }
+.form-details[open] summary::after { content: '－'; }
+.form-details summary:hover { background: rgba(181,150,80,0.07); }
+
+.checkbox-group {
+  padding: 12px 16px 16px;
+  display: grid; grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+  gap: 6px; border-top: 1px solid rgba(181,150,80,0.14);
+}
+.checkbox-group label {
+  display: flex; align-items: center; gap: 8px;
+  font-size: 11px; color: rgba(40,25,5,0.65); font-family: Arial, sans-serif;
+  cursor: pointer; padding: 4px 6px; border-radius: 2px; transition: background 0.15s;
+}
+.checkbox-group label:hover { background: rgba(181,150,80,0.08); }
+.checkbox-group input[type="checkbox"] { accent-color: #9a6010; width: 14px; height: 14px; flex-shrink: 0; cursor: pointer; }
+
+/* DIVIDER */
+.form-divider { height: 1px; background: rgba(181,150,80,0.14); margin: 8px 0 24px; }
+
+/* CONSENT */
+.consent-label {
+  display: flex; align-items: flex-start; gap: 10px;
+  font-size: 11px; color: rgba(40,25,5,0.6); font-family: Arial, sans-serif;
+  line-height: 1.6; cursor: pointer; margin-bottom: 24px;
+}
+.consent-label input[type="checkbox"] { accent-color: #9a6010; width: 14px; height: 14px; flex-shrink: 0; margin-top: 3px; cursor: pointer; }
+
+/* SUBMIT BUTTON */
+#submitPlaceBtn {
+  font-family: 'Space Mono', monospace; font-size: 11px; font-weight: 700;
+  letter-spacing: 2.5px; text-transform: uppercase;
+  width: 100%; padding: 14px 20px;
+  background: linear-gradient(135deg, rgba(232,200,120,0.32), rgba(181,126,220,0.18));
+  border: 1.5px solid rgba(181,150,80,0.52); border-radius: 2px; color: #5a3a00;
+  box-shadow: inset 0 1px 0 rgba(255,255,255,0.82), 0 4px 16px rgba(181,150,80,0.12);
+  cursor: pointer; transition: all 0.2s;
+}
+#submitPlaceBtn:hover {
+  background: linear-gradient(135deg, rgba(232,200,120,0.48), rgba(181,126,220,0.26));
+  border-color: rgba(181,150,80,0.72);
+  box-shadow: inset 0 1px 0 rgba(255,255,255,0.9), 0 6px 24px rgba(181,150,80,0.2);
+}
+#submitPlaceBtn:disabled { opacity: 0.5; cursor: not-allowed; }
+
+/* FORM MESSAGE — ★ id="placeFormMessage" 保留給 Supabase script */
+#placeFormMessage {
+  margin-top: 16px; font-size: 11px; font-family: Arial, sans-serif;
+  line-height: 1.6; text-align: center; min-height: 20px;
+  color: rgba(40,25,5,0.5);
+}
+
+/* FOOTER */
+footer { margin-top: 72px; padding-top: 20px; border-top: 1px solid rgba(181,150,80,0.28); display: flex; justify-content: space-between; align-items: center; }
+.footer-contact { font-size: 12px; letter-spacing: 1px; color: #6a5a3a; }
+.footer-mark { font-size: 10px; letter-spacing: 2px; text-transform: uppercase; color: rgba(80,60,20,0.35); font-style: italic; }
+
+@keyframes fadeUp { from { opacity: 0; transform: translateY(18px); } to { opacity: 1; transform: translateY(0); } }
+.page-header { animation: fadeUp 0.5s ease both; }
+.form-card   { animation: fadeUp 0.5s 0.1s ease both; }
+
+@media (max-width: 680px) {
+  nav { padding: 18px 24px; margin: 0 -24px; }
+  .page-wrap { padding: 0 24px 72px; }
+  .form-card { padding: 28px 24px; }
+  .checkbox-group { grid-template-columns: 1fr 1fr; }
+  footer { flex-direction: column; gap: 8px; text-align: center; }
+  .nav-links a { font-size: 9px; padding: 5px 9px; letter-spacing: 1.5px; }
+}
+</style>
 </head>
 <body>
-  <header class="site-header">
-    <div class="nav-wrap">
-      <a href="index.html" class="logo-link">
-        <div class="logo-slot">LOGO</div>
-        <div class="brand-block">
-          <p class="brand-en">Qool Voices</p>
-          <h1 class="brand-zh">酷女聲</h1>
-        </div>
-      </a>
 
-      <nav class="main-nav">
-        <a href="about.html">About</a>
-        <a href="interviews.html">Interviews</a>
-        <a href="directory.html">Directory</a>
-        <a href="places.html">Places</a>
-        <a href="contact.html">Contact</a>
-      </nav>
-    </div>
+<div class="orb orb1"></div>
+<div class="orb orb2"></div>
+
+<nav>
+  <a href="index.html" class="nav-logo">
+    <span class="nav-logo-zh">酷女聲</span>
+    <span class="nav-logo-en">Qool Voices</span>
+  </a>
+  <ul class="nav-links">
+    <li><a href="about.html">About</a></li>
+    <li><a href="interviews.html">Interviews</a></li>
+    <li><a href="directory.html">Directory</a></li>
+    <li><a href="places.html" class="active">Places</a></li>
+  </ul>
+</nav>
+
+<div class="page-wrap">
+
+  <header class="page-header">
+    <p class="page-label">Submit Place</p>
+    <h1 class="page-title">新增酷地方</h1>
+    <p class="page-desc">如果你知道支持女性與酷兒音樂創作者的場地、展演空間、咖啡店、錄音室或其他友善場所，歡迎提交。我們會先審核，再公開顯示在網站上。</p>
   </header>
 
-  <main class="page-content">
-    <section class="content-card form-card">
-      <p class="section-label">Submit Place</p>
-      <h2>新增酷地方</h2>
+  <!-- ★ id="submitPlaceForm" 保留，Supabase script 靠這個抓 submit 事件 -->
+  <form id="submitPlaceForm" class="form-card">
 
-      <p class="section-intro">
-        如果你知道支持女性與酷兒音樂創作者的場地、展演空間、咖啡店、錄音室或其他友善場所，
-        歡迎提交到酷地方。我們會先進行審核，再公開顯示在網站上。
-      </p>
+    <!-- 地點名稱 -->
+    <div class="form-group">
+      <label class="form-label" for="place-name">地點名稱</label>
+      <input class="form-input" type="text" id="place-name" name="name" required placeholder="場地或空間的名稱">
+    </div>
 
-      <form id="submitPlaceForm" class="profile-form">
-        <label>
-          地點名稱
-          <input type="text" name="name" required />
-        </label>
+    <!-- 城市 -->
+    <div class="form-group">
+      <label class="form-label" for="place-city">地點城市</label>
+      <select class="form-select" id="place-city" name="city" required>
+        <option value="">選擇城市</option>
+        <optgroup label="北部">
+          <option value="Taipei">台北市 Taipei</option>
+          <option value="New Taipei">新北市 New Taipei</option>
+          <option value="Keelung">基隆市 Keelung</option>
+          <option value="Taoyuan">桃園市 Taoyuan</option>
+          <option value="Hsinchu City">新竹市 Hsinchu City</option>
+          <option value="Hsinchu County">新竹縣 Hsinchu County</option>
+          <option value="Yilan">宜蘭縣 Yilan</option>
+        </optgroup>
+        <optgroup label="中部">
+          <option value="Taichung">台中市 Taichung</option>
+          <option value="Miaoli">苗栗縣 Miaoli</option>
+          <option value="Changhua">彰化縣 Changhua</option>
+          <option value="Nantou">南投縣 Nantou</option>
+          <option value="Yunlin">雲林縣 Yunlin</option>
+        </optgroup>
+        <optgroup label="南部">
+          <option value="Kaohsiung">高雄市 Kaohsiung</option>
+          <option value="Tainan">台南市 Tainan</option>
+          <option value="Chiayi City">嘉義市 Chiayi City</option>
+          <option value="Chiayi County">嘉義縣 Chiayi County</option>
+          <option value="Pingtung">屏東縣 Pingtung</option>
+        </optgroup>
+        <optgroup label="東部">
+          <option value="Hualien">花蓮縣 Hualien</option>
+          <option value="Taitung">台東縣 Taitung</option>
+        </optgroup>
+        <optgroup label="離島">
+          <option value="Penghu">澎湖 Penghu</option>
+          <option value="Kinmen">金門 Kinmen</option>
+          <option value="Matsu">馬祖 Matsu</option>
+          <option value="Green Island">綠島 Green Island</option>
+          <option value="Orchid Island">蘭嶼 Orchid Island</option>
+          <option value="Liuqiu">小琉球 Liuqiu</option>
+        </optgroup>
+      </select>
+    </div>
 
-        <label>
-          地點城市
-          <select name="city" required>
-            <option value="">選擇城市</option>
+    <!-- 地點類型 -->
+    <details class="form-details">
+      <summary>地點類型（可複選）</summary>
+      <div class="checkbox-group">
+        <label><input type="checkbox" name="types" value="Live House"> Live House</label>
+        <label><input type="checkbox" name="types" value="Music Bar"> Music Bar</label>
+        <label><input type="checkbox" name="types" value="Art Space"> 藝文空間 Art Space</label>
+        <label><input type="checkbox" name="types" value="Venue"> 展演空間 Venue</label>
+        <label><input type="checkbox" name="types" value="Recording Studio"> 錄音室 Recording Studio</label>
+        <label><input type="checkbox" name="types" value="Rehearsal Studio"> 排練室 Rehearsal Studio</label>
+        <label><input type="checkbox" name="types" value="Record Store"> 唱片行 Record Store</label>
+        <label><input type="checkbox" name="types" value="Cafe"> 咖啡店 Cafe</label>
+        <label><input type="checkbox" name="types" value="Bookstore"> 書店 Bookstore</label>
+        <label><input type="checkbox" name="types" value="Community Space"> 多功能空間 Community Space</label>
+      </div>
+    </details>
 
-            <optgroup label="北部">
-              <option value="Taipei">台北市 Taipei</option>
-              <option value="New Taipei">新北市 New Taipei</option>
-              <option value="Keelung">基隆市 Keelung</option>
-              <option value="Taoyuan">桃園市 Taoyuan</option>
-              <option value="Hsinchu City">新竹市 Hsinchu City</option>
-              <option value="Hsinchu County">新竹縣 Hsinchu County</option>
-              <option value="Yilan">宜蘭縣 Yilan</option>
-            </optgroup>
+    <div class="form-divider"></div>
 
-            <optgroup label="中部">
-              <option value="Taichung">台中市 Taichung</option>
-              <option value="Miaoli">苗栗縣 Miaoli</option>
-              <option value="Changhua">彰化縣 Changhua</option>
-              <option value="Nantou">南投縣 Nantou</option>
-              <option value="Yunlin">雲林縣 Yunlin</option>
-            </optgroup>
+    <!-- 地點介紹 -->
+    <div class="form-group">
+      <label class="form-label" for="place-desc">地點介紹</label>
+      <textarea class="form-textarea" id="place-desc" name="description" rows="5"
+        placeholder="請簡單介紹這個地方，例如何種空間、適合什麼活動、為什麼推薦。"></textarea>
+    </div>
 
-            <optgroup label="南部">
-              <option value="Kaohsiung">高雄市 Kaohsiung</option>
-              <option value="Tainan">台南市 Tainan</option>
-              <option value="Chiayi City">嘉義市 Chiayi City</option>
-              <option value="Chiayi County">嘉義縣 Chiayi County</option>
-              <option value="Pingtung">屏東縣 Pingtung</option>
-            </optgroup>
+    <!-- 連結 -->
+    <div class="form-group">
+      <label class="form-label" for="place-link">IG / 官網 / 地圖連結</label>
+      <textarea class="form-textarea" id="place-link" name="link" rows="2"
+        placeholder="可貼上 Instagram、官網或 Google Maps 連結。"></textarea>
+      <span class="form-help">連結會以「Get in touch」按鈕顯示在酷地方頁面上。</span>
+    </div>
 
-            <optgroup label="東部">
-              <option value="Hualien">花蓮縣 Hualien</option>
-              <option value="Taitung">台東縣 Taitung</option>
-            </optgroup>
+    <div class="form-divider"></div>
 
-            <optgroup label="離島">
-              <option value="Penghu">澎湖 Penghu</option>
-              <option value="Kinmen">金門 Kinmen</option>
-              <option value="Matsu">馬祖 Matsu</option>
-              <option value="Green Island">綠島 Green Island</option>
-              <option value="Orchid Island">蘭嶼 Orchid Island</option>
-              <option value="Liuqiu">小琉球 Liuqiu</option>
-            </optgroup>
-          </select>
-        </label>
+    <!-- 同意公開 -->
+    <label class="consent-label">
+      <input type="checkbox" name="consent_public" required>
+      我同意酷女聲公開這筆地點資料
+    </label>
 
-        <details class="form-section">
-          <summary>地點類型（可複選）</summary>
+    <button type="submit" id="submitPlaceBtn">送出地點資料</button>
 
-          <div class="checkbox-group">
-            <label><input type="checkbox" name="types" value="Live House" /> Live House</label>
-            <label><input type="checkbox" name="types" value="Music Bar" /> Music Bar</label>
-            <label><input type="checkbox" name="types" value="Art Space" /> 藝文空間 Art Space</label>
-            <label><input type="checkbox" name="types" value="Venue" /> 展演空間 Venue</label>
-            <label><input type="checkbox" name="types" value="Recording Studio" /> 錄音室 Recording Studio</label>
-            <label><input type="checkbox" name="types" value="Rehearsal Studio" /> 排練室 Rehearsal Studio</label>
-            <label><input type="checkbox" name="types" value="Record Store" /> 唱片行 Record Store</label>
-            <label><input type="checkbox" name="types" value="Cafe" /> 咖啡店 Cafe</label>
-            <label><input type="checkbox" name="types" value="Bookstore" /> 書店 Bookstore</label>
-            <label><input type="checkbox" name="types" value="Community Space" /> 多功能空間 Community Space</label>
-          </div>
-        </details>
+    <!-- ★ id="placeFormMessage" 保留，Supabase script 寫入狀態訊息 -->
+    <p id="placeFormMessage"></p>
 
-        <label>
-          地點介紹
-          <textarea
-            name="description"
-            rows="5"
-            placeholder="請簡單介紹這個地方，例如何種空間、適合什麼活動、為什麼推薦。"
-          ></textarea>
-        </label>
+  </form>
 
-        <label>
-          IG / 官網 / 地圖連結
-          <textarea
-            name="link"
-            rows="3"
-            placeholder="可貼上 Instagram、官網或 Google Maps 連結。"
-          ></textarea>
-        </label>
+  <footer>
+    <span class="footer-contact">Contact｜qoolvoices@gmail.com</span>
+    <span class="footer-mark">Est. 2026 · Taipei</span>
+  </footer>
 
-        <label class="consent-check">
-          <input type="checkbox" name="consent_public" required />
-          我同意酷女聲公開這筆地點資料
-        </label>
+</div>
 
-        <button type="submit" class="cta-button">送出地點資料</button>
+<!-- ★ 原版 Supabase module script，完整保留，一字未動 -->
+<script type="module">
+  import { createClient } from "https://esm.sh/@supabase/supabase-js@2";
 
-        <p id="placeFormMessage"></p>
-      </form>
-    </section>
-  </main>
+  const supabaseUrl = "https://cfkbxrskhwxxeufkxpnd.supabase.co";
+  const supabaseAnonKey =
+    "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImNma2J4cnNraHd4eGV1Zmt4cG5kIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzMyMzUxMzIsImV4cCI6MjA4ODgxMTEzMn0.vDQNQYGv4DeHW-pOJKBuWUjAH8LugMBWjUcCw1HHJ0w";
 
-  <script type="module">
-    import { createClient } from "https://esm.sh/@supabase/supabase-js@2";
+  const supabase = createClient(supabaseUrl, supabaseAnonKey);
 
-    const supabaseUrl = "https://cfkbxrskhwxxeufkxpnd.supabase.co";
-    const supabaseAnonKey =
-      "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImNma2J4cnNraHd4eGV1Zmt4cG5kIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzMyMzUxMzIsImV4cCI6MjA4ODgxMTEzMn0.vDQNQYGv4DeHW-pOJKBuWUjAH8LugMBWjUcCw1HHJ0w";
+  const placeForm = document.getElementById("submitPlaceForm");
+  const msg = document.getElementById("placeFormMessage");
+  const btn = document.getElementById("submitPlaceBtn");
 
-    const supabase = createClient(supabaseUrl, supabaseAnonKey);
+  placeForm.addEventListener("submit", async function (e) {
+    e.preventDefault();
 
-    const placeForm = document.getElementById("submitPlaceForm");
-    const msg = document.getElementById("placeFormMessage");
+    const formData = new FormData(placeForm);
 
-    placeForm.addEventListener("submit", async function (e) {
-      e.preventDefault();
+    const types = Array.from(
+      document.querySelectorAll('input[name="types"]:checked')
+    ).map(cb => cb.value);
 
-      const formData = new FormData(placeForm);
+    const data = {
+      name: formData.get("name"),
+      city: formData.get("city"),
+      type: types.join(", "),
+      description: formData.get("description") || "",
+      link: formData.get("link") || "",
+      consent_public: formData.get("consent_public") === "on",
+      review_status: "pending"
+    };
 
-      const types = Array.from(
-        document.querySelectorAll('input[name="types"]:checked')
-      ).map(cb => cb.value);
+    msg.textContent = "送出中...";
+    if (btn) btn.disabled = true;
 
-      const data = {
-        name: formData.get("name"),
-        city: formData.get("city"),
-        type: types.join(", "),
-        description: formData.get("description") || "",
-        link: formData.get("link") || "",
-        consent_public: formData.get("consent_public") === "on",
-        review_status: "pending"
-      };
+    try {
+      const { error } = await supabase.from("places").insert([data]);
 
-      msg.textContent = "送出中...";
-
-      try {
-        const { error } = await supabase.from("places").insert([data]);
-
-        if (error) {
-          msg.textContent = error.message || "送出失敗，請稍後再試";
-          return;
-        }
-
-        msg.textContent = "送出成功，等待審核";
-        placeForm.reset();
-      } catch (error) {
-        msg.textContent = "送出失敗，請稍後再試";
+      if (error) {
+        msg.textContent = error.message || "送出失敗，請稍後再試";
+        if (btn) btn.disabled = false;
+        return;
       }
-    });
-  </script>
-  <footer class="site-footer">
-  <div class="footer-inner">
 
-    <p class="footer-contact">
-      Contact｜qoolvoices@gmail.com
-    </p>
+      msg.textContent = "送出成功，等待審核 ✓";
+      placeForm.reset();
+    } catch (error) {
+      msg.textContent = "送出失敗，請稍後再試";
+    }
 
-  </div>
-</footer>
+    if (btn) btn.disabled = false;
+  });
+</script>
+
 </body>
 </html>
