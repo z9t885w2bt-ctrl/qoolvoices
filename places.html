@@ -190,17 +190,20 @@ nav {
 
 /* EMPTY STATE */
 #placesEmpty {
-  display: block; padding: 72px 36px; text-align: center;
+  display: none;
+  padding: 72px 36px;
+  text-align: center;
   background: linear-gradient(135deg, rgba(255,255,255,0.48), rgba(240,228,190,0.28));
-  border: 1px solid rgba(255,255,255,0.72); border-radius: 4px;
-  font-family: 'Noto Serif TC', serif; font-size: 16px; color: rgba(40,25,5,0.32);
+  border: 1px solid rgba(255,255,255,0.72);
+  border-radius: 4px;
+  font-family: 'Noto Serif TC', serif;
+  font-size: 16px;
+  color: rgba(40,25,5,0.32);
 }
 
-.error-text {
-  font-family: 'Space Mono', monospace; font-size: 11px;
-  color: rgba(180,60,60,0.7); text-align: center; padding: 32px;
+#placesEmpty:not([hidden]) {
+  display: block;
 }
-
 /* FOOTER */
 footer { margin-top: 72px; padding-top: 20px; border-top: 1px solid rgba(181,150,80,0.28); display: flex; justify-content: space-between; align-items: center; }
 .footer-contact { font-size: 12px; letter-spacing: 1px; color: #6a5a3a; }
