@@ -133,14 +133,21 @@ nav {
 .profile-meta { font-size: 9px; font-weight: 700; letter-spacing: 2px; text-transform: uppercase; color: #3a9a88; margin-bottom: 6px; }
 .profile-role { font-size: 11px; color: rgba(10,40,30,0.55); line-height: 1.6; font-family: Arial, sans-serif; }
 
-/* 展開區塊：預設收起，JS 用 inline style 控制 max-height */
 .profile-detail {
-  font-size: 11px; color: rgba(10,40,30,0.55); line-height: 1.7;
-  font-family: Arial, sans-serif; overflow: hidden;
-  max-height: 0; opacity: 0;
+  font-size: 11px;
+  color: rgba(10,40,30,0.55);
+  line-height: 1.7;
+  font-family: Arial, sans-serif;
+  overflow: hidden;
+  max-height: 1200px;
+  opacity: 1;
   transition: max-height 0.4s cubic-bezier(0.4,0,0.2,1), opacity 0.3s;
 }
-/* script.js 加的 is-collapsed 不影響我們，因為 JS 直接寫 inline style 蓋過去 */
+
+.profile-detail.is-collapsed {
+  max-height: 0;
+  opacity: 0;
+}
 
 .profile-detail-text { margin-bottom: 8px; }
 .profile-detail-text strong {
@@ -300,46 +307,6 @@ footer { margin-top: 72px; padding-top: 20px; border-top: 1px solid rgba(99,214,
 </div>
 
 <script src="script.js?v=2"></script>
-
-<script>
-  /*
-    用 capture phase (addEventListener 第三個參數 true)
-    在 script.js 的 bubble listener 之前攔截展開按鈕點擊。
-    stopImmediatePropagation 讓 script.js 那個不執行。
-    狀態只靠 data-open，inline style 直接蓋過 is-collapsed 的 CSS。
-  */
-  document.addEventListener('click', function(e) {
-    const btn = e.target.closest('.expand-btn');
-    if (!btn) return;
-
-    e.stopImmediatePropagation();
-
-    const card = btn.closest('.profile-card');
-    if (!card) return;
-    const detail = card.querySelector('.profile-detail');
-    if (!detail) return;
-
-    const isOpen = detail.dataset.open === 'true';
-
-    if (!isOpen) {
-      detail.dataset.open    = 'true';
-      detail.style.maxHeight = detail.scrollHeight + 'px';
-      detail.style.opacity   = '1';
-      btn.textContent = '收起';
-      btn.setAttribute('aria-expanded', 'true');
-    } else {
-      detail.dataset.open    = 'false';
-      // 先鎖定起點高度，再下一幀歸零
-      detail.style.maxHeight = detail.scrollHeight + 'px';
-      requestAnimationFrame(function() {
-        detail.style.maxHeight = '0px';
-        detail.style.opacity   = '0';
-      });
-      btn.textContent = '展開';
-      btn.setAttribute('aria-expanded', 'false');
-    }
-  }, true);
-</script>
 
 </body>
 </html>
